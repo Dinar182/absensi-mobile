@@ -8,21 +8,69 @@ import {
   Text,
   InteractionManager,
   Dimensions,
+  Platform,
 } from 'react-native';
 import Svg, {Ellipse} from 'react-native-svg';
 import {dimensionDevice} from './util/GlobalVar';
+import {PermissionUtil} from './util/PermissionUtil';
 
 function Cover({navigation, route}) {
   useFocusEffect(
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
-        SplashProsess();
+        permissionChecking();
       });
       return () => {
         task.cancel;
       };
     }, []),
   );
+
+  const permissionChecking = async () => {
+    const check = await PermissionUtil.checkPermission();
+
+    if (Platform.OS === 'ios') {
+      if (
+        check['ios.permission.CAMERA'] === 'granted' &&
+        check['ios.permission.LOCATION_WHEN_IN_USE'] === 'granted' &&
+        check['ios.permission.MEDIA_LIBRARY'] === 'granted'
+      ) {
+        SplashProsess();
+      } else {
+        const req = await PermissionUtil.requestPermission();
+        if (
+          req['ios.permission.CAMERA'] === 'granted' &&
+          req['ios.permission.LOCATION_WHEN_IN_USE'] === 'granted' &&
+          req['ios.permission.MEDIA_LIBRARY'] === 'granted'
+        ) {
+          SplashProsess();
+        }
+      }
+    }
+
+    if (Platform.OS === 'android') {
+      if (
+        check['android.permission.CAMERA'] === 'granted' &&
+        check['android.permission.ACCESS_COARSE_LOCATION'] === 'granted' &&
+        check['android.permission.ACCESS_FINE_LOCATION'] === 'granted' &&
+        check['android.permission.READ_EXTERNAL_STORAGE'] === 'granted' &&
+        check['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+      ) {
+        SplashProsess();
+      } else {
+        const req = await PermissionUtil.requestPermission();
+        if (
+          req['android.permission.CAMERA'] === 'granted' &&
+          req['android.permission.ACCESS_COARSE_LOCATION'] === 'granted' &&
+          req['android.permission.ACCESS_FINE_LOCATION'] === 'granted' &&
+          req['android.permission.READ_EXTERNAL_STORAGE'] === 'granted' &&
+          req['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+        ) {
+          SplashProsess();
+        }
+      }
+    }
+  };
 
   const SplashProsess = useCallback(() => {
     const timeChange = setTimeout(() => {

@@ -9,24 +9,27 @@ import { enableFreeze, enableScreens } from 'react-native-screens';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import RouteManager from './src/util/RouteManager';
+import { Provider } from 'react-redux';
+import Store from './src/state/Store';
 
 enableFreeze(true);
 enableScreens(false);
 
 const App = () => {
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <SafeAreaProvider style={styles.sectionContainer}>
-        <RouteManager />
-        <FlashMessage
-          style={{ zIndex: 10 }}
-          position={'bottom'}
-          floating={true}
-          animated={true}
-        />
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
-
+    <Provider store={Store}>
+      <GestureHandlerRootView style={styles.container}>
+        <SafeAreaProvider style={styles.sectionContainer}>
+          <RouteManager />
+          <FlashMessage
+            style={{ zIndex: 10 }}
+            position={'bottom'}
+            floating={true}
+            animated={true}
+          />
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </Provider>
   );
 };
 

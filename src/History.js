@@ -1,104 +1,129 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 // import React, { useState } from "react";
-import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
+import {Dialog} from '@rneui/themed';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import RNDateTimePicker, {
+  DateTimePickerAndroid,
+} from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
-class History extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tanggal: '',
-      date: new Date(),
-      mode: 'date',
-      show: false,
-      showEnd: false,
-      range_date: '-',
-      display: 'default',
+function History({navigation, route}) {
+  const [dateHistory, setDateHistory] = useState(new Date());
+  const [iosTime, setIosTime] = useState(false);
 
-      Lkaryawan: [],
-      KarySelected: 0,
-
-      ShiftKary: [],
-      shiftSelected: 0,
-
-      showProgres: false,
-      progresAlert: false,
-      messageAlert: '',
-      colorAlert: '#DD6B55',
-    };
-  }
-  onChange = (event, selectedValue) => {
-    this.setState({show: false});
-
-    const curretDate = selectedValue || this.state.date;
-    this.setState({tanggal: curretDate});
-    let tempDate = new Date(curretDate);
-    let fDate =
-      tempDate.getFullYear() +
-      '-' +
-      String(tempDate.getMonth() + 1).padStart(2, '0') +
-      '-' +
-      String(tempDate.getDate()).padStart(2, '0');
-    this.setState({tanggal: String(fDate)});
+  const showPickerCalendar = () => {
+    if (Platform.OS === 'ios') {
+      setIosTime(true);
+    } else {
+      DateTimePickerAndroid.open({
+        value: dateHistory,
+        onChange: (event, selectedDate) => {
+          if (event.type === 'set') {
+            changeDate(selectedDate);
+          }
+        },
+        mode: 'date',
+      });
+    }
   };
 
-  render() {
-    const showMode = DateMode => {
-      if (DateMode === 'date') {
-        this.setState({show: true});
-      }
+  const changeDate = date => {
+    setDateHistory(date);
+  };
 
-      this.setState({mode: DateMode});
-    };
-
-    // function History(props) {
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.rectStack}>
-          <View style={styles.rect}>
-            <Text style={styles.loremIpsum}>
-              Cek History Absenmu {'\n'}Hari ini....
-            </Text>
-          </View>
-          <Image
-            source={require('../assets/report.png')}
-            resizeMode="contain"
-            style={styles.image}></Image>
+  return (
+    <View style={styles.container}>
+      <View style={styles.rectStack}>
+        <View style={styles.rect}>
+          <Text style={styles.loremIpsum}>
+            Cek History Absenmu {'\n'}Hari ini....
+          </Text>
         </View>
-        <Text style={styles.pilihTanggal}>Pilih Tanggal</Text>
-        <TouchableOpacity style={styles.button}>
-          <View style={styles.iconRow}>
-            <FontAwesomeIcon
-              name="calendar"
-              style={styles.icon}></FontAwesomeIcon>
-            <EntypoIcon name="chevron-down" style={styles.icon2}></EntypoIcon>
-          </View>
-        </TouchableOpacity>
-        {this.state.show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={this.state.date}
-            mode={this.state.mode}
-            is24Hour={true}
-            display={this.state.display}
-            onChange={this.onChange}
-          />
-        )}
-        {/* <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        /> */}
-        <TouchableOpacity style={styles.button2}>
-          <Text style={styles.oke}>Oke</Text>
-        </TouchableOpacity>
+        <Image
+          source={require('../assets/report.png')}
+          resizeMode="contain"
+          style={styles.image}
+        />
       </View>
-    );
-  }
+      <Text style={styles.pilihTanggal}>Pilih Tanggal</Text>
+      <TouchableOpacity
+        onPress={() => {
+          showPickerCalendar();
+        }}
+        style={styles.button}>
+        <View style={styles.iconRow}>
+          <FontAwesomeIcon name="calendar" style={styles.icon} />
+          <Text
+            style={{
+              textAlignVertical: 'center',
+              fontFamily: 'heebo-regular',
+              color: '#121212',
+              fontSize: 16,
+            }}>
+            {moment(dateHistory).format('DD-MM-YYYY')}
+          </Text>
+          <EntypoIcon name="chevron-down" style={styles.icon2} />
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button2}>
+        <Text style={styles.oke}>Oke</Text>
+      </TouchableOpacity>
+      <Dialog
+        isVisible={iosTime}
+        // eslint-disable-next-line react-native/no-inline-styles
+        overlayStyle={{
+          backgroundColor: 'white',
+          borderRadius: 8,
+          justifyContent: 'center',
+          flexDirection: 'column',
+          paddingEnd: 16,
+          paddingStart: 16,
+          paddingTop: 8,
+          paddingBottom: 8,
+        }}>
+        <RNDateTimePicker
+          mode="date"
+          display="spinner"
+          value={dateHistory}
+          onChange={(event, selectedDate) => {
+            if (event.type === 'set') {
+              changeDate(selectedDate);
+            }
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            setIosTime(false);
+          }}
+          style={{
+            backgroundColor: 'rgba(246,107,14,1)',
+            borderRadius: 8,
+            height: 35,
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontFamily: 'roboto-700',
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: 'white',
+            }}>
+            Selesai
+          </Text>
+        </TouchableOpacity>
+      </Dialog>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -122,10 +147,10 @@ const styles = StyleSheet.create({
   },
   image: {
     position: 'absolute',
-    top: 67,
-    left: 56,
-    height: 400,
-    width: 400,
+    top: 75,
+    right: 15,
+    height: 350,
+    width: 350,
   },
   rectStack: {
     width: 456,
@@ -166,11 +191,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     height: 27,
     width: 25,
-    marginLeft: 178,
   },
   iconRow: {
     height: 27,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     flex: 1,
     marginRight: 19,
     marginLeft: 21,

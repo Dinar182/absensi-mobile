@@ -1,9 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Image, Text} from 'react-native';
-import Absen from '../Absen';
 import Cuti from '../Cuti';
 import Home from '../Home';
 import History from '../History';
@@ -12,6 +10,10 @@ import Cover from '../Cover';
 import Login from '../Login';
 import AbsenCheck from '../AbsenCheck';
 import Izin from '../Izin';
+import CoverAbsen from '../Coverabsen';
+import RekapAbsen from '../RekapAbsen';
+import ChangePassword from '../ChangePassword';
+import Gantipass from '../Gantipass';
 
 const StackScreen = createNativeStackNavigator();
 const BottomScreen = createBottomTabNavigator();
@@ -21,7 +23,9 @@ const BottomTabScreen = ({navigation, route}) => {
     <BottomScreen.Navigator
       screenOptions={{
         tabBarStyle: {
-          height: 100,
+          height: 75,
+          borderTopEndRadius: 16,
+          borderTopStartRadius: 16,
           backgroundColor: '#E6E6E6',
           paddingBottom: 8,
           paddingTop: 8,
@@ -158,7 +162,7 @@ const RouteManager = () => {
 
         <StackScreen.Screen
           name="AbsenScreen"
-          component={Absen}
+          component={CoverAbsen}
           options={{
             headerShown: false,
           }}
@@ -172,15 +176,13 @@ const RouteManager = () => {
         />
         <StackScreen.Screen
           name="RekapScreen"
-          component={() => {
-            return <></>;
-          }}
+          component={RekapAbsen}
           options={{
             headerShown: false,
           }}
         />
         <StackScreen.Screen
-          name="IjinScreen"
+          name="IzinScreen"
           component={Izin}
           options={{
             headerShown: false,
@@ -189,6 +191,16 @@ const RouteManager = () => {
         <StackScreen.Screen
           name="AbsenCheck"
           component={AbsenCheck}
+          initialParams={{
+            stat: 0,
+          }}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StackScreen.Screen
+          name="ChangePasword"
+          component={Gantipass}
           initialParams={{
             stat: 0,
           }}

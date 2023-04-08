@@ -49,7 +49,11 @@ function Izin({navigation, route}) {
       </TouchableOpacity>
       <View style={styles.rect1}>
         <View style={styles.button5Row}>
-          <TouchableOpacity style={styles.button5}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+            style={styles.button5}>
             <EntypoIcon
               name="chevron-with-circle-left"
               style={styles.icon1}></EntypoIcon>

@@ -6,114 +6,184 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import Svg, {Ellipse} from 'react-native-svg';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {dimensionDevice} from './util/GlobalVar';
 
-const Home = ({navigation: {navigate}}) => {
+const Home = ({navigation, route}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.ellipseStack}>
-        <Svg viewBox="0 0 563.46 343.37" style={styles.ellipse}>
-          <Ellipse
-            stroke="rgba(230, 230, 230,1)"
-            strokeWidth={0}
-            fill="rgba(246,107,14,1)"
-            cx={282}
-            cy={172}
-            rx={282}
-            ry={172}></Ellipse>
-        </Svg>
-        <Image
-          source={require('../assets/logo-bjl-2-removebg-preview.png')}
-          resizeMode="contain"
-          style={styles.image5}></Image>
-        <View style={styles.rect}>
-          <View style={styles.image9Row}>
-            <Image
-              source={require('../assets/ailsa.jpeg')}
-              resizeMode="cover"
-              style={styles.image9}></Image>
-            <View style={styles.AilsaNafaDevinaColumn}>
-              <Text style={styles.AilsaNafaDevina}>Ailsa Nafa Devina</Text>
-              <Text style={styles.id003}>ID : 003</Text>
-            </View>
-          </View>
-          <View style={styles.rect2Stack}>
-            <View style={styles.rect2}>
-              <View style={styles.rect2}></View>
-              <Text style={styles.masuk}>Masuk</Text>
-              <Text style={styles.AilsaNafaDevina2}>00 : 00</Text>
-              <View style={styles.rect3}></View>
-              <View style={styles.pulangStack}>
-                <Text style={styles.pulang}>Pulang</Text>
-                <EntypoIcon name="log-out" style={styles.icon2}></EntypoIcon>
-                <Text style={styles.AilsaNafaDevina3}>00 : 00</Text>
+      <View
+        style={{
+          flexDirection: 'column',
+        }}>
+        <View style={styles.ellipseStack}>
+          <Svg viewBox="0 0 563.46 343.37" style={styles.ellipse}>
+            <Ellipse
+              stroke="rgba(230, 230, 230,1)"
+              strokeWidth={0}
+              fill="rgba(246,107,14,1)"
+              cx={282}
+              cy={172}
+              rx={282}
+              ry={172}
+            />
+          </Svg>
+
+          <Image
+            source={require('../assets/logo-bjl-2-removebg-preview.png')}
+            resizeMode="contain"
+            style={[
+              styles.image5,
+              {
+                top: 40,
+              },
+            ]}
+          />
+          <View
+            style={[
+              styles.rect,
+              {
+                justifyContent: 'space-around',
+              },
+            ]}>
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingEnd: 8,
+                paddingStart: 8,
+                width: '100%',
+              }}>
+              <Image
+                source={require('../assets/ailsa.jpeg')}
+                resizeMode="cover"
+                style={styles.image9}
+              />
+              <View style={styles.AilsaNafaDevinaColumn}>
+                <Text style={styles.AilsaNafaDevina}>Ailsa Nafa Devina</Text>
+                <Text style={styles.id003}>ID : 003</Text>
               </View>
             </View>
-            <EntypoIcon name="login" style={styles.icon}></EntypoIcon>
-          </View>
-        </View>
-        <Text style={styles.helloAilsa}>Hello, Ailsa</Text>
-        <Text style={styles.loremIpsum}>
-          Selamat datang diabsensi online {'\n'}sebagai Staff
-        </Text>
-      </View>
+            <View
+              style={[
+                styles.rect3,
+                {
+                  justifyContent: 'space-between',
+                  marginTop: 16,
+                },
+              ]}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  borderRadius: 8,
+                  paddingEnd: 16,
+                  paddingBottom: 8,
 
-      <View style={styles.group2Row}>
-        <View style={styles.group2}>
+                  backgroundColor: 'rgba(132,158,229,1)',
+                }}>
+                <Text style={styles.masuk}>Masuk</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginLeft: 8,
+                    alignItems: 'center',
+                  }}>
+                  <EntypoIcon name="login" style={styles.icon} />
+                  <Text style={styles.AilsaNafaDevina3}>00 : 00</Text>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'column',
+                  borderRadius: 8,
+                  paddingEnd: 16,
+                  paddingBottom: 8,
+                }}>
+                <Text style={styles.masuk}>Pulang</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginLeft: 8,
+                    alignItems: 'center',
+                  }}>
+                  <EntypoIcon name="log-out" style={styles.icon2} />
+                  <Text style={styles.AilsaNafaDevina3}>00 : 00</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          <Text style={styles.helloAilsa}>Hello, Ailsa</Text>
+          <Text style={styles.loremIpsum}>
+            Selamat datang diabsensi online {'\n'}sebagai Staff
+          </Text>
+        </View>
+      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          flexDirection: 'column',
+          marginTop: 16,
+        }}
+        contentContainerStyle={{
+          justifyContent: 'center',
+          paddingStart: 24,
+          paddingEnd: 24,
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            marginBottom: 16,
+          }}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('Absen')}
+            onPress={() => navigation.navigate('AbsenScreen')}
             style={styles.button}>
             <Image
               source={require('../assets/immigration.png')}
               resizeMode="contain"
               style={styles.image4}></Image>
-            <TextInput placeholder="Absen" style={styles.textInput}></TextInput>
+            <Text style={styles.textInput}>Absen</Text>
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('RekapAbsen')}
-          style={styles.button7}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('RekapAbsen')}
-            style={styles.button3}>
+            onPress={() => navigation.navigate('RekapScreen')}
+            style={styles.button}>
             <Image
               source={require('../assets/list.png')}
               resizeMode="contain"
-              style={styles.image8}></Image>
-            <Text style={styles.rekapAbsen}>Rekap Absen</Text>
+              style={styles.image4}></Image>
+            <Text style={styles.textInput}>Rekap Absen</Text>
           </TouchableOpacity>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.button8Row}>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('Izin')}
-          style={styles.button8}>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            marginBottom: 16,
+          }}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('Izin')}
-            style={styles.button1}>
+            onPress={() => navigation.navigate('IzinScreen')}
+            style={styles.button}>
             <Image
               source={require('../assets/notes.png')}
               resizeMode="contain"
-              style={styles.image6}></Image>
-            <Text style={styles.izin}>Izin</Text>
+              style={styles.image4}></Image>
+            <Text style={styles.textInput}>Izin</Text>
           </TouchableOpacity>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('Cuti')}
-          style={styles.button9}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('Izin')}
-            style={styles.button2}>
+            onPress={() => navigation.navigate('CutiScreen')}
+            style={styles.button}>
             <Image
               source={require('../assets/travel.png')}
               resizeMode="contain"
-              style={styles.image7}></Image>
-            <Text style={styles.cuti}>Cuti</Text>
+              style={styles.image4}></Image>
+            <Text style={styles.textInput}>Cuti</Text>
           </TouchableOpacity>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -121,12 +191,12 @@ const Home = ({navigation: {navigate}}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
   },
   ellipse: {
     top: 0,
     width: 563,
-    height: 343,
-    position: 'absolute',
+    height: 300,
     transform: [
       {
         rotate: '-6.00deg',
@@ -143,19 +213,24 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
   rect: {
-    top: 262,
-    width: 309,
-    height: 182,
+    width: 310,
+    height: 185,
+    flexDirection: 'column',
     position: 'absolute',
+    padding: 16,
+    alignItems: 'center',
+    left: dimensionDevice.widthScreen / 3,
+    right: dimensionDevice.widthScreen / 3,
+    bottom: 0,
+    top: 220,
     backgroundColor: 'rgba(17,43,60,1)',
     borderRadius: 20,
-    left: 137,
   },
   image9: {
     //foto ailsa
     height: 70,
     width: 70,
-    borderRadius: 100,
+    borderRadius: 70 / 2,
   },
   AilsaNafaDevina: {
     fontFamily: 'signika-negative-regular',
@@ -167,7 +242,6 @@ const styles = StyleSheet.create({
     color: 'rgba(249,249,249,1)',
   },
   AilsaNafaDevinaColumn: {
-    width: 149,
     marginLeft: 8,
     marginTop: 11,
     marginBottom: 15,
@@ -185,9 +259,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   masuk: {
-    top: 7,
-    left: 12,
-    position: 'absolute',
+    marginTop: 8,
+    marginLeft: 8,
     fontFamily: 'signika-negative-regular',
     color: 'rgba(249,249,249,1)',
   },
@@ -200,7 +273,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   rect3: {
-    flex: 0.47,
+    width: '100%',
+    minHeight: 65,
+    flexDirection: 'row',
+    marginTop: 8,
     backgroundColor: 'rgba(32,83,117,1)',
     borderRadius: 10,
   },
@@ -212,18 +288,15 @@ const styles = StyleSheet.create({
     color: 'rgba(249,249,249,1)',
   },
   icon2: {
-    top: 17,
-    left: 1,
-    position: 'absolute',
+    marginTop: 8,
     color: 'rgba(242,87,87,1)',
     fontSize: 30,
-    height: 32,
     width: 30,
+    height: 30,
   },
   AilsaNafaDevina3: {
-    top: 17,
-    left: 38,
-    position: 'absolute',
+    marginLeft: 4,
+    height: 30,
     fontFamily: 'signika-negative-regular',
     color: 'rgba(255,255,255,1)',
     fontSize: 25,
@@ -236,22 +309,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   icon: {
-    top: 24,
-    left: 14,
-    position: 'absolute',
+    marginTop: 8,
     color: 'rgba(130,244,156,1)',
     fontSize: 30,
-    width: 40,
-    height: 44,
+    width: 30,
+    height: 30,
   },
   rect2Stack: {
-    width: 277,
     height: 68,
     marginTop: 10,
-    marginLeft: 15,
+    paddingStart: 16,
+    paddingEnd: 16,
+    justifyContent: 'center',
   },
   helloAilsa: {
-    top: 143,
+    top: 130,
     left: 126,
     position: 'absolute',
     fontFamily: 'pacifico-regular',
@@ -260,15 +332,16 @@ const styles = StyleSheet.create({
     opacity: 1.5,
   },
   loremIpsum: {
-    top: 190,
+    top: 170,
     left: 128,
     position: 'absolute',
     fontFamily: 'heebo-regular',
     color: 'rgba(249,249,249,1)',
   },
   ellipseStack: {
-    width: 563,
-    height: 444,
+    width: dimensionDevice.widthScreen,
+    flexDirection: 'column',
+    height: 400,
     marginTop: -63,
     marginLeft: -95,
   },
@@ -363,10 +436,9 @@ const styles = StyleSheet.create({
   textInput: {
     fontFamily: 'heebo-200',
     color: '#121212',
-    width: 39,
+    textAlign: 'center',
     height: 17,
-    marginTop: 7,
-    marginLeft: 46,
+    marginTop: 8,
   },
   button7: {
     width: 130,

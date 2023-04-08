@@ -4,110 +4,446 @@ import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommun
 import Svg, {Ellipse} from 'react-native-svg';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {dimensionDevice} from './util/GlobalVar';
+import {ScrollView} from 'react-native-gesture-handler';
 
-function Profile(props) {
+function Profile({navigation, route}) {
   return (
     <View style={styles.container}>
-      <View style={styles.iconRow}>
-        <MaterialCommunityIconsIcon
-          name="home"
-          style={styles.icon}></MaterialCommunityIconsIcon>
-        <View style={styles.ellipseStack}>
-          <Svg viewBox="0 0 461.42 378.89" style={styles.ellipse}>
-            <Ellipse
-              stroke="rgba(230, 230, 230,1)"
-              strokeWidth={0}
-              fill="rgba(33,83,118,1)"
-              cx={231}
-              cy={189}
-              rx={231}
-              ry={189}></Ellipse>
-          </Svg>
-          <View style={styles.rect}>
-            <View style={styles.image5Row}>
-              <Image
-                source={require('../assets/ailsa.jpeg')}
-                resizeMode="cover"
-                style={styles.image5}></Image>
-              <View style={styles.ailsaNafaDevinaColumn}>
-                <Text style={styles.ailsaNafaDevina}>Ailsa Nafa Devina</Text>
-                <View style={styles.group2}>
-                  <View style={styles.group}>
-                    <View style={styles.rect3}>
-                      <View style={styles.logoutRow}>
-                        <Text style={styles.logout}>Logout</Text>
-                        <EvilIconsIcon
-                          name="arrow-right"
-                          style={styles.icon5}></EvilIconsIcon>
-                      </View>
-                    </View>
-                  </View>
-                </View>
+      <View
+        style={{
+          width: dimensionDevice.widthScreen,
+          height: dimensionDevice.heightScreen / 2,
+          position: 'absolute',
+          borderRadius: dimensionDevice.widthScreen / 2,
+          top: -dimensionDevice.heightScreen / 5,
+          transform: [{scaleX: 2}],
+          backgroundColor: 'rgba(33,83,118,1)',
+        }}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          top: 100,
+          left: dimensionDevice.widthScreen / 6,
+          right: dimensionDevice.widthScreen / 6,
+          bottom: 0,
+          flexDirection: 'column',
+        }}>
+        <Text
+          style={{
+            marginBottom: 16,
+            fontFamily: 'roboto-regular',
+            color: 'rgba(255,255,255,1)',
+            fontSize: 20,
+          }}>
+          Profile
+        </Text>
+        <View
+          style={{
+            borderRadius: 8,
+            backgroundColor: '#E6E6E6',
+            flexDirection: 'column',
+            padding: 8,
+            height: 175,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            }}>
+            <Image
+              source={require('../assets/ailsa.jpeg')}
+              resizeMode="cover"
+              style={styles.image5}
+            />
+            <View
+              style={{
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+              }}>
+              <Text
+                style={[
+                  styles.ailsaNafaDevina,
+                  {
+                    maxWidth: 170,
+                  },
+                ]}
+                ellipsizeMode="tail"
+                numberOfLines={1}>
+                Ailsa Nafa Devina
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.replace('Login');
+                }}
+                style={{
+                  marginTop: 8,
+                  flexDirection: 'row',
+                  backgroundColor: '#BE061C',
+                  borderRadius: 8,
+                  width: 90,
+                  height: 35,
+                  alignSelf: 'flex-end',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <EvilIconsIcon
+                  name="arrow-right"
+                  color={'rgba(255,255,255,1)'}
+                  size={28}
+                />
+                <Text style={styles.logout}>Logout</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View
+            style={{
+              marginStart: 8,
+              marginEnd: 8,
+              backgroundColor: '#9B9B9B',
+              height: 2,
+              borderRadius: 8,
+              marginTop: 16,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 8,
+              }}>
+              <EntypoIcon name="bar-graph" style={styles.icon7} />
+              <View
+                style={{
+                  flexDirection: 'column',
+                  marginStart: 8,
+                }}>
+                <Text style={styles.divisi}>Divisi</Text>
+                <Text style={styles.finance}>Finance</Text>
               </View>
             </View>
-            <View style={styles.rect4Stack}>
-              <View style={styles.rect4}>
-                <View style={styles.icon7Row}>
-                  <EntypoIcon
-                    name="bar-graph"
-                    style={styles.icon7}></EntypoIcon>
-                  <View style={styles.divisiColumn}>
-                    <Text style={styles.divisi}>Divisi</Text>
-                    <Text style={styles.finance}>Finance</Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.rect5}>
-                <View style={styles.icon6Row}>
-                  <EntypoIcon
-                    name="briefcase"
-                    style={styles.icon6}></EntypoIcon>
-                  <View style={styles.jabatanStack}>
-                    <Text style={styles.jabatan}>Jabatan</Text>
-                    <Text style={styles.staff}>Staff</Text>
-                  </View>
-                </View>
+            <View
+              style={{
+                height: 50,
+                marginTop: 8,
+                width: 2,
+                backgroundColor: '#9B9B9B',
+              }}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 8,
+              }}>
+              <EntypoIcon name="briefcase" style={styles.icon6} />
+              <View
+                style={{
+                  flexDirection: 'column',
+                  marginStart: 8,
+                }}>
+                <Text style={styles.divisi}>Jabatan</Text>
+                <Text style={styles.finance}>Staff</Text>
               </View>
             </View>
           </View>
         </View>
       </View>
-
-      <TouchableOpacity style={styles.button}>
-        <View style={styles.icon2Row}>
-          <MaterialCommunityIconsIcon
-            name="account-key"
-            style={styles.icon2}></MaterialCommunityIconsIcon>
-          <Text style={styles.gantiPassword}>Ganti Password</Text>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          marginTop: dimensionDevice.heightScreen / 2.4,
+          marginStart: dimensionDevice.widthScreen / 6,
+          marginEnd: dimensionDevice.widthScreen / 6,
+          flexDirection: 'column',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginBottom: 8,
+          }}>
+          <EntypoIcon name="v-card" style={styles.icon3} />
+          <Text style={styles.dataDiri}>Data Diri</Text>
         </View>
-      </TouchableOpacity>
-      <View style={styles.icon3Row}>
-        <EntypoIcon name="v-card" style={styles.icon3}></EntypoIcon>
-        <Text style={styles.dataDiri}>Data Diri</Text>
-      </View>
-      <View style={styles.namaLengkapIdRow}>
-        <Text style={styles.namaLengkapId}>
-          Nama Lengkap {'\t'}: Ailsa Nafa Devina{'\n'}ID{'\t'}
-          {'\t'}
-          {'\t'}
-          {'\t'}: XXX{'\n'}Email{'\t'}
-          {'\t'}
-          {'\t'}: ailsanafadevina@gmail.com {'\n'}Telepon {'\t'}
-          {'\t'}
-          {'\t'}: 089999222444{'\n'}Nomor KTP {'\t'}
-          {'\t'}: 3374567890212121{'\n'}Tanggal Lahir {'\t'}: 07 Januari 2001
-          {'\n'}Jenis Kelamin {'\t'}: Perempuan{'\n'}Agama {'\t'}
-          {'\t'}
-          {'\t'}: Islam{'\n'}Alamat {'\t'}
-          {'\t'}
-          {'\t'}: Jl. Tandang 2 / 11{'\n'}Status{'\t'}
-          {'\t'}
-          {'\t'}: Belum Menikah
-        </Text>
-        <MaterialCommunityIconsIcon
-          name="home"
-          style={styles.icon4}></MaterialCommunityIconsIcon>
-      </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Nama Lengkap
+          </Text>
+          <Text style={styles.namaLengkapId}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            Ailsa Nafa Devina
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            ID
+          </Text>
+          <Text style={styles.namaLengkapId}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            003
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Email
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            ailsanafadevina@gmail.com
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Telepon
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            089999222444
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Nomer KTP
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            3374567890212121
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Tanggal Lahir
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            07 Januari 2001
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Jenis Kelamin
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            Perempuan
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Agama
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            Islam
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Alamat
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            Jalan Tandang 2/11
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginBottom: 4,
+          }}>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                width: 100,
+              },
+            ]}>
+            Status
+          </Text>
+          <Text style={[styles.namaLengkapId]}>:</Text>
+          <Text
+            style={[
+              styles.namaLengkapId,
+              {
+                marginStart: 8,
+              },
+            ]}>
+            Belum Menikah
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('ChangePasword');
+          }}>
+          <View style={styles.icon2Row}>
+            <MaterialCommunityIconsIcon
+              name="account-key"
+              style={styles.icon2}
+            />
+            <Text style={styles.gantiPassword}>Ganti Password</Text>
+          </View>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
@@ -115,6 +451,8 @@ function Profile(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#D4F6CC',
+    flexDirection: 'column',
   },
   icon: {
     color: 'rgba(128,128,128,1)',
@@ -123,9 +461,8 @@ const styles = StyleSheet.create({
   },
   ellipse: {
     top: 0,
-    width: 461,
+    width: dimensionDevice.widthWindow,
     height: 379,
-    position: 'absolute',
     left: 0,
   },
   rect: {
@@ -147,7 +484,6 @@ const styles = StyleSheet.create({
     color: 'rgba(33,83,118,1)',
     fontSize: 18,
     letterSpacing: 1,
-    marginLeft: 3,
   },
   group2: {
     width: 93,
@@ -168,7 +504,6 @@ const styles = StyleSheet.create({
   logout: {
     fontFamily: 'roboto-700',
     color: 'rgba(255,255,255,1)',
-    marginTop: 6,
   },
   icon5: {
     color: 'rgba(255,255,255,1)',
@@ -387,8 +722,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(246,107,14,1)',
     borderRadius: 45,
     flexDirection: 'row',
-    marginTop: -204,
-    marginLeft: 190,
+    alignSelf: 'flex-end',
+    marginTop: 8,
   },
   icon2: {
     color: 'rgba(255,255,255,1)',
