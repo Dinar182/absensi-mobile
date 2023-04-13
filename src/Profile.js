@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Svg, {Ellipse} from 'react-native-svg';
+import Svg, { Ellipse } from 'react-native-svg';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import {dimensionDevice} from './util/GlobalVar';
-import {ScrollView} from 'react-native-gesture-handler';
+import { dimensionDevice } from './util/GlobalVar';
+import { ScrollView } from 'react-native-gesture-handler';
 
-function Profile({navigation, route}) {
+function Profile({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View
@@ -17,7 +17,7 @@ function Profile({navigation, route}) {
           position: 'absolute',
           borderRadius: dimensionDevice.widthScreen / 2,
           top: -dimensionDevice.heightScreen / 4,
-          transform: [{scaleX: 2}],
+          transform: [{ scaleX: 2 }],
           backgroundColor: 'rgba(33,83,118,1)',
         }}
       />
@@ -453,6 +453,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#D4F6CC',
     flexDirection: 'column',
+    ...Platform.select({
+      ios: {
+        paddingTop: 24,
+      }
+    })
   },
   icon: {
     color: 'rgba(128,128,128,1)',

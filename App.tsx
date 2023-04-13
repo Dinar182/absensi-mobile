@@ -15,7 +15,7 @@ import Store from './src/state/Store';
 enableFreeze(true);
 enableScreens(false);
 
-const App = () => {
+export default function App(){
   return (
     <Provider store={Store}>
       <GestureHandlerRootView style={styles.container}>
@@ -50,5 +50,3 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
 });
-
-export default App;

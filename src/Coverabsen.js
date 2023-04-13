@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
-import Svg, {Ellipse} from 'react-native-svg';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Text, TouchableOpacity, Platform } from 'react-native';
+import Svg, { Ellipse } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/Entypo';
-import {dimensionDevice} from './util/GlobalVar';
+import { dimensionDevice } from './util/GlobalVar';
 
-function CoverAbsen({navigation, route}) {
+function CoverAbsen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View
@@ -15,7 +15,7 @@ function CoverAbsen({navigation, route}) {
           position: 'absolute',
           borderRadius: dimensionDevice.widthScreen / 2,
           top: -dimensionDevice.heightScreen / 5,
-          transform: [{scaleX: 2}],
+          transform: [{ scaleX: 2 }],
           backgroundColor: 'rgba(33,83,118,1)',
         }}
       />
@@ -119,6 +119,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    ...Platform.select({
+      ios: {
+        paddingTop: 24
+      }
+    })
   },
   ellipse: {
     top: 0,

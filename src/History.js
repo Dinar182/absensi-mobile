@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 // import React, { useState } from "react";
 import {
   StyleSheet,
@@ -8,15 +8,16 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import {Dialog} from '@rneui/themed';
+import { Dialog } from '@rneui/themed';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import RNDateTimePicker, {
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import { dimensionDevice } from './util/GlobalVar';
 
-function History({navigation, route}) {
+function History({ navigation, route }) {
   const [dateHistory, setDateHistory] = useState(new Date());
   const [iosTime, setIosTime] = useState(false);
 
@@ -129,9 +130,14 @@ function History({navigation, route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    ...Platform.select({
+      ios: {
+        paddingTop: 24,
+      }
+    })
   },
   rect: {
-    top: 0,
+    top: Platform.OS === "ios" ? -24 : 0,
     left: 0,
     width: 412,
     height: 285,
@@ -142,19 +148,19 @@ const styles = StyleSheet.create({
     fontFamily: 'heebo-700',
     color: 'rgba(246,107,14,1)',
     fontSize: 35,
-    marginTop: 47,
+    marginTop: Platform.OS === "ios" ? 75 : 50,
     marginLeft: 42,
   },
   image: {
     position: 'absolute',
     top: 75,
-    right: 15,
+    right: Platform.OS === "ios" ? -30 : 15,
     height: 350,
     width: 350,
   },
   rectStack: {
-    width: 456,
-    height: 467,
+    width: dimensionDevice.widthScreen,
+    height: 470,
   },
   pilihTanggal: {
     fontFamily: 'heebo-300',
