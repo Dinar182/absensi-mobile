@@ -15,17 +15,7 @@ import {dimensionDevice} from './util/GlobalVar';
 import {PermissionUtil} from './util/PermissionUtil';
 
 function Cover({navigation, route}) {
-  useFocusEffect(
-    useCallback(() => {
-      const task = InteractionManager.runAfterInteractions(() => {
-        permissionChecking();
-      });
-      return () => {
-        task.cancel;
-      };
-    }, []),
-  );
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const permissionChecking = async () => {
     const check = await PermissionUtil.checkPermission();
 
@@ -35,7 +25,7 @@ function Cover({navigation, route}) {
         check['ios.permission.LOCATION_WHEN_IN_USE'] === 'granted' &&
         check['ios.permission.MEDIA_LIBRARY'] === 'granted'
       ) {
-        SplashProsess();
+        return true;
       } else {
         const req = await PermissionUtil.requestPermission();
         if (
@@ -43,12 +33,10 @@ function Cover({navigation, route}) {
           req['ios.permission.LOCATION_WHEN_IN_USE'] === 'granted' &&
           req['ios.permission.MEDIA_LIBRARY'] === 'granted'
         ) {
-          SplashProsess();
+          return true;
         }
       }
-    }
-
-    if (Platform.OS === 'android') {
+    } else {
       if (
         check['android.permission.CAMERA'] === 'granted' &&
         check['android.permission.ACCESS_COARSE_LOCATION'] === 'granted' &&
@@ -56,7 +44,7 @@ function Cover({navigation, route}) {
         check['android.permission.READ_EXTERNAL_STORAGE'] === 'granted' &&
         check['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
       ) {
-        SplashProsess();
+        return true;
       } else {
         const req = await PermissionUtil.requestPermission();
         if (
@@ -66,11 +54,24 @@ function Cover({navigation, route}) {
           req['android.permission.READ_EXTERNAL_STORAGE'] === 'granted' &&
           req['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
         ) {
-          SplashProsess();
+          return true;
         }
       }
     }
+    return false;
   };
+  useFocusEffect(
+    useCallback(() => {
+      const task = InteractionManager.runAfterInteractions(() => {
+        if (permissionChecking()) {
+          SplashProsess();
+        }
+      });
+      return () => {
+        task.cancel;
+      };
+    }, [SplashProsess, permissionChecking]),
+  );
 
   const SplashProsess = useCallback(() => {
     const timeChange = setTimeout(() => {
@@ -79,7 +80,7 @@ function Cover({navigation, route}) {
     return () => {
       clearTimeout(timeChange);
     };
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

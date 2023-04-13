@@ -16,7 +16,7 @@ function Profile({navigation, route}) {
           height: dimensionDevice.heightScreen / 2,
           position: 'absolute',
           borderRadius: dimensionDevice.widthScreen / 2,
-          top: -dimensionDevice.heightScreen / 5,
+          top: -dimensionDevice.heightScreen / 4,
           transform: [{scaleX: 2}],
           backgroundColor: 'rgba(33,83,118,1)',
         }}
@@ -24,7 +24,7 @@ function Profile({navigation, route}) {
       <View
         style={{
           position: 'absolute',
-          top: 100,
+          top: 70,
           left: dimensionDevice.widthScreen / 6,
           right: dimensionDevice.widthScreen / 6,
           bottom: 0,
@@ -157,7 +157,7 @@ function Profile({navigation, route}) {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
-          marginTop: dimensionDevice.heightScreen / 2.4,
+          marginTop: dimensionDevice.heightScreen / 2.7,
           marginStart: dimensionDevice.widthScreen / 6,
           marginEnd: dimensionDevice.widthScreen / 6,
           flexDirection: 'column',

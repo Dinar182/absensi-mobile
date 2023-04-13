@@ -8,6 +8,7 @@ function CoverAbsen({navigation, route}) {
   return (
     <View style={styles.container}>
       <View
+        // eslint-disable-next-line react-native/no-inline-styles
         style={{
           width: dimensionDevice.widthScreen,
           height: dimensionDevice.heightScreen / 2,
@@ -66,8 +67,11 @@ function CoverAbsen({navigation, route}) {
       <View
         style={{
           position: 'absolute',
+          width: '100%',
           top: dimensionDevice.heightScreen / 2.2,
           justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 16,
           flexDirection: 'column',
         }}>
         <TouchableOpacity
@@ -154,8 +158,7 @@ const styles = StyleSheet.create({
     height: 91,
     backgroundColor: '#E6E6E6',
     borderRadius: 20,
-    marginTop: 14,
-    marginLeft: 45,
+    alignSelf: 'center',
   },
   image2: {
     width: 89,
@@ -191,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E6E6E6',
     borderRadius: 20,
     marginTop: 39,
-    marginLeft: 45,
+    alignSelf: 'center',
   },
   absen3: {
     fontFamily: 'roboto-700',

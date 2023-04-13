@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android-linux": "gnome-terminal -e \"react-native start --reset-cache\" && react-native run-android",
+    "android-build-linux": "gnome-terminal -e \"react-native start --reset-cache\" && react-native build-android",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",

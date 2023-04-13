@@ -14,6 +14,8 @@ import CoverAbsen from '../Coverabsen';
 import RekapAbsen from '../RekapAbsen';
 import ChangePassword from '../ChangePassword';
 import Gantipass from '../Gantipass';
+import Rekap from '../HasilRekapAbsensi';
+import HasilRekapAbsensi from '../HasilRekapAbsensi';
 
 const StackScreen = createNativeStackNavigator();
 const BottomScreen = createBottomTabNavigator();
@@ -203,6 +205,17 @@ const RouteManager = () => {
           component={Gantipass}
           initialParams={{
             stat: 0,
+          }}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StackScreen.Screen
+          name="Rekap"
+          component={HasilRekapAbsensi}
+          initialParams={{
+            dateStart: '',
+            dateEnd: '',
           }}
           options={{
             headerShown: false,

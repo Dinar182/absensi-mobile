@@ -67,16 +67,14 @@ function RekapAbsen({navigation, route}) {
         style={styles.image}
       />
       <View style={styles.rect}>
-        <View style={styles.button4Row}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}
-            style={styles.button4}>
-            <EntypoIcon name="chevron-with-circle-left" style={styles.icon} />
-          </TouchableOpacity>
-          <Text style={styles.text}>Rekap Absen</Text>
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          style={styles.button4}>
+          <EntypoIcon name="chevron-with-circle-left" style={styles.icon} />
+        </TouchableOpacity>
+        <Text style={styles.text}>Rekap Absen</Text>
       </View>
       <TouchableOpacity
         onPress={() => {
@@ -125,7 +123,14 @@ function RekapAbsen({navigation, route}) {
       <Text style={styles.pilihTanggalMulai1}>Pilih tanggal Selesai</Text>
       <TouchableOpacity style={styles.button5}>
         <View style={styles.rect3}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Rekap', {
+                dateStart: moment(dateStart).format('DD/MM/YYYY'),
+                dateEnd: moment(dateEnd).format('DD/MM/YYYY'),
+              });
+            }}
+            style={styles.button}>
             <Text style={styles.cari}>Cari</Text>
           </TouchableOpacity>
         </View>
@@ -190,11 +195,14 @@ const styles = StyleSheet.create({
     marginLeft: 137,
   },
   rect: {
-    width: 390,
+    width: dimensionDevice.widthScreen,
     height: 90,
+    alignItems: 'center',
     backgroundColor: '#E6E6E6',
     flexDirection: 'row',
-    marginTop: -854,
+    paddingTop: 16,
+    paddingLeft: 16,
+    marginTop: -850,
   },
   button4: {
     width: 40,
@@ -209,15 +217,12 @@ const styles = StyleSheet.create({
     color: 'rgba(32,83,117,1)',
     fontSize: 20,
     marginLeft: 11,
-    marginTop: 10,
   },
   button4Row: {
-    height: 42,
+    height: 90,
     flexDirection: 'row',
-    flex: 1,
-    marginRight: 192,
-    marginLeft: 14,
-    marginTop: 35,
+    marginLeft: 16,
+    alignItems: 'center',
   },
   button2: {
     width: 281,

@@ -20,17 +20,16 @@ const Home = ({navigation, route}) => {
           flexDirection: 'column',
         }}>
         <View style={styles.ellipseStack}>
-          <Svg viewBox="0 0 563.46 343.37" style={styles.ellipse}>
-            <Ellipse
-              stroke="rgba(230, 230, 230,1)"
-              strokeWidth={0}
-              fill="rgba(246,107,14,1)"
-              cx={282}
-              cy={172}
-              rx={282}
-              ry={172}
-            />
-          </Svg>
+          <View
+            style={{
+              width: dimensionDevice.widthScreen,
+              height: dimensionDevice.heightScreen / 2,
+              borderRadius: dimensionDevice.widthScreen / 2,
+              transform: [{scaleX: 2}],
+              marginTop: -200,
+              backgroundColor: 'rgba(246,107,14,1)',
+            }}
+          />
 
           <Image
             source={require('../assets/logo-bjl-2-removebg-preview.png')}
@@ -38,7 +37,7 @@ const Home = ({navigation, route}) => {
             style={[
               styles.image5,
               {
-                top: 40,
+                top: 100,
               },
             ]}
           />
@@ -115,11 +114,20 @@ const Home = ({navigation, route}) => {
               </View>
             </View>
           </View>
-
-          <Text style={styles.helloAilsa}>Hello, Ailsa</Text>
-          <Text style={styles.loremIpsum}>
-            Selamat datang diabsensi online {'\n'}sebagai Staff
-          </Text>
+          <View
+            style={{
+              position: 'absolute',
+              top: 120,
+              alignItems: 'flex-start',
+              flexDirection: 'column',
+              left: dimensionDevice.widthScreen / 10,
+              right: 0,
+            }}>
+            <Text style={styles.helloAilsa}>Hello, Ailsa</Text>
+            <Text style={styles.loremIpsum}>
+              Selamat datang diabsensi online {'\n'}sebagai Staff
+            </Text>
+          </View>
         </View>
       </View>
       <ScrollView
@@ -206,11 +214,10 @@ const styles = StyleSheet.create({
   },
   image5: {
     position: 'absolute',
-    top: 76,
-    left: 282,
     height: 268,
     width: 260,
     opacity: 0.3,
+    right: -50,
   },
   rect: {
     width: 310,
@@ -219,8 +226,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     padding: 16,
     alignItems: 'center',
-    left: dimensionDevice.widthScreen / 3,
-    right: dimensionDevice.widthScreen / 3,
     bottom: 0,
     top: 220,
     backgroundColor: 'rgba(17,43,60,1)',
@@ -323,18 +328,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   helloAilsa: {
-    top: 130,
-    left: 126,
-    position: 'absolute',
     fontFamily: 'pacifico-regular',
     color: 'rgba(255,255,255,1)',
     fontSize: 30,
     opacity: 1.5,
   },
   loremIpsum: {
-    top: 170,
-    left: 128,
-    position: 'absolute',
     fontFamily: 'heebo-regular',
     color: 'rgba(249,249,249,1)',
   },
@@ -342,8 +341,10 @@ const styles = StyleSheet.create({
     width: dimensionDevice.widthScreen,
     flexDirection: 'column',
     height: 400,
-    marginTop: -63,
-    marginLeft: -95,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -100,
+    marginBottom: 16,
   },
   rect4: {
     width: 400,
