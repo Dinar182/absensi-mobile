@@ -1,0 +1,194 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.absensi"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="33" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/home/faa/Documents/absensi-mobile/android/app/src/debug/AndroidManifest.xml:5:5-77
+11-->/home/faa/Documents/absensi-mobile/android/app/src/debug/AndroidManifest.xml:5:22-75
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:3:5-67
+12-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:3:22-64
+13    <uses-permission android:name="android.permission.CAMERA" />
+13-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:4:1-61
+13-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:4:18-58
+14    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+14-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:5:1-75
+14-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:5:18-72
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+15-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:6:1-77
+15-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:6:18-74
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:7:1-76
+16-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:7:18-73
+17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:8:3-79
+17-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:8:20-76
+18    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Required to access Google Play Licensing -->
+18-->[com.facebook.flipper:flipper:0.125.0] /home/faa/.gradle/caches/transforms-3/236929aa564a4c4dfa1b417642a2a2ae/transformed/jetified-flipper-0.125.0/AndroidManifest.xml:16:5-76
+18-->[com.facebook.flipper:flipper:0.125.0] /home/faa/.gradle/caches/transforms-3/236929aa564a4c4dfa1b417642a2a2ae/transformed/jetified-flipper-0.125.0/AndroidManifest.xml:16:22-73
+19    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+19-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-73
+19-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-70
+20    <!--
+21         Required to keep CPU alive while downloading files
+22        (NOT to keep screen awake)
+23    -->
+24    <uses-permission android:name="android.permission.WAKE_LOCK" />
+24-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:19:5-68
+24-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:19:22-65
+25    <!--
+26         Required to poll the state of the network connection
+27        and respond to changes
+28    -->
+29    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+29-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:25:5-79
+29-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:25:22-76
+30
+31    <queries>
+31-->[androidx.camera:camera-extensions:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/23830ebbacdd931504ee540c054c682a/transformed/jetified-camera-extensions-1.1.0-beta02/AndroidManifest.xml:24:5-28:15
+32        <intent>
+32-->[androidx.camera:camera-extensions:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/23830ebbacdd931504ee540c054c682a/transformed/jetified-camera-extensions-1.1.0-beta02/AndroidManifest.xml:25:9-27:18
+33            <action android:name="androidx.camera.extensions.action.VENDOR_ACTION" />
+33-->[androidx.camera:camera-extensions:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/23830ebbacdd931504ee540c054c682a/transformed/jetified-camera-extensions-1.1.0-beta02/AndroidManifest.xml:26:13-86
+33-->[androidx.camera:camera-extensions:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/23830ebbacdd931504ee540c054c682a/transformed/jetified-camera-extensions-1.1.0-beta02/AndroidManifest.xml:26:21-83
+34        </intent>
+35    </queries>
+36
+37    <application
+37-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:10:5-29:19
+38        android:name="com.absensi.MainApplication"
+38-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:11:7-38
+39        android:allowBackup="false"
+39-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:15:7-34
+40        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+40-->[androidx.core:core:1.7.0] /home/faa/.gradle/caches/transforms-3/08e1174eef2c209ea18090f1084adbcb/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
+41        android:debuggable="true"
+42        android:icon="@mipmap/ic_launcher"
+42-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:13:7-41
+43        android:label="@string/app_name"
+43-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:12:7-39
+44        android:roundIcon="@mipmap/ic_launcher_round"
+44-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:14:7-52
+45        android:theme="@style/AppTheme"
+45-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:16:7-38
+46        android:usesCleartextTraffic="true" >
+46-->/home/faa/Documents/absensi-mobile/android/app/src/debug/AndroidManifest.xml:8:9-44
+47        <activity
+47-->/home/faa/Documents/absensi-mobile/android/app/src/debug/AndroidManifest.xml:11:9-111
+48            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+48-->/home/faa/Documents/absensi-mobile/android/app/src/debug/AndroidManifest.xml:11:19-83
+49            android:exported="false" />
+49-->/home/faa/Documents/absensi-mobile/android/app/src/debug/AndroidManifest.xml:11:84-108
+50        <activity
+50-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:17:7-28:18
+51            android:name="com.absensi.MainActivity"
+51-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:18:9-37
+52            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+52-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:20:9-118
+53            android:exported="true"
+53-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:23:9-32
+54            android:label="@string/app_name"
+54-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:19:9-41
+55            android:launchMode="singleTask"
+55-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:21:9-40
+56            android:windowSoftInputMode="adjustResize" >
+56-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:22:9-51
+57            <intent-filter>
+57-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:24:9-27:25
+58                <action android:name="android.intent.action.MAIN" />
+58-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:25:13-65
+58-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:25:21-62
+59
+60                <category android:name="android.intent.category.LAUNCHER" />
+60-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:26:13-73
+60-->/home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:26:23-70
+61            </intent-filter>
+62        </activity>
+63
+64        <provider
+64-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:34:9-42:20
+65            android:name="com.RNFetchBlob.Utils.FileProvider"
+65-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:35:13-62
+66            android:authorities="com.absensi.provider"
+66-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:36:13-60
+67            android:exported="false"
+67-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:37:13-37
+68            android:grantUriPermissions="true" >
+68-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:38:13-47
+69            <meta-data
+69-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:39:13-41:58
+70                android:name="android.support.FILE_PROVIDER_PATHS"
+70-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:40:17-67
+71                android:resource="@xml/provider_paths" />
+71-->[:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:41:17-55
+72        </provider>
+73
+74        <activity
+74-->[com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+75            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+75-->[com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+76            android:exported="false"
+76-->[com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+77            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+77-->[com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+78
+79        <meta-data
+79-->[com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:21:9-23:69
+80            android:name="com.google.android.gms.version"
+80-->[com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:22:13-58
+81            android:value="@integer/google_play_services_version" />
+81-->[com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:23:13-66
+82
+83        <provider
+83-->[androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:26:9-34:20
+84            android:name="androidx.startup.InitializationProvider"
+84-->[androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:27:13-67
+85            android:authorities="com.absensi.androidx-startup"
+85-->[androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:28:13-68
+86            android:exported="false" >
+86-->[androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:29:13-37
+87            <meta-data
+87-->[androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:31:13-33:52
+88                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+88-->[androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:32:17-75
+89                android:value="androidx.startup" />
+89-->[androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:33:17-49
+90            <meta-data
+90-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/faa/.gradle/caches/transforms-3/168829b299da31b5f39d19c1353bb79f/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:31:13-33:52
+91                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+91-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/faa/.gradle/caches/transforms-3/168829b299da31b5f39d19c1353bb79f/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:32:17-78
+92                android:value="androidx.startup" />
+92-->[androidx.lifecycle:lifecycle-process:2.4.0] /home/faa/.gradle/caches/transforms-3/168829b299da31b5f39d19c1353bb79f/transformed/jetified-lifecycle-process-2.4.0/AndroidManifest.xml:33:17-49
+93        </provider>
+94
+95        <uses-library
+95-->[androidx.camera:camera-extensions:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/23830ebbacdd931504ee540c054c682a/transformed/jetified-camera-extensions-1.1.0-beta02/AndroidManifest.xml:31:9-33:40
+96            android:name="androidx.camera.extensions.impl"
+96-->[androidx.camera:camera-extensions:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/23830ebbacdd931504ee540c054c682a/transformed/jetified-camera-extensions-1.1.0-beta02/AndroidManifest.xml:32:13-59
+97            android:required="false" />
+97-->[androidx.camera:camera-extensions:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/23830ebbacdd931504ee540c054c682a/transformed/jetified-camera-extensions-1.1.0-beta02/AndroidManifest.xml:33:13-37
+98
+99        <service
+99-->[androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:26:9-35:19
+100            android:name="androidx.camera.core.impl.MetadataHolderService"
+100-->[androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:27:13-75
+101            android:enabled="false"
+101-->[androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:28:13-36
+102            android:exported="false" >
+102-->[androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:29:13-37
+103            <meta-data
+103-->[androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:32:13-34:89
+104                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+104-->[androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:33:17-103
+105                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+105-->[androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:34:17-86
+106        </service>
+107    </application>
+108
+109</manifest>
