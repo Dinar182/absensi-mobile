@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,11 +6,12 @@ import {
   Text,
   Image,
   TextInput,
+  Platform,
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
-function Cuti({navigation, route}) {
+function Cuti({ navigation, route }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button2}>
@@ -40,7 +41,14 @@ function Cuti({navigation, route}) {
             onPress={() => {
               navigation.goBack();
             }}
-            style={styles.icon1}>
+            style={{
+              ...Platform.select({
+                ios: {
+                  marginTop: 24
+                },
+              })
+            }}
+          >
             <EntypoIcon
               name="chevron-with-circle-left"
               style={styles.icon1}></EntypoIcon>
@@ -196,6 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     height: 42,
     width: 40,
+
   },
   text: {
     // text cuti
@@ -203,11 +212,10 @@ const styles = StyleSheet.create({
     color: 'rgba(32,83,117,1)',
     fontSize: 20,
     marginLeft: 11,
-    marginTop: 10,
+    marginTop: Platform.OS === "ios" ? 30 : 10,
   },
   icon1Row: {
     // posisi icon back
-    height: 44,
     flexDirection: 'row',
     flex: 1,
     marginRight: 274,

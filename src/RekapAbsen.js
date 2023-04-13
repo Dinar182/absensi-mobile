@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -13,10 +13,10 @@ import RNDateTimePicker, {
   DateTimePickerAndroid,
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import {Dialog} from '@rneui/themed';
-import {dimensionDevice} from './util/GlobalVar';
+import { Dialog } from '@rneui/themed';
+import { dimensionDevice } from './util/GlobalVar';
 
-function RekapAbsen({navigation, route}) {
+function RekapAbsen({ navigation, route }) {
   const [iosTime, setIosTime] = useState(false);
   const [iosMode, setIosMode] = useState(0);
   const [dateStart, setDateStart] = useState(new Date());
@@ -196,11 +196,11 @@ const styles = StyleSheet.create({
   },
   rect: {
     width: dimensionDevice.widthScreen,
-    height: 90,
+    height: Platform.OS === "ios" ? 120 : 90,
     alignItems: 'center',
     backgroundColor: '#E6E6E6',
     flexDirection: 'row',
-    paddingTop: 16,
+    paddingTop: Platform.OS === "ios" ? 55 : 16,
     paddingLeft: 16,
     marginTop: -850,
   },
