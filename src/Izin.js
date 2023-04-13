@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,12 +6,14 @@ import {
   Text,
   Image,
   TextInput,
+  Platform,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import { dimensionDevice } from './util/GlobalVar';
 
-function Izin({navigation, route}) {
+function Izin({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View style={styles.button1Stack}>
@@ -21,7 +23,7 @@ function Izin({navigation, route}) {
         <Image
           source={require('../assets/hospital.png')}
           resizeMode="contain"
-          style={styles.image}></Image>
+          style={styles.image} />
         <TextInput
           placeholder="     Keterangan"
           disableFullscreenUI={true}
@@ -243,10 +245,9 @@ const styles = StyleSheet.create({
   },
   rect1: {
     //abu2 atas
-    width: 390,
-    height: 70,
+    width: dimensionDevice.widthScreen,
+    height: Platform.OS === "ios" ? 100 : 70,
     backgroundColor: '#E6E6E6',
-    flexDirection: 'row',
     marginTop: -235,
   },
   button5: {
@@ -272,19 +273,19 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 280,
     marginLeft: 20,
-    marginTop: 15,
+    marginTop: Platform.OS === "ios" ? 45 : 15,
   },
   keterangan1: {
     //posisi tulisan keterangan
     fontFamily: 'heebo-700',
     color: '#121212',
-    marginTop: 380,
+    marginTop: Platform.OS === "ios" ? 360 : 380,
     marginLeft: 48,
   },
   jenisIzin: {
     fontFamily: 'heebo-700',
     color: '#121212',
-    marginTop: -315,
+    marginTop: Platform.OS === "ios" ? -320 : -315,
     marginLeft: 47,
   },
   pilihTanggal: {

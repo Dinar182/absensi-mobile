@@ -553,6 +553,8 @@
 				DEVELOPMENT_TEAM = 7A639MSY8Y;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = absensi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Absensi;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -580,6 +582,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7A639MSY8Y;
 				INFOPLIST_FILE = absensi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Absensi;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

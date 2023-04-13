@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, FlatList} from 'react-native';
-import {dimensionDevice} from './util/GlobalVar';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text, FlatList, Platform } from 'react-native';
+import { dimensionDevice } from './util/GlobalVar';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const HasilRekapAbsensi = ({navigation, route}) => {
-  const {dateStart, dateEnd} = route.params;
+const HasilRekapAbsensi = ({ navigation, route }) => {
+  const { dateStart, dateEnd } = route.params;
   return (
     <View
       style={{
@@ -15,9 +15,14 @@ const HasilRekapAbsensi = ({navigation, route}) => {
       }}>
       <View
         style={{
-          height: 65,
+          height: Platform.OS === "ios" ? 100 : 65,
           backgroundColor: '#E6E6E6',
           width: dimensionDevice.widthScreen,
+          ...Platform.select({
+            ios: {
+              paddingTop: 24,
+            }
+          }),
           flexDirection: 'row',
           alignItems: 'center',
         }}>
