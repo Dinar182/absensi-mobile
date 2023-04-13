@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,11 +8,11 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import Svg, {Ellipse} from 'react-native-svg';
+import Svg, { Ellipse } from 'react-native-svg';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import {dimensionDevice} from './util/GlobalVar';
+import { dimensionDevice } from './util/GlobalVar';
 
-const Home = ({navigation, route}) => {
+const Home = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View
@@ -25,7 +25,7 @@ const Home = ({navigation, route}) => {
               width: dimensionDevice.widthScreen,
               height: dimensionDevice.heightScreen / 2,
               borderRadius: dimensionDevice.widthScreen / 2,
-              transform: [{scaleX: 2}],
+              transform: [{ scaleX: 2 }],
               marginTop: -200,
               backgroundColor: 'rgba(246,107,14,1)',
             }}
@@ -200,6 +200,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    ...Platform.select({
+      ios: {
+        paddingTop: 24,
+      }
+    })
   },
   ellipse: {
     top: 0,

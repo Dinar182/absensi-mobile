@@ -1,6 +1,6 @@
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import moment from 'moment';
-import React, {useCallback, useEffect, useState, useRef} from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {Camera, useCameraDevices} from 'react-native-vision-camera';
-import {dimensionDevice} from './util/GlobalVar';
+import { Camera, useCameraDevices } from 'react-native-vision-camera';
+import { dimensionDevice } from './util/GlobalVar';
 import RNFetchBlob from 'rn-fetch-blob';
-import {useDispatch, useSelector} from 'react-redux';
-import {Dialog} from '@rneui/themed';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dialog } from '@rneui/themed';
 import {
   setAbsen,
   setLat,
@@ -27,8 +27,8 @@ import {
 } from './state/slicer/AbsenState';
 import Geolocation from '@react-native-community/geolocation';
 
-function AbsenCheck({navigation, route}) {
-  const {stat} = route.params;
+function AbsenCheck({ navigation, route }) {
+  const { stat } = route.params;
   const dispatch = useDispatch();
   const latitude = useSelector(state => state.AbsenState.lang);
   const longitude = useSelector(state => state.AbsenState.long);
@@ -39,7 +39,7 @@ function AbsenCheck({navigation, route}) {
   const [upload, setUpload] = useState(false);
   const [uriPhoto, setUriPhoto] = useState('');
   const [today, setToday] = useState(new Date());
-  const {fs} = RNFetchBlob;
+  const { fs } = RNFetchBlob;
   const devices = useCameraDevices();
   const device = devices.front;
   // prettier-ignore
@@ -72,13 +72,13 @@ function AbsenCheck({navigation, route}) {
     const snapshot =
       Platform.OS === 'android'
         ? await cameraRef.current.takeSnapshot({
-            quality: 85,
-            skipMetadata: true,
-          })
+          quality: 85,
+          skipMetadata: true,
+        })
         : await cameraRef.current.takePhoto({
-            qualityPrioritization: 'balanced',
-            skipMetadata: true,
-          });
+          qualityPrioritization: 'balanced',
+          skipMetadata: true,
+        });
 
     if (Platform.OS === 'ios') {
       setUriPhoto(snapshot.path);
@@ -101,7 +101,7 @@ function AbsenCheck({navigation, route}) {
         console.log(err.message);
         console.log('====================================');
       },
-      {enableHighAccuracy: true},
+      { enableHighAccuracy: true },
     );
   }, [dispatch]);
 
@@ -184,7 +184,7 @@ function AbsenCheck({navigation, route}) {
 
         {statusFail === true && uriPhoto !== '' && (
           <Image
-            source={{uri: uriPhoto}}
+            source={{ uri: uriPhoto }}
             resizeMode="contain"
             style={styles.image}
           />
@@ -273,11 +273,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+
   },
   rect1: {
     width: dimensionDevice.widthScreen,
     height: 200,
     backgroundColor: 'rgba(32,83,117,1)',
+    ...Platform.select({
+      ios: {
+        paddingTop: 24
+      }
+    })
   },
   button2: {
     width: 40,
