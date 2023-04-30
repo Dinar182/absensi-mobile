@@ -42,8 +42,22 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
+		<string>Heebo-Bold.ttf</string>
+		<string>Heebo-ExtraLight.ttf</string>
+		<string>Heebo-Light.ttf</string>
+		<string>Heebo-Regular.ttf</string>
+		<string>Mukta-Regular.ttf</string>
+		<string>Pacifico-Regular.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>SecularOne-Regular.ttf</string>
+		<string>SignikaNegative-Regular.ttf</string>
+		<string>impact.ttf</string>
+		<string>Arimo-Bold.ttf</string>
+		<string>Roboto-Thin.ttf</string>
+		<string>Helvetica.ttf</string>
 	</array>
-
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>

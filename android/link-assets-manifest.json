@@ -1,4 +1,65 @@
 {
   "migIndex": 1,
-  "data": []
+  "data": [
+    {
+      "path": "assets/fonts/Arimo-Bold.ttf",
+      "sha1": "89fdc884e2b3bcb16382e99dfd05185327f884b7"
+    },
+    {
+      "path": "assets/fonts/Heebo-Bold.ttf",
+      "sha1": "0e38bb5dc05a181a434c76bd5442da5fb7bc83f8"
+    },
+    {
+      "path": "assets/fonts/Heebo-ExtraLight.ttf",
+      "sha1": "e6a0fb8d3c1e65c1f272d2cba519e9eaf8496d96"
+    },
+    {
+      "path": "assets/fonts/Heebo-Light.ttf",
+      "sha1": "f29d190645b685d6dd54bf391ce7b64445559166"
+    },
+    {
+      "path": "assets/fonts/Heebo-Regular.ttf",
+      "sha1": "296fe9889ef2c8a1e8e4dcf32d72b43c1866d954"
+    },
+    {
+      "path": "assets/fonts/Helvetica.ttf",
+      "sha1": "53cb59bdb997dd39dc70b95d50133583e66ebdcb"
+    },
+    {
+      "path": "assets/fonts/Mukta-Regular.ttf",
+      "sha1": "3f474cd2d21b295198c270ee0bd587c6943d57fe"
+    },
+    {
+      "path": "assets/fonts/Pacifico-Regular.ttf",
+      "sha1": "e31302d2fce7caf5cb86ddde0db78cdac47952bd"
+    },
+    {
+      "path": "assets/fonts/Roboto-Bold.ttf",
+      "sha1": "3a4a7ff4fdba5317d6941e2d66e629df6c3c8cf3"
+    },
+    {
+      "path": "assets/fonts/Roboto-Light.ttf",
+      "sha1": "1f9e268d4e7502ea2d1d34957cbefc620501430d"
+    },
+    {
+      "path": "assets/fonts/Roboto-Regular.ttf",
+      "sha1": "ba879317acdc045b8fa78cb8f948650627d0477c"
+    },
+    {
+      "path": "assets/fonts/Roboto-Thin.ttf",
+      "sha1": "2e5609fc4b59d3d133007785e689373573da7d91"
+    },
+    {
+      "path": "assets/fonts/SecularOne-Regular.ttf",
+      "sha1": "5014f82546a8a04e7a6eba37e0653cf32f19cb07"
+    },
+    {
+      "path": "assets/fonts/SignikaNegative-Regular.ttf",
+      "sha1": "4be4eb1d7236b553f10b696939df048f26c202b5"
+    },
+    {
+      "path": "assets/fonts/impact.ttf",
+      "sha1": "1cc231f6ba7e2c141e28db4eac92b211d4033df6"
+    }
+  ]
 }
