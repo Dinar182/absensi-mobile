@@ -1,26 +1,26 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
-import {Image, Text} from 'react-native';
-import Cuti from '../Cuti';
-import Home from '../Home';
-import History from '../History';
-import Profile from '../Profile';
-import Cover from '../Cover';
-import Login from '../Login';
-import AbsenCheck from '../AbsenCheck';
-import Izin from '../Izin';
-import CoverAbsen from '../Coverabsen';
-import RekapAbsen from '../RekapAbsen';
-import ChangePassword from '../ChangePassword';
-import Gantipass from '../Gantipass';
-import Rekap from '../HasilRekapAbsensi';
-import HasilRekapAbsensi from '../HasilRekapAbsensi';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { Image, Text } from 'react-native';
+import Cuti from '../screen/cuti/Cuti';
+import Home from '../screen/primary/Home';
+import History from '../screen/primary/History';
+import Profile from '../screen/primary/Profile';
+import Cover from '../screen/splash/Cover';
+import Login from '../screen/login/Login';
+import CoverAbsen from '../screen/absen/Coverabsen';
+import RekapAbsen from '../screen/rekapabsen/RekapAbsen';
+import Izin from '../screen/izin/Izin';
+import AbsenCheck from '../screen/absen/AbsenCheck';
+import Gantipass from '../screen/password/Gantipass';
+import HasilRekapAbsensi from '../screen/rekapabsen/HasilRekapAbsensi';
+import GetHistory from '../screen/history/GetHistory';
+import { fontApp } from './GlobalVar';
 
 const StackScreen = createNativeStackNavigator();
 const BottomScreen = createBottomTabNavigator();
 
-const BottomTabScreen = ({navigation, route}) => {
+const BottomTabScreen = ({ navigation, route }) => {
   return (
     <BottomScreen.Navigator
       screenOptions={{
@@ -32,26 +32,28 @@ const BottomTabScreen = ({navigation, route}) => {
           paddingBottom: 8,
           paddingTop: 8,
         },
-      }}>
+      }}
+    >
       <BottomScreen.Screen
         name="Home"
         component={Home}
         options={{
           headerShown: false,
-          tabBarLabel: ({focused}) => {
+          tabBarLabel: ({ focused }) => {
             return (
               <Text
                 style={{
                   color: 'black',
                   opacity: focused ? 0.5 : 1,
-                  fontFamily: 'heebo-700',
+                  fontFamily: fontApp.heebo[700],
                   fontSize: 12,
-                }}>
+                }}
+              >
                 Home
               </Text>
             );
           },
-          tabBarIcon: ({color, focused}) => {
+          tabBarIcon: ({ color, focused }) => {
             return (
               <Image
                 source={require('../../assets/home.png')}
@@ -71,20 +73,21 @@ const BottomTabScreen = ({navigation, route}) => {
         component={History}
         options={{
           headerShown: false,
-          tabBarLabel: ({focused}) => {
+          tabBarLabel: ({ focused }) => {
             return (
               <Text
                 style={{
                   color: 'black',
                   opacity: focused ? 0.5 : 1,
-                  fontFamily: 'heebo-700',
+                  fontFamily: fontApp.heebo[700],
                   fontSize: 12,
-                }}>
+                }}
+              >
                 History
               </Text>
             );
           },
-          tabBarIcon: ({color, focused}) => {
+          tabBarIcon: ({ color, focused }) => {
             return (
               <Image
                 source={require('../../assets/history.png')}
@@ -104,20 +107,21 @@ const BottomTabScreen = ({navigation, route}) => {
         component={Profile}
         options={{
           headerShown: false,
-          tabBarLabel: ({focused}) => {
+          tabBarLabel: ({ focused }) => {
             return (
               <Text
                 style={{
                   color: 'black',
                   opacity: focused ? 0.5 : 1,
-                  fontFamily: 'heebo-700',
+                  fontFamily: fontApp.heebo[700],
                   fontSize: 12,
-                }}>
+                }}
+              >
                 Profile
               </Text>
             );
           },
-          tabBarIcon: ({color, focused}) => {
+          tabBarIcon: ({ color, focused }) => {
             return (
               <Image
                 source={require('../../assets/userhome.png')}
@@ -216,6 +220,16 @@ const RouteManager = () => {
           initialParams={{
             dateStart: '',
             dateEnd: '',
+          }}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <StackScreen.Screen
+          name="GetHistory"
+          component={GetHistory}
+          initialParams={{
+            statHistory: '',
           }}
           options={{
             headerShown: false,
