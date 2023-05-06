@@ -1,505 +1,598 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import React, { Component, useCallback, useEffect } from 'react';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  InteractionManager,
+  ActivityIndicator,
+} from 'react-native';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Svg, { Ellipse } from 'react-native-svg';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { dimensionDevice, fontApp } from '../../util/GlobalVar';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useFocusEffect } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutFetch, setLogoutSuccess } from '../../state/slicer/LoginState';
+import { getKaryawanData, setLoading } from '../../state/slicer/HomeSlicer';
 
 function Profile({ navigation, route }) {
+  const dispatch = useDispatch();
+  const { loading, responseDetail } = useSelector((state) => state.HomeState);
+
+  const { logoutSuccess } = useSelector((state) => state.LoginState);
+
+  const loadDataKaryawan = () => {
+    dispatch(getKaryawanData());
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      const task = InteractionManager.runAfterInteractions(() => {
+        dispatch(setLoading(true));
+        loadDataKaryawan();
+      });
+      return () => {
+        task.cancel();
+      };
+    }, [])
+  );
+
+  useEffect(() => {
+    if (logoutSuccess) {
+      dispatch(setLogoutSuccess(false));
+      navigation.replace('Login');
+    }
+  }, [logoutSuccess]);
+
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          width: dimensionDevice.widthScreen,
-          height: dimensionDevice.heightScreen / 2,
-          position: 'absolute',
-          borderRadius: dimensionDevice.widthScreen / 2,
-          top: -dimensionDevice.heightScreen / 4,
-          transform: [{ scaleX: 2 }],
-          backgroundColor: 'rgba(33,83,118,1)',
-        }}
-      />
-      <View
-        style={{
-          position: 'absolute',
-          top: 70,
-          left: dimensionDevice.widthScreen / 6,
-          right: dimensionDevice.widthScreen / 6,
-          bottom: 0,
-          flexDirection: 'column',
-        }}
-      >
-        <Text
-          style={{
-            marginBottom: 16,
-            fontFamily: fontApp.roboto.regular,
-            color: 'rgba(255,255,255,1)',
-            fontSize: 20,
-          }}
-        >
-          Profile
-        </Text>
+      {loading && responseDetail === null && (
         <View
           style={{
-            borderRadius: 8,
-            backgroundColor: '#E6E6E6',
+            backgroundColor: 'white',
+            flex: 1,
             flexDirection: 'column',
-            padding: 8,
-            height: 175,
-            shadowColor: 'rgba(0,0,0,1)',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            elevation: 15,
-            shadowOpacity: 0.27,
-            shadowRadius: 8,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              marginTop: 8,
+              backgroundColor: '#215376',
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <Image
-              source={require('../../../assets/ailsa.jpeg')}
-              resizeMode="cover"
-              style={styles.image5}
-            />
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-              }}
-            >
-              <Text
-                style={[
-                  styles.ailsaNafaDevina,
-                  {
-                    maxWidth: 170,
-                  },
-                ]}
-                ellipsizeMode="tail"
-                numberOfLines={1}
-              >
-                Ailsa Nafa Devina
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.replace('Login');
-                }}
-                style={{
-                  marginTop: 8,
-                  flexDirection: 'row',
-                  backgroundColor: '#BE061C',
-                  borderRadius: 8,
-                  padding: 8,
-                  width: 90,
-                  height: 35,
-                  alignSelf: 'flex-end',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <EvilIconsIcon
-                  name="arrow-right"
-                  color={'rgba(255,255,255,1)'}
-                  size={28}
-                  style={{
-                    height: 28,
-                  }}
-                />
-                <Text style={styles.logout}>Logout</Text>
-              </TouchableOpacity>
-            </View>
+            <ActivityIndicator size={'large'} color={'rgba(246,107,14,1)'} />
           </View>
+        </View>
+      )}
+
+      {!loading && responseDetail !== null && (
+        <>
           <View
             style={{
-              marginStart: 8,
-              marginEnd: 8,
-              backgroundColor: '#9B9B9B',
-              height: 2,
-              borderRadius: 8,
-              marginTop: 16,
+              width: dimensionDevice.widthScreen,
+              height: dimensionDevice.heightScreen / 2,
+              position: 'absolute',
+              borderRadius: dimensionDevice.widthScreen / 2,
+              top: -dimensionDevice.heightScreen / 4,
+              transform: [{ scaleX: 2 }],
+              backgroundColor: 'rgba(33,83,118,1)',
             }}
           />
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
+              position: 'absolute',
+              top: 70,
+              left: dimensionDevice.widthScreen / 6,
+              right: dimensionDevice.widthScreen / 6,
+              bottom: 0,
+              flexDirection: 'column',
+            }}
+          >
+            <Text
+              style={{
+                marginBottom: 16,
+                fontFamily: fontApp.roboto.regular,
+                color: 'rgba(255,255,255,1)',
+                fontSize: 20,
+              }}
+            >
+              Profile
+            </Text>
+            <View
+              style={{
+                borderRadius: 8,
+                backgroundColor: '#E6E6E6',
+                flexDirection: 'column',
+                padding: 8,
+                height: 175,
+                shadowColor: 'rgba(0,0,0,1)',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                elevation: 15,
+                shadowOpacity: 0.27,
+                shadowRadius: 8,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  marginTop: 8,
+                }}
+              >
+                <Image
+                  source={require('../../../assets/ailsa.jpeg')}
+                  resizeMode="cover"
+                  style={styles.image5}
+                />
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <Text
+                    style={[
+                      styles.ailsaNafaDevina,
+                      {
+                        maxWidth: 170,
+                      },
+                    ]}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                  >
+                    {responseDetail.nama}
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      dispatch(logoutFetch());
+                    }}
+                    style={{
+                      marginTop: 8,
+                      flexDirection: 'row',
+                      backgroundColor: '#BE061C',
+                      borderRadius: 8,
+                      padding: 8,
+                      width: 90,
+                      height: 35,
+                      alignSelf: 'flex-end',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <EvilIconsIcon
+                      name="arrow-right"
+                      color={'rgba(255,255,255,1)'}
+                      size={28}
+                      style={{
+                        height: 28,
+                      }}
+                    />
+                    <Text style={styles.logout}>Logout</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View
+                style={{
+                  marginStart: 8,
+                  marginEnd: 8,
+                  backgroundColor: '#9B9B9B',
+                  height: 2,
+                  borderRadius: 8,
+                  marginTop: 16,
+                }}
+              />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                  alignItems: 'center',
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: 8,
+                  }}
+                >
+                  <EntypoIcon name="bar-graph" style={styles.icon7} />
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      marginStart: 8,
+                    }}
+                  >
+                    <Text style={styles.divisi}>Divisi</Text>
+                    <Text
+                      numberOfLines={2}
+                      ellipsizeMode="tail"
+                      style={[
+                        styles.finance,
+                        {
+                          width: 80,
+                          fontSize: 12,
+                        },
+                      ]}
+                    >
+                      {responseDetail.divisi}
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    height: 50,
+                    marginTop: 8,
+                    marginStart: 8,
+                    marginEnd: 8,
+                    width: 2,
+                    backgroundColor: '#9B9B9B',
+                  }}
+                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: 8,
+                  }}
+                >
+                  <EntypoIcon name="briefcase" style={styles.icon6} />
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      marginStart: 8,
+                    }}
+                  >
+                    <Text style={styles.divisi}>Jabatan</Text>
+                    <Text
+                      numberOfLines={2}
+                      ellipsizeMode="tail"
+                      style={[
+                        styles.finance,
+                        {
+                          width: 80,
+                          fontSize: 12,
+                        },
+                      ]}
+                    >
+                      {responseDetail.jabatan}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              marginTop: dimensionDevice.heightScreen / 2.7,
+              marginStart: dimensionDevice.widthScreen / 7,
+              marginEnd: dimensionDevice.widthScreen / 7,
+              flexDirection: 'column',
+              flexGrow: 1,
             }}
           >
             <View
               style={{
                 flexDirection: 'row',
-                marginTop: 8,
+                marginBottom: 8,
               }}
             >
-              <EntypoIcon name="bar-graph" style={styles.icon7} />
-              <View
-                style={{
-                  flexDirection: 'column',
-                  marginStart: 8,
-                }}
-              >
-                <Text style={styles.divisi}>Divisi</Text>
-                <Text style={styles.finance}>Finance</Text>
-              </View>
+              <EntypoIcon name="v-card" style={styles.icon3} />
+              <Text style={styles.dataDiri}>Data Diri</Text>
             </View>
-            <View
-              style={{
-                height: 50,
-                marginTop: 8,
-                width: 2,
-                backgroundColor: '#9B9B9B',
-              }}
-            />
             <View
               style={{
                 flexDirection: 'row',
-                marginTop: 8,
+                justifyContent: 'flex-start',
+                marginBottom: 4,
               }}
             >
-              <EntypoIcon name="briefcase" style={styles.icon6} />
-              <View
-                style={{
-                  flexDirection: 'column',
-                  marginStart: 8,
-                }}
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
               >
-                <Text style={styles.divisi}>Jabatan</Text>
-                <Text style={styles.finance}>Staff</Text>
-              </View>
+                Nama Lengkap
+              </Text>
+              <Text style={styles.namaLengkapId}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.nama}
+              </Text>
             </View>
-          </View>
-        </View>
-      </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          marginTop: dimensionDevice.heightScreen / 2.7,
-          marginStart: dimensionDevice.widthScreen / 7,
-          marginEnd: dimensionDevice.widthScreen / 7,
-          flexDirection: 'column',
-          flexGrow: 1,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            marginBottom: 8,
-          }}
-        >
-          <EntypoIcon name="v-card" style={styles.icon3} />
-          <Text style={styles.dataDiri}>Data Diri</Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Nama Lengkap
-          </Text>
-          <Text style={styles.namaLengkapId}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            Ailsa Nafa Devina
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            ID
-          </Text>
-          <Text style={styles.namaLengkapId}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            003
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Email
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            ailsanafadevina@gmail.com
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Telepon
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            089999222444
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Nomer KTP
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            3374567890212121
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Tanggal Lahir
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            07 Januari 2001
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Jenis Kelamin
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            Perempuan
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Agama
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            Islam
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Alamat
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            Jalan Tandang 2/11
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            marginBottom: 4,
-          }}
-        >
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                width: 100,
-              },
-            ]}
-          >
-            Status
-          </Text>
-          <Text style={[styles.namaLengkapId]}>:</Text>
-          <Text
-            style={[
-              styles.namaLengkapId,
-              {
-                marginStart: 8,
-              },
-            ]}
-          >
-            Belum Menikah
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate('ChangePasword');
-          }}
-        >
-          <View style={styles.icon2Row}>
-            <MaterialCommunityIconsIcon name="account-key" style={styles.icon2} />
-            <Text style={styles.gantiPassword}>Ganti Password</Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                NIP
+              </Text>
+              <Text style={styles.namaLengkapId}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.nip}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Email
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.email}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Telepon
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.no_telp}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Nomer KTP
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.nik}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Tanggal Lahir
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.tgl_lahir}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Jenis Kelamin
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.jenis_kelamin}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Agama
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.agama}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Alamat
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.alamat}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    width: 100,
+                  },
+                ]}
+              >
+                Status
+              </Text>
+              <Text style={[styles.namaLengkapId]}>:</Text>
+              <Text
+                style={[
+                  styles.namaLengkapId,
+                  {
+                    marginStart: 8,
+                  },
+                ]}
+              >
+                {responseDetail.status_pernikahan}
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate('ChangePasword');
+              }}
+            >
+              <View style={styles.icon2Row}>
+                <MaterialCommunityIconsIcon name="account-key" style={styles.icon2} />
+                <Text style={styles.gantiPassword}>Ganti Password</Text>
+              </View>
+            </TouchableOpacity>
+          </ScrollView>
+        </>
+      )}
     </View>
   );
 }

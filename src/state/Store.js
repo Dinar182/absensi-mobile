@@ -4,11 +4,13 @@ import { createLogger } from 'redux-logger';
 import AbsenState from './slicer/AbsenState';
 import LoginState from './slicer/LoginState';
 import HistoryAbsenState from './slicer/HistoryAbsenState';
+import HomeSlicer from './slicer/HomeSlicer';
 
 const rootReducer = combineReducers({
   AbsenState: AbsenState,
   LoginState: LoginState,
   HistoryState: HistoryAbsenState,
+  HomeState: HomeSlicer,
 });
 
 const logger = createLogger();

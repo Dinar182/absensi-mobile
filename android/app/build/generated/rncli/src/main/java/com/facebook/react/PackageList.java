@@ -19,6 +19,8 @@ import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
 // @react-native-masked-view/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
+// react-native-device-info
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 // react-native-mmkv
@@ -86,6 +88,7 @@ public class PackageList {
       new RNDateTimePickerPackage(),
       new GeolocationPackage(),
       new RNCMaskedViewPackage(),
+      new RNDeviceInfo(),
       new RNGestureHandlerPackage(),
       new MmkvPackage(),
       new RNPermissionsPackage(),

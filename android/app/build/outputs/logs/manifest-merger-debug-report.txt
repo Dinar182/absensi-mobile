@@ -12,6 +12,7 @@ MERGED from [:react-native-vector-icons] /home/faa/Documents/absensi-mobile/node
 MERGED from [:react-native-community_datetimepicker] /home/faa/Documents/absensi-mobile/node_modules/@react-native-community/datetimepicker/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-community_geolocation] /home/faa/Documents/absensi-mobile/node_modules/@react-native-community/geolocation/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-masked-view_masked-view] /home/faa/Documents/absensi-mobile/node_modules/@react-native-masked-view/masked-view/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-device-info] /home/faa/Documents/absensi-mobile/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-gesture-handler] /home/faa/Documents/absensi-mobile/node_modules/react-native-gesture-handler/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-mmkv] /home/faa/Documents/absensi-mobile/node_modules/react-native-mmkv/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-permissions] /home/faa/Documents/absensi-mobile/node_modules/react-native-permissions/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -47,8 +48,10 @@ MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /home/faa/.gradle/caches/tr
 MERGED from [androidx.appcompat:appcompat-resources:1.4.1] /home/faa/.gradle/caches/transforms-3/c10bb5e6b3f5dcf7b6548984476ee588/transformed/jetified-appcompat-resources-1.4.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.autofill:autofill:1.1.0] /home/faa/.gradle/caches/transforms-3/97aa19878e2d0d07709ad1e6d84d3065/transformed/jetified-autofill-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-location:20.0.0] /home/faa/.gradle/caches/transforms-3/1a0637a233d398d8f562df752460c19f/transformed/jetified-play-services-location-20.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:17:1-28:12
 MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:16:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/faa/.gradle/caches/transforms-3/9b1e3243163799236d737fad6c5f859c/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/faa/.gradle/caches/transforms-3/93b160e40651865bd8ab9e129d35972a/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:16:1-26:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/faa/.gradle/caches/transforms-3/8d8bf0ed3d88cfda20e86f963f79a7ca/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.fragment:fragment:1.3.6] /home/faa/.gradle/caches/transforms-3/c2c5da49c1fc84b9914f31b8318728d4/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
@@ -77,6 +80,7 @@ MERGED from [androidx.viewpager:viewpager:1.0.0] /home/faa/.gradle/caches/transf
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/faa/.gradle/caches/transforms-3/bf6ce4dff9b9f08dcd11fa6d11e1b111/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.0.0] /home/faa/.gradle/caches/transforms-3/b7768745132d401d5f68ea8f173b9765/transformed/customview-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.transition:transition:1.2.0] /home/faa/.gradle/caches/transforms-3/54c418b687e7c288a00295001ef9774c/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/faa/.gradle/caches/transforms-3/20a9b23f666e914d1d568cb27da126ab/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] /home/faa/.gradle/caches/transforms-3/695dd62e9acea732cc0dbb0c36d62612/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core:1.7.0] /home/faa/.gradle/caches/transforms-3/08e1174eef2c209ea18090f1084adbcb/transformed/core-1.7.0/AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/faa/.gradle/caches/transforms-3/4544e5ec7067da5a4ff2cb3a2c9d4103/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -89,6 +93,10 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/faa/.gradle/cach
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] /home/faa/.gradle/caches/transforms-3/d4dd93e17aad6fa0bdce406f4f0d4f40/transformed/lifecycle-livedata-core-2.3.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] /home/faa/.gradle/caches/transforms-3/384373dfdc1c875b0658779e880f6a49/transformed/lifecycle-runtime-2.4.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/faa/.gradle/caches/transforms-3/bfdfefe9d16c41e09acadb898b32b219/transformed/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/faa/.gradle/caches/transforms-3/7237b9b9132a197f77203d256ec2a54e/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/faa/.gradle/caches/transforms-3/d61d8a517a36108b6f68dbf161426583/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/faa/.gradle/caches/transforms-3/4a0c5deb44ab10a9e77ab04b63e6df12/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.installreferrer:installreferrer:1.1.2] /home/faa/.gradle/caches/transforms-3/77498e0166932904294411b98df9c2b7/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:2:1-13:12
 MERGED from [com.facebook.fresco:fbcore:2.6.0] /home/faa/.gradle/caches/transforms-3/836b5c51d03b446648d5e9da403d60f4/transformed/jetified-fbcore-2.6.0/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/faa/.gradle/caches/transforms-3/e0a1603de116f315cea80cdc8604a239/transformed/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:17:1-24:12
 INJECTED from /home/faa/Documents/absensi-mobile/android/app/src/debug/AndroidManifest.xml:2:1-13:12
@@ -116,6 +124,8 @@ MERGED from [com.facebook.flipper:flipper:0.125.0] /home/faa/.gradle/caches/tran
 MERGED from [com.facebook.flipper:flipper:0.125.0] /home/faa/.gradle/caches/transforms-3/236929aa564a4c4dfa1b417642a2a2ae/transformed/jetified-flipper-0.125.0/AndroidManifest.xml:15:5-67
 MERGED from [:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-67
 MERGED from [:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:13:5-67
+MERGED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:24:5-67
 	android:name
 		ADDED from /home/faa/Documents/absensi-mobile/android/app/src/main/AndroidManifest.xml:3:22-64
 uses-permission#android.permission.CAMERA
@@ -156,10 +166,14 @@ MERGED from [com.google.android.material:material:1.1.0] /home/faa/.gradle/cache
 MERGED from [com.google.android.material:material:1.1.0] /home/faa/.gradle/caches/transforms-3/4af7f0d23266db3f5bdb15fc939a61bd/transformed/material-1.1.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-location:20.0.0] /home/faa/.gradle/caches/transforms-3/1a0637a233d398d8f562df752460c19f/transformed/jetified-play-services-location-20.0.0/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-location:20.0.0] /home/faa/.gradle/caches/transforms-3/1a0637a233d398d8f562df752460c19f/transformed/jetified-play-services-location-20.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:26:5-20
+MERGED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:26:5-20
 MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
 MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:19:5-23:19
 MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/faa/.gradle/caches/transforms-3/9b1e3243163799236d737fad6c5f859c/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
 MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/faa/.gradle/caches/transforms-3/9b1e3243163799236d737fad6c5f859c/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/faa/.gradle/caches/transforms-3/93b160e40651865bd8ab9e129d35972a/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/faa/.gradle/caches/transforms-3/93b160e40651865bd8ab9e129d35972a/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
 MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:20:5-24:19
 MERGED from [androidx.emoji2:emoji2:1.0.0] /home/faa/.gradle/caches/transforms-3/30102b16e64b2b966e993f978f0d77f3/transformed/jetified-emoji2-1.0.0/AndroidManifest.xml:25:5-35:19
@@ -178,6 +192,8 @@ MERGED from [androidx.core:core:1.7.0] /home/faa/.gradle/caches/transforms-3/08e
 MERGED from [androidx.core:core:1.7.0] /home/faa/.gradle/caches/transforms-3/08e1174eef2c209ea18090f1084adbcb/transformed/core-1.7.0/AndroidManifest.xml:24:5-89
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/faa/.gradle/caches/transforms-3/7de4cb111fcc2bef0540bb573df92db9/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/faa/.gradle/caches/transforms-3/7de4cb111fcc2bef0540bb573df92db9/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [com.android.installreferrer:installreferrer:1.1.2] /home/faa/.gradle/caches/transforms-3/77498e0166932904294411b98df9c2b7/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:11:5-20
+MERGED from [com.android.installreferrer:installreferrer:1.1.2] /home/faa/.gradle/caches/transforms-3/77498e0166932904294411b98df9c2b7/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:11:5-20
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.7.0] /home/faa/.gradle/caches/transforms-3/08e1174eef2c209ea18090f1084adbcb/transformed/core-1.7.0/AndroidManifest.xml:24:18-86
 	android:label
@@ -246,6 +262,8 @@ MERGED from [:react-native-community_geolocation] /home/faa/Documents/absensi-mo
 MERGED from [:react-native-community_geolocation] /home/faa/Documents/absensi-mobile/node_modules/@react-native-community/geolocation/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-masked-view_masked-view] /home/faa/Documents/absensi-mobile/node_modules/@react-native-masked-view/masked-view/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-masked-view_masked-view] /home/faa/Documents/absensi-mobile/node_modules/@react-native-masked-view/masked-view/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-device-info] /home/faa/Documents/absensi-mobile/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-device-info] /home/faa/Documents/absensi-mobile/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-gesture-handler] /home/faa/Documents/absensi-mobile/node_modules/react-native-gesture-handler/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-gesture-handler] /home/faa/Documents/absensi-mobile/node_modules/react-native-gesture-handler/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-mmkv] /home/faa/Documents/absensi-mobile/node_modules/react-native-mmkv/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -316,10 +334,14 @@ MERGED from [androidx.autofill:autofill:1.1.0] /home/faa/.gradle/caches/transfor
 MERGED from [androidx.autofill:autofill:1.1.0] /home/faa/.gradle/caches/transforms-3/97aa19878e2d0d07709ad1e6d84d3065/transformed/jetified-autofill-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-location:20.0.0] /home/faa/.gradle/caches/transforms-3/1a0637a233d398d8f562df752460c19f/transformed/jetified-play-services-location-20.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:20.0.0] /home/faa/.gradle/caches/transforms-3/1a0637a233d398d8f562df752460c19f/transformed/jetified-play-services-location-20.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
 MERGED from [com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:18:5-43
 MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/faa/.gradle/caches/transforms-3/9b1e3243163799236d737fad6c5f859c/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
 MERGED from [com.google.android.gms:play-services-tasks:18.0.1] /home/faa/.gradle/caches/transforms-3/9b1e3243163799236d737fad6c5f859c/transformed/jetified-play-services-tasks-18.0.1/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/faa/.gradle/caches/transforms-3/93b160e40651865bd8ab9e129d35972a/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/faa/.gradle/caches/transforms-3/93b160e40651865bd8ab9e129d35972a/transformed/jetified-play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
 MERGED from [com.google.android.gms:play-services-basement:18.0.0] /home/faa/.gradle/caches/transforms-3/f459165926443eebfe8062b38b19678e/transformed/jetified-play-services-basement-18.0.0/AndroidManifest.xml:18:5-43
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /home/faa/.gradle/caches/transforms-3/8d8bf0ed3d88cfda20e86f963f79a7ca/transformed/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
@@ -376,6 +398,8 @@ MERGED from [androidx.customview:customview:1.0.0] /home/faa/.gradle/caches/tran
 MERGED from [androidx.customview:customview:1.0.0] /home/faa/.gradle/caches/transforms-3/b7768745132d401d5f68ea8f173b9765/transformed/customview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.transition:transition:1.2.0] /home/faa/.gradle/caches/transforms-3/54c418b687e7c288a00295001ef9774c/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.transition:transition:1.2.0] /home/faa/.gradle/caches/transforms-3/54c418b687e7c288a00295001ef9774c/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/faa/.gradle/caches/transforms-3/20a9b23f666e914d1d568cb27da126ab/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/faa/.gradle/caches/transforms-3/20a9b23f666e914d1d568cb27da126ab/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /home/faa/.gradle/caches/transforms-3/695dd62e9acea732cc0dbb0c36d62612/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /home/faa/.gradle/caches/transforms-3/695dd62e9acea732cc0dbb0c36d62612/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.7.0] /home/faa/.gradle/caches/transforms-3/08e1174eef2c209ea18090f1084adbcb/transformed/core-1.7.0/AndroidManifest.xml:20:5-22:41
@@ -400,6 +424,14 @@ MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] /home/faa/.gradle/cache
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] /home/faa/.gradle/caches/transforms-3/384373dfdc1c875b0658779e880f6a49/transformed/lifecycle-runtime-2.4.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/faa/.gradle/caches/transforms-3/bfdfefe9d16c41e09acadb898b32b219/transformed/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/faa/.gradle/caches/transforms-3/bfdfefe9d16c41e09acadb898b32b219/transformed/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/faa/.gradle/caches/transforms-3/7237b9b9132a197f77203d256ec2a54e/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/faa/.gradle/caches/transforms-3/7237b9b9132a197f77203d256ec2a54e/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/faa/.gradle/caches/transforms-3/d61d8a517a36108b6f68dbf161426583/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/faa/.gradle/caches/transforms-3/d61d8a517a36108b6f68dbf161426583/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/faa/.gradle/caches/transforms-3/4a0c5deb44ab10a9e77ab04b63e6df12/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/faa/.gradle/caches/transforms-3/4a0c5deb44ab10a9e77ab04b63e6df12/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.installreferrer:installreferrer:1.1.2] /home/faa/.gradle/caches/transforms-3/77498e0166932904294411b98df9c2b7/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.installreferrer:installreferrer:1.1.2] /home/faa/.gradle/caches/transforms-3/77498e0166932904294411b98df9c2b7/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:2.6.0] /home/faa/.gradle/caches/transforms-3/836b5c51d03b446648d5e9da403d60f4/transformed/jetified-fbcore-2.6.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:2.6.0] /home/faa/.gradle/caches/transforms-3/836b5c51d03b446648d5e9da403d60f4/transformed/jetified-fbcore-2.6.0/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] /home/faa/.gradle/caches/transforms-3/e0a1603de116f315cea80cdc8604a239/transformed/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
@@ -456,6 +488,10 @@ ADDED from [:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-f
 		ADDED from [:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:41:17-55
 	android:name
 		ADDED from [:rn-fetch-blob] /home/faa/Documents/absensi-mobile/node_modules/rn-fetch-blob/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:40:17-67
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:23:5-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-iid:17.0.0] /home/faa/.gradle/caches/transforms-3/867f761e584dda73cba59b19016e0d10/transformed/jetified-play-services-iid-17.0.0/AndroidManifest.xml:23:22-79
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:18.0.1] /home/faa/.gradle/caches/transforms-3/bba8b0a0859a6350c0a29a8db486a41f/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
 	android:exported
@@ -530,3 +566,7 @@ ADDED from [androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/cache
 		ADDED from [androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:34:17-86
 	android:name
 		ADDED from [androidx.camera:camera-camera2:1.1.0-beta02] /home/faa/.gradle/caches/transforms-3/66baf5137f545edbca8625f192b6803c/transformed/jetified-camera-camera2-1.1.0-beta02/AndroidManifest.xml:33:17-103
+uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+ADDED from [com.android.installreferrer:installreferrer:1.1.2] /home/faa/.gradle/caches/transforms-3/77498e0166932904294411b98df9c2b7/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:5-110
+	android:name
+		ADDED from [com.android.installreferrer:installreferrer:1.1.2] /home/faa/.gradle/caches/transforms-3/77498e0166932904294411b98df9c2b7/transformed/jetified-installreferrer-1.1.2/AndroidManifest.xml:9:22-107

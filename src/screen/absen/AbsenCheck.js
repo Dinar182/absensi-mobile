@@ -19,6 +19,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dialog } from '@rneui/themed';
 import {
+  absenCheck,
   setAbsen,
   setLat,
   setLoading,
@@ -26,15 +27,16 @@ import {
   setOpenBottom,
 } from '../../state/slicer/AbsenState';
 import Geolocation from '@react-native-community/geolocation';
+import { lookup } from 'react-native-mime-types';
 
 function AbsenCheck({ navigation, route }) {
   const { stat } = route.params;
+
   const dispatch = useDispatch();
-  const latitude = useSelector((state) => state.AbsenState.lang);
-  const longitude = useSelector((state) => state.AbsenState.long);
-  const loadingScreen = useSelector((state) => state.AbsenState.loading);
-  const absenState = useSelector((state) => state.AbsenState.absen);
-  const openBott = useSelector((state) => state.AbsenState.openBottom);
+  const { lang, long, absen, openBottom, loading, messageAbsen } = useSelector(
+    (state) => state.AbsenState
+  );
+
   const [statusFail, setStatusFail] = useState(false);
   const [upload, setUpload] = useState(false);
   const [uriPhoto, setUriPhoto] = useState('');
@@ -80,13 +82,32 @@ function AbsenCheck({ navigation, route }) {
             skipMetadata: true,
           });
 
+    let uriX = snapshot.path;
+    let mimeType = lookup(snapshot.path);
+    let name = snapshot.path.replace(/^.*[\\\/]/, '');
+
+    const dataUpload = {
+      name: name,
+      type: mimeType,
+      uri: Platform.OS === 'android' ? 'file://' + uriX : uriX,
+    };
+
+    dispatch(
+      absenCheck({
+        lat: lang,
+        long: long,
+        fileUp: dataUpload,
+        jam: moment(new Date()).format('HH:MM'),
+      })
+    );
+
     if (Platform.OS === 'ios') {
       setUriPhoto(snapshot.path);
     } else {
       setUriPhoto(`file://${snapshot.path}`);
     }
     setStatusFail(true);
-    await dispatch(setAbsen(true));
+    dispatch(setAbsen(true));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFail, uriPhoto, upload]);
 
@@ -106,9 +127,13 @@ function AbsenCheck({ navigation, route }) {
   }, [dispatch]);
 
   const resetTake = useCallback(async () => {
-    await fs.unlink(uriPhoto);
-    setUriPhoto('');
-    setStatusFail(false);
+    if (uriPhoto === '') {
+    } else {
+      await fs.unlink(uriPhoto);
+      setUriPhoto('');
+      setStatusFail(false);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFail, uriPhoto]);
 
@@ -185,7 +210,7 @@ function AbsenCheck({ navigation, route }) {
         )}
 
         {statusFail === true && uriPhoto !== '' && (
-          <Image source={{ uri: uriPhoto }} resizeMode="contain" style={styles.image} />
+          <Image source={{ uri: uriPhoto }} resizeMode="cover" style={{ flex: 1 }} />
         )}
       </View>
 
@@ -208,17 +233,17 @@ function AbsenCheck({ navigation, route }) {
         </TouchableOpacity>
       </View>
       <Dialog
-        isVisible={openBott}
+        isVisible={openBottom}
         overlayStyle={{
-          height: absenState ? 150 : 75,
-          width: absenState ? 250 : 75,
+          height: absen ? 150 : 75,
+          width: absen ? 250 : 75,
           backgroundColor: 'white',
           borderWidth: 0,
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        {absenState === false && (
+        {absen === false && (
           <ActivityIndicator
             style={{
               height: 25,
@@ -228,7 +253,7 @@ function AbsenCheck({ navigation, route }) {
             color={'rgba(32,83,117,1)'}
           />
         )}
-        {absenState === true && (
+        {absen === true && (
           <View
             style={{
               flexDirection: 'column',
@@ -241,7 +266,7 @@ function AbsenCheck({ navigation, route }) {
                 fontSize: 20,
               }}
             >
-              Berhasil Absen {stat === 0 ? 'Masuk' : 'Keluar'}
+              {messageAbsen}
             </Text>
             <TouchableOpacity
               onPress={() => {

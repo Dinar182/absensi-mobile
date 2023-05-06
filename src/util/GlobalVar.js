@@ -77,6 +77,8 @@ const urlApi = {
   daily_absen: 'api//dayli_absen_karyawan',
 };
 
+const urlBase = 'https://absensi.mkopsrv1.com/';
+
 const ListHistory = ({ data }) => {
   const colorStatus = () => {
     switch (data.item.item.status) {
@@ -243,4 +245,4 @@ const ListHistory = ({ data }) => {
   );
 };
 
-export { textApp, colorApp, fontApp, dimensionDevice, urlApi, dummyList, ListHistory };
+export { textApp, colorApp, fontApp, dimensionDevice, urlApi, dummyList, ListHistory, urlBase };
