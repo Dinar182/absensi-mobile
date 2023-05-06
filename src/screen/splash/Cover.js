@@ -11,8 +11,9 @@ import {
   Platform,
 } from 'react-native';
 import Svg, { Ellipse } from 'react-native-svg';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import { dimensionDevice, fontApp, textApp } from '../../util/GlobalVar';
 import { PermissionUtil } from '../../util/PermissionUtil';
+import { SessionManager } from '../../util/SessionManager';
 
 function Cover({ navigation, route }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,6 +61,21 @@ function Cover({ navigation, route }) {
     }
     return false;
   };
+
+  const SplashProsess = useCallback(() => {
+    const timeChange = setTimeout(() => {
+      const sesi = SessionManager.GetAsObject(textApp.session);
+      if (sesi !== null) {
+        navigation.replace('Main');
+      } else {
+        navigation.replace('Login');
+      }
+    }, 5000);
+    return () => {
+      clearTimeout(timeChange);
+    };
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
@@ -68,19 +84,10 @@ function Cover({ navigation, route }) {
         }
       });
       return () => {
-        task.cancel;
+        task.cancel();
       };
-    }, [SplashProsess, permissionChecking])
+    }, [])
   );
-
-  const SplashProsess = useCallback(() => {
-    const timeChange = setTimeout(() => {
-      navigation.replace('Login');
-    }, 5000);
-    return () => {
-      clearTimeout(timeChange);
-    };
-  }, [navigation]);
 
   return (
     <View style={styles.container}>

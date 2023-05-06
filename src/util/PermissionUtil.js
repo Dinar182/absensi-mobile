@@ -1,9 +1,6 @@
-import {Platform} from 'react-native';
-import {
-  PERMISSIONS,
-  checkMultiple,
-  requestMultiple,
-} from 'react-native-permissions';
+import { Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+import { PERMISSIONS, checkMultiple, requestMultiple } from 'react-native-permissions';
 
 const PermissionUtil = {
   checkPermission: async () => {
@@ -52,4 +49,4 @@ const PermissionUtil = {
   },
 };
 
-export {PermissionUtil};
+export { PermissionUtil };

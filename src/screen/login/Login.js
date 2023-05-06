@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -11,25 +11,42 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from 'react-native';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import { dimensionDevice, fontApp, urlApi } from '../../util/GlobalVar';
 import { Dialog, Input } from '@rneui/themed';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginFetch, setLoading, setPassword, setUsername } from '../../state/slicer/LoginState';
+import {
+  loginFetch,
+  setLoading,
+  setLoginSuccess,
+  setPassword,
+  setUsername,
+} from '../../state/slicer/LoginState';
+import { Api } from '../../util/Api';
 
 function Login({ navigation, route }) {
   const dispatch = useDispatch();
-  const { username, password, loading } = useSelector((state) => state.LoginState);
+  const { username, password, loading, loginSuccess } = useSelector((state) => state.LoginState);
   useFocusEffect(useCallback(() => {}, []));
 
   const loginProcess = () => {
-    // const param = {
-    //   user: username,
-    //   pass: password,
-    // };
-    // dispatch(setLoading(true));
-    // dispatch(loginFetch(param));
-    navigation.replace('Main');
+    const param = {
+      user: username,
+      pass: password,
+    };
+    const form = new FormData();
+    form.append('username', username);
+    form.append('password', password);
+
+    dispatch(setLoading(true));
+    dispatch(loginFetch(param));
   };
+
+  useEffect(() => {
+    if (loginSuccess) {
+      dispatch(setLoginSuccess(false));
+      navigation.replace('Main');
+    }
+  }, [dispatch, loginSuccess]);
   return (
     <KeyboardAvoidingView
       enabled
@@ -223,7 +240,9 @@ function Login({ navigation, route }) {
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column',
-          flexGrow: 1,
+          backgroundColor: 'white',
+          width: 100,
+          height: 100,
         }}
       >
         <ActivityIndicator size={'large'} color={'#F26A13'} />

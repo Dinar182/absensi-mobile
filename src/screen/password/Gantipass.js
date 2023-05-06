@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -11,15 +11,52 @@ import {
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { Input } from '@rneui/themed';
 import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFocusEffect } from '@react-navigation/native';
+import {
+  changePassFetch,
+  setKonfirmPass,
+  setNewPass,
+  setOldPass,
+  setStateChangePass,
+} from '../../state/slicer/LoginState';
+import { MessageUtil } from '../../util/MessageUtil';
 
 function Gantipass({ navigation, route }) {
+  const dispatch = useDispatch();
+  const { loading, passwordLama, passwordBaru, konfirmBaru, stateChangePass } = useSelector(
+    (state) => state.LoginState
+  );
+
+  const validateChange = () => {
+    if (passwordBaru !== konfirmBaru) {
+      MessageUtil.warningMessage('Perhatian', 'Konfirmasi Password Salah, Mohon Cek Kembali!');
+    } else if (passwordBaru.length === 0 || passwordLama.length === 0 || konfirmBaru.length === 0) {
+      MessageUtil.warningMessage('Perhatian', 'Form Tidak Boleh Kosong, Mohon Cek Kembali!');
+    } else {
+      dispatch(
+        changePassFetch({
+          oldPass: passwordLama,
+          newPass: passwordBaru,
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (stateChangePass) {
+      dispatch(setStateChangePass(false));
+      navigation.goBack();
+    }
+  }, [stateChangePass]);
+
   return (
     <KeyboardAvoidingView
       enabled
       style={{
         flex: 1,
       }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <View
         style={{
@@ -76,7 +113,8 @@ function Gantipass({ navigation, route }) {
           flexGrow: 1,
           height: dimensionDevice.heightWindow,
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
+          paddingTop: dimensionDevice.heightWindow / 10,
         }}
       >
         <Text
@@ -104,6 +142,10 @@ function Gantipass({ navigation, route }) {
           }}
         >
           <Input
+            value={passwordLama}
+            onChangeText={(txt) => {
+              dispatch(setOldPass(txt));
+            }}
             placeholder="Masukan Password Sebelumnya"
             placeholderTextColor={'white'}
             leftIcon={() => (
@@ -157,6 +199,10 @@ function Gantipass({ navigation, route }) {
           }}
         >
           <Input
+            value={passwordBaru}
+            onChangeText={(txt) => {
+              dispatch(setNewPass(txt));
+            }}
             placeholder="Masukan Password Baru"
             placeholderTextColor={'white'}
             leftIcon={() => (
@@ -209,6 +255,10 @@ function Gantipass({ navigation, route }) {
           }}
         >
           <Input
+            value={konfirmBaru}
+            onChangeText={(txt) => {
+              dispatch(setKonfirmPass(txt));
+            }}
             placeholder="Masukan Konfirmasi Password"
             placeholderTextColor={'white'}
             leftIcon={() => (
@@ -238,6 +288,9 @@ function Gantipass({ navigation, route }) {
           />
         </View>
         <TouchableOpacity
+          onPress={() => {
+            validateChange();
+          }}
           style={{
             height: 35,
             width: 175,
