@@ -1,12 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, FlatList, Platform } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, StyleSheet, Text, FlatList, Platform, InteractionManager } from 'react-native';
 import { dimensionDevice, fontApp } from '../../util/GlobalVar';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useFocusEffect } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { rekapFetch, setLoading } from '../../state/slicer/HistoryState';
+import moment from 'moment';
 
 const HasilRekapAbsensi = ({ navigation, route }) => {
   const { dateStart, dateEnd } = route.params;
+  const { loading, rekapAbsen } = useSelector((state) => state.HistoryState);
+  const dispatch = useDispatch();
+
+  useFocusEffect(
+    useCallback(() => {
+      const task = InteractionManager.runAfterInteractions(() => {
+        dispatch(setLoading(true));
+        dispatch(
+          rekapFetch({
+            dateStart: dateStart,
+            dateEnd: dateEnd,
+          })
+        );
+      });
+      return () => {
+        task.cancel();
+      };
+    }, [navigation])
+  );
+
   return (
     <View
       style={{
@@ -110,7 +134,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
                   },
                 ]}
               >
-                Total Terlambat 0
+                Total Terlambat
               </Text>
             </View>
             <Text
@@ -122,7 +146,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
                 },
               ]}
             >
-              0
+              {rekapAbsen !== null && loading === false ? rekapAbsen.rekap_absensi.total_telat : 0}
             </Text>
           </View>
           <View
@@ -160,7 +184,9 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
                 },
               ]}
             >
-              0
+              {rekapAbsen !== null && loading === false
+                ? rekapAbsen.rekap_absensi.tidak_absen_pulang
+                : 0}
             </Text>
           </View>
           <View
@@ -198,7 +224,9 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
                 },
               ]}
             >
-              0
+              {rekapAbsen !== null && loading === false
+                ? rekapAbsen.rekap_absensi.tidak_absen_masuk
+                : 0}
             </Text>
           </View>
         </View>
@@ -209,6 +237,8 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
           flex: 1,
           borderTopStartRadius: 50,
           borderTopEndRadius: 50,
+          paddingEnd: 24,
+          paddingStart: 24,
           marginTop: 36,
           flexDirection: 'column',
           padding: 16,
@@ -219,7 +249,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
           style={{
             flexDirection: 'row',
             marginTop: 8,
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
           }}
         >
           <Text
@@ -256,7 +286,71 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
             Absen Pulang
           </Text>
         </View>
-        <FlatList showsVerticalScrollIndicator={false} />
+        {rekapAbsen !== null && !loading && (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={rekapAbsen.detail_rekap}
+            ItemSeparatorComponent={() => {
+              return (
+                <View
+                  style={{
+                    backgroundColor: 'black',
+                    height: 1,
+                    width: dimensionDevice.widthWindow,
+                    marginEnd: 8,
+                    marginStart: 8,
+                    borderRadius: 8,
+                  }}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => `${item.nip}+${index}`}
+            renderItem={({ item }) => {
+              return (
+                <View
+                  style={{
+                    marginEnd: 8,
+                    marginStart: 8,
+                    marginBottom: 4,
+                    marginTop: 4,
+                    padding: 8,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: fontApp.roboto.regular,
+                      color: 'black',
+                      fontSize: 12,
+                    }}
+                  >
+                    {item.tanggal}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: fontApp.roboto.regular,
+                      color: 'black',
+                      fontSize: 12,
+                    }}
+                  >
+                    {item.jam_masuk.length > 0 ? item.jam_masuk : '00:00:00'}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: fontApp.roboto.regular,
+                      color: 'black',
+                      fontSize: 12,
+                    }}
+                  >
+                    {item.jam_pulang.length > 0 ? item.jam_pulang : '00:00:00'}
+                  </Text>
+                </View>
+              );
+            }}
+          />
+        )}
       </View>
     </View>
   );

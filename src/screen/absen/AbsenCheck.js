@@ -28,34 +28,158 @@ import {
 } from '../../state/slicer/AbsenState';
 import Geolocation from '@react-native-community/geolocation';
 import { lookup } from 'react-native-mime-types';
+import { PermissionUtil } from '../../util/PermissionUtil';
 
 function AbsenCheck({ navigation, route }) {
   const { stat } = route.params;
 
   const dispatch = useDispatch();
-  const { lang, long, absen, openBottom, loading, messageAbsen } = useSelector(
-    (state) => state.AbsenState
-  );
+  const { absen, openBottom, loading, messageAbsen } = useSelector((state) => state.AbsenState);
 
   const [statusFail, setStatusFail] = useState(false);
-  const [upload, setUpload] = useState(false);
   const [uriPhoto, setUriPhoto] = useState('');
   const [today, setToday] = useState(new Date());
+  const [lat, setLat] = useState(null);
+
+  const [long, setLong] = useState(null);
   const { fs } = RNFetchBlob;
   const devices = useCameraDevices();
   const device = devices.front;
   // prettier-ignore
   const cameraRef = useRef();
 
+  const checkLocation = () => {
+    dispatch(setLoading(true));
+    Geolocation.getCurrentPosition(
+      (pos) => {
+        console.log('====================================');
+        console.log(pos);
+        console.log('====================================');
+        let datapos = pos.coords;
+        setLat(datapos.latitude);
+        setLong(datapos.longitude);
+        dispatch(setLoading(false));
+      },
+      (err) => {
+        console.log(err.message);
+        dispatch(setLoading(false));
+      },
+
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    );
+  };
+  const permissionChecking = async () => {
+    const check = await PermissionUtil.checkPermission();
+
+    if (Platform.OS === 'ios') {
+      if (
+        check['ios.permission.CAMERA'] === 'granted' &&
+        check['ios.permission.LOCATION_WHEN_IN_USE'] === 'granted' &&
+        check['ios.permission.MEDIA_LIBRARY'] === 'granted'
+      ) {
+        return true;
+      } else {
+        const req = await PermissionUtil.requestPermission();
+        if (
+          req['ios.permission.CAMERA'] === 'granted' &&
+          req['ios.permission.LOCATION_WHEN_IN_USE'] === 'granted' &&
+          req['ios.permission.MEDIA_LIBRARY'] === 'granted'
+        ) {
+          return true;
+        }
+      }
+    } else {
+      if (
+        check['android.permission.CAMERA'] === 'granted' &&
+        check['android.permission.ACCESS_COARSE_LOCATION'] === 'granted' &&
+        check['android.permission.ACCESS_FINE_LOCATION'] === 'granted' &&
+        check['android.permission.READ_EXTERNAL_STORAGE'] === 'granted' &&
+        check['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+      ) {
+        return true;
+      } else {
+        const req = await PermissionUtil.requestPermission();
+        if (
+          req['android.permission.CAMERA'] === 'granted' &&
+          req['android.permission.ACCESS_COARSE_LOCATION'] === 'granted' &&
+          req['android.permission.ACCESS_FINE_LOCATION'] === 'granted' &&
+          req['android.permission.READ_EXTERNAL_STORAGE'] === 'granted' &&
+          req['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  const takePicture = async () => {
+    if (uriPhoto.length === 0) {
+      dispatch(setOpenBottom(true));
+      const snapshot =
+        Platform.OS === 'android'
+          ? await cameraRef.current.takeSnapshot({
+              quality: 85,
+              skipMetadata: true,
+            })
+          : await cameraRef.current.takePhoto({
+              qualityPrioritization: 'balanced',
+              skipMetadata: true,
+            });
+
+      let uriX = snapshot.path;
+      let mimeType = lookup(snapshot.path);
+      let name = snapshot.path.replace(/^.*[\\\/]/, '');
+
+      const dataUpload = {
+        name: name,
+        type: mimeType,
+        uri: Platform.OS === 'android' ? 'file://' + uriX : uriX,
+      };
+
+      dispatch(
+        absenCheck({
+          lat: lat,
+          long: long,
+          fileUp: dataUpload,
+          jam: moment(new Date()).format('HH:MM'),
+        })
+      );
+
+      if (Platform.OS === 'ios') {
+        setUriPhoto(snapshot.path);
+      } else {
+        setUriPhoto(`file://${snapshot.path}`);
+      }
+      setStatusFail(true);
+      dispatch(setAbsen(true));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  const resetTake = useCallback(async () => {
+    if (uriPhoto === '') {
+    } else {
+      await fs.unlink(uriPhoto);
+      setUriPhoto('');
+      setStatusFail(false);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statusFail, uriPhoto]);
+
   useFocusEffect(
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
-        checkLocation();
+        if (permissionChecking()) {
+          checkLocation();
+        }
       });
       return () => {
-        task.cancel;
+        task.cancel();
       };
-    }, [checkLocation])
+    }, [])
   );
 
   useEffect(() => {
@@ -68,74 +192,9 @@ function AbsenCheck({ navigation, route }) {
     };
   }, [today]);
 
-  const takePicture = useCallback(async () => {
-    dispatch(setOpenBottom(true));
-    dispatch(setLoading(true));
-    const snapshot =
-      Platform.OS === 'android'
-        ? await cameraRef.current.takeSnapshot({
-            quality: 85,
-            skipMetadata: true,
-          })
-        : await cameraRef.current.takePhoto({
-            qualityPrioritization: 'balanced',
-            skipMetadata: true,
-          });
-
-    let uriX = snapshot.path;
-    let mimeType = lookup(snapshot.path);
-    let name = snapshot.path.replace(/^.*[\\\/]/, '');
-
-    const dataUpload = {
-      name: name,
-      type: mimeType,
-      uri: Platform.OS === 'android' ? 'file://' + uriX : uriX,
-    };
-
-    dispatch(
-      absenCheck({
-        lat: lang,
-        long: long,
-        fileUp: dataUpload,
-        jam: moment(new Date()).format('HH:MM'),
-      })
-    );
-
-    if (Platform.OS === 'ios') {
-      setUriPhoto(snapshot.path);
-    } else {
-      setUriPhoto(`file://${snapshot.path}`);
-    }
-    setStatusFail(true);
-    dispatch(setAbsen(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusFail, uriPhoto, upload]);
-
-  const checkLocation = useCallback(() => {
-    Geolocation.getCurrentPosition(
-      (pos) => {
-        dispatch(setLat(pos.coords.latitude));
-        dispatch(setLong(pos.coords.longitude));
-      },
-      (err) => {
-        console.log('====================================');
-        console.log(err.message);
-        console.log('====================================');
-      },
-      { enableHighAccuracy: true }
-    );
-  }, [dispatch]);
-
-  const resetTake = useCallback(async () => {
-    if (uriPhoto === '') {
-    } else {
-      await fs.unlink(uriPhoto);
-      setUriPhoto('');
-      setStatusFail(false);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusFail, uriPhoto]);
+  const goBackCover = () => {
+    navigation.goBack();
+  };
 
   return (
     <View style={styles.container}>
@@ -152,7 +211,7 @@ function AbsenCheck({ navigation, route }) {
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-              navigation.goBack();
+              goBackCover();
             }}
           >
             <EntypoIcon
@@ -294,6 +353,35 @@ function AbsenCheck({ navigation, route }) {
             </TouchableOpacity>
           </View>
         )}
+      </Dialog>
+      <Dialog
+        isVisible={loading}
+        overlayStyle={{
+          width: 175,
+          height: 175,
+          borderRadius: 8,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <ActivityIndicator
+          style={{
+            height: 25,
+            width: 25,
+          }}
+          size={'large'}
+          color={'rgba(32,83,117,1)'}
+        />
+        <Text
+          style={{
+            marginTop: 16,
+            fontFamily: fontApp.roboto[300],
+            color: 'black',
+            fontSize: 14,
+          }}
+        >
+          Cek Lokasi
+        </Text>
       </Dialog>
     </View>
   );

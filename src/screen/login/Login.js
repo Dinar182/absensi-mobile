@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -21,11 +21,12 @@ import {
   setPassword,
   setUsername,
 } from '../../state/slicer/LoginState';
-import { Api } from '../../util/Api';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 function Login({ navigation, route }) {
   const dispatch = useDispatch();
   const { username, password, loading, loginSuccess } = useSelector((state) => state.LoginState);
+  const [obsecure, setObsecure] = useState(true);
   useFocusEffect(useCallback(() => {}, []));
 
   const loginProcess = () => {
@@ -165,6 +166,7 @@ function Login({ navigation, route }) {
           <Input
             value={password}
             placeholder="Masukan Password"
+            secureTextEntry={obsecure}
             onChangeText={(txt) => {
               dispatch(setPassword(txt));
             }}
@@ -179,6 +181,15 @@ function Login({ navigation, route }) {
                   opacity: 0.5,
                 }}
               />
+            )}
+            rightIcon={() => (
+              <TouchableOpacity
+                onPress={() => {
+                  setObsecure(!obsecure);
+                }}
+              >
+                <Entypo name={obsecure ? 'eye-with-line' : 'eye'} color={'black'} size={25} />
+              </TouchableOpacity>
             )}
             containerStyle={{
               height: 45,
@@ -207,8 +218,8 @@ function Login({ navigation, route }) {
             paddingStart: 8,
             paddingEnd: 8,
             backgroundColor: '#F26A13',
-            borderRadius: 16,
-            height: 35,
+            borderRadius: 24,
+            height: 45,
             width: 100,
             alignSelf: 'flex-end',
             marginTop: 16,

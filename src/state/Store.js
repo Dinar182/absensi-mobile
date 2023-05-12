@@ -3,14 +3,18 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import AbsenState from './slicer/AbsenState';
 import LoginState from './slicer/LoginState';
-import HistoryAbsenState from './slicer/HistoryAbsenState';
 import HomeSlicer from './slicer/HomeSlicer';
+import IzinState from './slicer/IzinState';
+import CutiState from './slicer/CutiState';
+import HistoryState from './slicer/HistoryState';
 
 const rootReducer = combineReducers({
   AbsenState: AbsenState,
   LoginState: LoginState,
-  HistoryState: HistoryAbsenState,
+  HistoryState: HistoryState,
   HomeState: HomeSlicer,
+  IzinState: IzinState,
+  CutiState: CutiState,
 });
 
 const logger = createLogger();
