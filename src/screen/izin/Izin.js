@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  TextInput,
+  ActivityIndicator,
   Platform,
   ScrollView,
   KeyboardAvoidingView,
@@ -13,29 +13,33 @@ import {
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import { dimensionDevice, fontApp, jenisIzinList } from '../../util/GlobalVar';
 import moment from 'moment';
 import RNDateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { Dialog, Input } from '@rneui/themed';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchIzin,
+  setDateStart,
+  setIosMode,
+  setIosTime,
+  setJenisIzin,
+  setLoading,
+  setOpen,
+  setReasonText,
+} from '../../state/slicer/IzinState';
 
 const Izin = ({ navigation, route }) => {
-  const [iosTime, setIosTime] = useState(false);
-  const [iosMode, setIosMode] = useState(0);
-  const [dateStart, setDateStart] = useState(new Date());
-  const [time, setTime] = useState(new Date());
-  const [value, setValue] = useState(null);
-  const [open, setOpen] = useState(false);
-  const jenisIzin = [
-    { label: 'Sakit', value: 'sick' },
-    { label: 'Keluar Kantor', value: 'out' },
-    { label: 'Kontrol', value: 'control' },
-  ];
+  const { dateStart, timeStart, iosTime, iosMode, loading, reasonText, jenisIzin, open } =
+    useSelector((state) => state.IzinState);
+  const dispatch = useDispatch();
+  const [izin, setIzin] = useState(null);
 
   const showPickerCalendar = (mode) => {
     if (Platform.OS === 'ios') {
-      setIosMode(mode);
-      setIosTime(true);
+      dispatch(setIosMode(mode));
+      dispatch(setIosTime(true));
     } else {
       if (mode === 0) {
         DateTimePickerAndroid.open({
@@ -50,7 +54,7 @@ const Izin = ({ navigation, route }) => {
         });
       } else {
         DateTimePickerAndroid.open({
-          value: time,
+          value: timeStart,
           minimumDate: new Date(),
           onChange: (event, selectedDate) => {
             if (event.type === 'set') {
@@ -63,11 +67,23 @@ const Izin = ({ navigation, route }) => {
     }
   };
 
+  const prosesIzin = () => {
+    dispatch(setLoading(true));
+    dispatch(
+      fetchIzin({
+        startDate: moment(dateStart).format('YYYY-MM-DD'),
+        startTime: moment(timeStart).format('HH:mm'),
+        reason: reasonText,
+        jenisIzin: izin,
+      })
+    );
+  };
+
   const changeDate = (mode, date) => {
     if (mode === 0) {
-      setDateStart(date);
+      dispatch(setDateStart(date));
     } else {
-      setTime(date);
+      dispatch(setTime(date));
     }
   };
 
@@ -186,11 +202,13 @@ const Izin = ({ navigation, route }) => {
           <DropDownPicker
             placeholder="Pilih Jenis Izin"
             open={open}
-            value={value}
-            items={jenisIzin}
-            setOpen={setOpen}
+            value={izin}
+            items={jenisIzinList}
+            setOpen={(value) => {
+              dispatch(setOpen(value));
+            }}
             showArrowIcon={true}
-            setValue={setValue}
+            setValue={setIzin}
             style={{
               backgroundColor: 'rgba(212,246,204,1)',
               borderWidth: 1,
@@ -332,7 +350,7 @@ const Izin = ({ navigation, route }) => {
                 marginStart: 10,
               }}
             >
-              {moment(time).format('HH:mm')}
+              {moment(timeStart).format('HH:mm')}
             </Text>
           </View>
 
@@ -372,6 +390,10 @@ const Izin = ({ navigation, route }) => {
           }}
         >
           <Input
+            value={reasonText}
+            onChangeText={(value) => {
+              dispatch(setReasonText(value));
+            }}
             placeholder="Tulis Keterangan Disini"
             inputStyle={{
               height: 150,
@@ -388,6 +410,9 @@ const Izin = ({ navigation, route }) => {
         </View>
 
         <TouchableOpacity
+          onPress={() => {
+            prosesIzin();
+          }}
           style={{
             width: 120,
             height: 45,
@@ -436,7 +461,7 @@ const Izin = ({ navigation, route }) => {
           mode={iosMode === 0 ? 'date' : 'time'}
           display="spinner"
           minimumDate={new Date()}
-          value={iosMode === 0 ? dateStart : time}
+          value={iosMode === 0 ? dateStart : timeStart}
           onChange={(event, selectedDate) => {
             if (event.type === 'set') {
               changeDate(iosMode, selectedDate);
@@ -445,7 +470,7 @@ const Izin = ({ navigation, route }) => {
         />
         <TouchableOpacity
           onPress={() => {
-            setIosTime(false);
+            dispatch(setIosTime(false));
           }}
           style={{
             backgroundColor: 'rgba(246,107,14,1)',
@@ -465,6 +490,26 @@ const Izin = ({ navigation, route }) => {
             Selesai
           </Text>
         </TouchableOpacity>
+      </Dialog>
+      <Dialog
+        isVisible={loading}
+        overlayStyle={{
+          width: 175,
+          height: 175,
+          backgroundColor: 'white',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 10,
+        }}
+      >
+        <ActivityIndicator
+          style={{
+            height: 25,
+            width: 25,
+          }}
+          size={'large'}
+          color={'rgba(32,83,117,1)'}
+        />
       </Dialog>
     </KeyboardAvoidingView>
   );

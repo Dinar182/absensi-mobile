@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
 import {
   getKaryawanData,
+  getLogAbsen,
   setLoading,
   setOpenSetting,
   stateGps,
@@ -25,18 +26,12 @@ import { Dialog } from '@rneui/themed';
 
 const Home = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const {
-    loading,
-    responseDetail,
-    panggilan,
-    openSetting,
-    isLocationEnabled,
-    timeAbsenMasuk,
-    timeAbsenKeluar,
-  } = useSelector((state) => state.HomeState);
+  const { loading, responseDetail, panggilan, openSetting, timeAbsenMasuk, timeAbsenKeluar } =
+    useSelector((state) => state.HomeState);
 
   const loadDataKaryawan = () => {
     dispatch(getKaryawanData());
+    dispatch(getLogAbsen());
     dispatch(stateGps());
   };
 
@@ -47,9 +42,9 @@ const Home = ({ navigation, route }) => {
         loadDataKaryawan();
       });
       return () => {
-        task.cancel;
+        task.cancel();
       };
-    }, [navigation])
+    }, [])
   );
 
   return (
@@ -57,7 +52,7 @@ const Home = ({ navigation, route }) => {
       {loading && responseDetail === null && (
         <View
           style={{
-            backgroundColor: 'white',
+            backgroundColor: 'rgbo(255,255,255,0.6)',
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'center',
@@ -68,6 +63,8 @@ const Home = ({ navigation, route }) => {
             style={{
               backgroundColor: '#215376',
               borderRadius: 8,
+              width: 75,
+              height: 75,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -81,7 +78,8 @@ const Home = ({ navigation, route }) => {
         <>
           <View
             style={{
-              height: dimensionDevice.heightWindow / 2.5,
+              height: dimensionDevice.heightWindow / 2.25,
+              backgroundColor: 'transparent',
               width: dimensionDevice.widthWindow,
               flexDirection: 'column',
               paddingStart: 24,
@@ -94,6 +92,7 @@ const Home = ({ navigation, route }) => {
                 top: 0,
                 right: 0,
                 left: 0,
+
                 backgroundColor: 'rgba(246,107,14,1)',
                 height: dimensionDevice.heightWindow / 3,
                 width: dimensionDevice.widthWindow,
@@ -121,7 +120,7 @@ const Home = ({ navigation, route }) => {
             <View
               style={{
                 flexDirection: 'column',
-                marginTop: 75,
+                marginTop: dimensionDevice.heightWindow < 750 ? 8 : 80,
               }}
             >
               <Text
@@ -155,7 +154,7 @@ const Home = ({ navigation, route }) => {
               style={{
                 height: 180,
                 backgroundColor: '#12293E',
-                marginTop: 24,
+                marginTop: 8,
                 marginStart: 8,
                 marginEnd: 8,
                 borderRadius: 24,
@@ -172,7 +171,7 @@ const Home = ({ navigation, route }) => {
                 }}
               >
                 <Image
-                  source={require('../../../assets/ailsa.jpeg')}
+                  source={{ uri: responseDetail.profile }}
                   resizeMode="cover"
                   style={{
                     height: 70,
@@ -225,6 +224,7 @@ const Home = ({ navigation, route }) => {
                     borderRadius: 8,
                     paddingEnd: 16,
                     paddingBottom: 8,
+
                     backgroundColor: '#879BE3',
                   }}
                 >
@@ -242,6 +242,7 @@ const Home = ({ navigation, route }) => {
                     style={{
                       flexDirection: 'row',
                       marginLeft: 8,
+                      marginTop: 4,
                       alignItems: 'center',
                     }}
                   >
@@ -264,7 +265,7 @@ const Home = ({ navigation, route }) => {
                         fontSize: 25,
                       }}
                     >
-                      00 : 00
+                      {timeAbsenMasuk}
                     </Text>
                   </View>
                 </View>
@@ -293,11 +294,21 @@ const Home = ({ navigation, route }) => {
                     style={{
                       flexDirection: 'row',
                       marginLeft: 8,
-                      marginTop: 8,
+                      marginTop: 4,
                       alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
-                    <EntypoIcon name="log-out" size={30} color={'rgba(242,87,87,1)'} />
+                    <EntypoIcon
+                      name="log-out"
+                      style={{
+                        marginTop: 8,
+                        color: 'rgba(242,87,87,1)',
+                        fontSize: 30,
+                        width: 30,
+                        height: 30,
+                      }}
+                    />
                     <Text
                       style={{
                         marginLeft: 4,
@@ -307,7 +318,7 @@ const Home = ({ navigation, route }) => {
                         fontSize: 25,
                       }}
                     >
-                      00 : 00
+                      {timeAbsenKeluar}
                     </Text>
                   </View>
                 </View>
@@ -323,7 +334,6 @@ const Home = ({ navigation, route }) => {
               paddingStart: 24,
               paddingEnd: 24,
               flexGrow: 1,
-              paddingTop: 35,
             }}
             horizontal={false}
           >

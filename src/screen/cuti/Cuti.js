@@ -9,6 +9,7 @@ import {
   Platform,
   KeyboardAvoidingView,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
@@ -16,16 +17,26 @@ import { Dialog, Input } from '@rneui/themed';
 import { dimensionDevice, fontApp } from '../../util/GlobalVar';
 import moment from 'moment';
 import RNDateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIosMode } from '../../state/slicer/IzinState';
+import {
+  inputCutiFetch,
+  setDateEnd,
+  setDateStart,
+  setIosTime,
+  setLoading,
+  setReasonText,
+} from '../../state/slicer/CutiState';
 
 function Cuti({ navigation, route }) {
-  const [iosTime, setIosTime] = useState(false);
-  const [iosMode, setIosMode] = useState(0);
-  const [dateStart, setDateStart] = useState(new Date());
-  const [dateEnd, setDateEnd] = useState(new Date());
+  const { dateStart, dateEnd, iosTime, iosMode, loading, reasonText } = useSelector(
+    (state) => state.CutiState
+  );
+  const dispatch = useDispatch();
   const showPickerCalendar = (mode) => {
     if (Platform.OS === 'ios') {
-      setIosMode(mode);
-      setIosTime(true);
+      dispatch(setIosMode(mode));
+      dispatch(setIosTime(true));
     } else {
       if (mode === 0) {
         DateTimePickerAndroid.open({
@@ -53,11 +64,22 @@ function Cuti({ navigation, route }) {
     }
   };
 
+  const prosesCuti = () => {
+    dispatch(setLoading(true));
+    dispatch(
+      inputCutiFetch({
+        start: moment(dateStart).format('YYYY-MM-DD'),
+        end: moment(dateEnd).format('YYYY-MM-DD'),
+        reason: reasonText,
+      })
+    );
+  };
+
   const changeDate = (mode, date) => {
     if (mode === 0) {
-      setDateStart(date);
+      dispatch(setDateStart(date));
     } else {
-      setDateEnd(date);
+      dispatch(setDateEnd(date));
     }
   };
 
@@ -311,6 +333,10 @@ function Cuti({ navigation, route }) {
           }}
         >
           <Input
+            value={reasonText}
+            onChangeText={(value) => {
+              dispatch(setReasonText(value));
+            }}
             placeholder="Tulis Keterangan Disini"
             inputStyle={{
               height: 150,
@@ -326,6 +352,9 @@ function Cuti({ navigation, route }) {
           />
         </View>
         <TouchableOpacity
+          onPress={() => {
+            prosesCuti();
+          }}
           style={{
             width: 120,
             height: 45,
@@ -357,6 +386,26 @@ function Cuti({ navigation, route }) {
         </TouchableOpacity>
       </ScrollView>
       <Dialog
+        isVisible={loading}
+        overlayStyle={{
+          width: 175,
+          height: 175,
+          backgroundColor: 'white',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 10,
+        }}
+      >
+        <ActivityIndicator
+          style={{
+            height: 25,
+            width: 25,
+          }}
+          size={'large'}
+          color={'rgba(32,83,117,1)'}
+        />
+      </Dialog>
+      <Dialog
         isVisible={iosTime}
         // eslint-disable-next-line react-native/no-inline-styles
         overlayStyle={{
@@ -383,7 +432,7 @@ function Cuti({ navigation, route }) {
         />
         <TouchableOpacity
           onPress={() => {
-            setIosTime(false);
+            dispatch(setIosTime(false));
           }}
           style={{
             backgroundColor: 'rgba(246,107,14,1)',

@@ -6,51 +6,56 @@ import RNFetchBlob from 'rn-fetch-blob';
 const { fs, wrap } = RNFetchBlob;
 
 const initState = {
-  lang: 0,
-  long: 0,
   loading: false,
   absen: false,
   openBottom: false,
   messageAbsen: '',
 };
 
-const absenCheck = createAsyncThunk('absenCheck', async (arg) => {
-  const { lat, long, fileUp, jam } = arg;
+const absenCheck = createAsyncThunk('absenCheck', async (arg, thunkApi) => {
+  try {
+    const { lat, long, fileUp, jam } = arg;
+    console.log('=============1=======================');
+    console.log(arg);
+    console.log('==============2======================');
 
-  const sesi = SessionManager.GetAsObject(textApp.session);
-  const dataRespon = await RNFetchBlob.fetch(
-    'POST',
-    `${urlBase}${urlApi.scan_absensi}`,
-    {
-      'Content-Type': 'multipart/form-data',
-      token: sesi.token,
-    },
-    [
+    const sesi = SessionManager.GetAsObject(textApp.session);
+    const dataRespon = await RNFetchBlob.fetch(
+      'POST',
+      `${urlBase}${urlApi.scan_absensi}`,
       {
-        name: 'foto',
-        filename: fileUp.name,
-        type: fileUp.type,
-        data: wrap(fileUp.uri),
+        'Content-Type': 'multipart/form-data',
+        token: sesi.token,
       },
-      {
-        name: 'nip',
-        data: sesi.karyawan.nip,
-      },
-      {
-        name: 'jam',
-        data: jam,
-      },
-      {
-        name: 'latitude',
-        data: lat.toString(),
-      },
-      {
-        name: 'longtitude',
-        data: long.toString(),
-      },
-    ]
-  );
-  return JSON.parse(dataRespon.data);
+      [
+        {
+          name: 'foto',
+          filename: fileUp.name,
+          type: fileUp.type,
+          data: wrap(fileUp.uri),
+        },
+        {
+          name: 'nip',
+          data: sesi.nip,
+        },
+        {
+          name: 'jam',
+          data: jam,
+        },
+        {
+          name: 'latitude',
+          data: lat.toString(),
+        },
+        {
+          name: 'longtitude',
+          data: long.toString(),
+        },
+      ]
+    );
+    return JSON.parse(dataRespon.data);
+  } catch (err) {
+    thunkApi.rejectWithValue(err.message);
+  }
 });
 
 const AbsenState = createSlice({
@@ -63,20 +68,15 @@ const AbsenState = createSlice({
     setAbsen: (state, action) => {
       state.absen = action.payload;
     },
+
     setOpenBottom: (state, action) => {
       state.openBottom = action.payload;
-    },
-    setLat: (state, action) => {
-      state.lang = action.payload;
-    },
-    setLong: (state, action) => {
-      state.long = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(absenCheck.pending, (state) => {
-        state.loading = true;
+        state.loading = false;
       })
       .addCase(absenCheck.fulfilled, (state, action) => {
         state.loading = false;
@@ -101,6 +101,6 @@ const AbsenState = createSlice({
 });
 
 export { absenCheck };
-export const { setLoading, setAbsen, setOpenBottom, setLat, setLong } = AbsenState.actions;
+export const { setLoading, setAbsen, setOpenBottom } = AbsenState.actions;
 
 export default AbsenState.reducer;

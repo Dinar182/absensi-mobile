@@ -216,8 +216,8 @@ function RekapAbsen({ navigation, route }) {
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Rekap', {
-            dateStart: moment(dateStart).format('DD/MM/YYYY'),
-            dateEnd: moment(dateEnd).format('DD/MM/YYYY'),
+            dateStart: moment(dateStart).format('YYYY-MM-DD'),
+            dateEnd: moment(dateEnd).format('YYYY-MM-DD'),
           });
         }}
         style={{

@@ -97,7 +97,7 @@ function Cover({ navigation, route }) {
           resizeMode="contain"
           style={styles.image}
           imageStyle={styles.image_imageStyle}
-        ></ImageBackground>
+        />
         <Svg viewBox="0 0 89.24 93.24" style={styles.ellipse}>
           <Ellipse fill="rgba(245,245,245,1)" cx={45} cy={47} rx={45} ry={47}></Ellipse>
         </Svg>

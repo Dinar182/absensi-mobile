@@ -8,11 +8,19 @@ import RNDateTimePicker, { DateTimePickerAndroid } from '@react-native-community
 import moment from 'moment';
 import { dimensionDevice, fontApp } from '../../util/GlobalVar';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDateChoose, setIosTime, setOpenResult } from '../../state/slicer/HistoryAbsenState';
+import {
+  LogAbsen,
+  setDateChoose,
+  setIosTime,
+  setLoading,
+  setOpenResult,
+} from '../../state/slicer/HistoryState';
 
 function History({ navigation, route }) {
   const dispatch = useDispatch();
-  const { loading, openResult, dateChoose, iosTime } = useSelector((state) => state.HistoryState);
+  const { loading, openResult, dateChoose, iosTime, masuk, keluar } = useSelector(
+    (state) => state.HistoryState
+  );
 
   const showPickerCalendar = () => {
     if (Platform.OS === 'ios') {
@@ -32,6 +40,15 @@ function History({ navigation, route }) {
 
   const changeDate = (date) => {
     dispatch(setDateChoose(date));
+  };
+
+  const prosesLog = () => {
+    dispatch(setLoading(true));
+    dispatch(
+      LogAbsen({
+        tgl: moment(dateChoose).format('YYYY-MM-DD'),
+      })
+    );
   };
 
   return (
@@ -140,7 +157,7 @@ function History({ navigation, route }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            dispatch(setOpenResult(true));
+            prosesLog();
           }}
           style={{
             backgroundColor: 'rgba(32,83,117,1)',
@@ -153,8 +170,8 @@ function History({ navigation, route }) {
             elevation: 9,
             shadowOpacity: 0.3,
             shadowRadius: 3,
-            width: 80,
-            height: 30,
+            width: 100,
+            height: 45,
             alignSelf: 'flex-end',
             marginTop: 16,
             alignItems: 'center',
@@ -297,7 +314,7 @@ function History({ navigation, route }) {
                   fontSize: 14,
                 }}
               >
-                Pukul {moment(new Date()).format('HH:mm')}
+                Pukul {masuk}
               </Text>
             </View>
           </View>
@@ -338,7 +355,7 @@ function History({ navigation, route }) {
                   fontSize: 14,
                 }}
               >
-                Pukul {moment(new Date()).format('HH:mm')}
+                Pukul {keluar}
               </Text>
             </View>
           </View>

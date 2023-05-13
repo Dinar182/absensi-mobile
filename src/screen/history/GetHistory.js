@@ -2,19 +2,26 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, InteractionManager } from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import { ListHistory, dummyList, fontApp } from '../../util/GlobalVar';
+import { ListHistoryCuti, ListHistoryIzin, fontApp } from '../../util/GlobalVar';
+import { useDispatch, useSelector } from 'react-redux';
+import { cutiHistoriFetch, izinHistoryFetch, setLoading } from '../../state/slicer/HistoryState';
 
 function GetHistory({ navigation, route }) {
   const { state } = route.params;
+  const { historyCuti, historyIzin, loading } = useSelector((state) => state.HistoryState);
+  const dispatch = useDispatch();
   const [label, setLabel] = useState('');
 
   useFocusEffect(
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
+        dispatch(setLoading(true));
         if (state === 1) {
           setLabel('Riwayat Cuti');
+          dispatch(cutiHistoriFetch());
         } else if (state === 2) {
           setLabel('Riwayat Izin');
+          dispatch(izinHistoryFetch());
         }
       });
       return () => {
@@ -77,25 +84,49 @@ function GetHistory({ navigation, route }) {
           </Text>
         </View>
       </View>
-      <FlatList
-        data={dummyList}
-        contentContainerStyle={{
-          paddingTop: 24,
-          paddingStart: 16,
-          paddingEnd: 16,
-        }}
-        keyExtractor={(item, index) => `${item.id}+index`}
-        renderItem={(item) => {
-          return (
-            <ListHistory
-              data={{
-                item: item,
-                stat: state,
-              }}
-            />
-          );
-        }}
-      />
+      {historyCuti !== null && loading == false && state === 1 && (
+        <FlatList
+          data={historyCuti}
+          contentContainerStyle={{
+            paddingTop: 24,
+            paddingStart: 16,
+            paddingEnd: 16,
+          }}
+          keyExtractor={(item, index) => `${item.status_cuti}+${index}+x`}
+          renderItem={(item) => {
+            return (
+              <ListHistoryCuti
+                data={{
+                  item: item,
+                  stat: state,
+                }}
+              />
+            );
+          }}
+        />
+      )}
+
+      {historyIzin !== null && loading == false && state === 2 && (
+        <FlatList
+          data={historyIzin}
+          contentContainerStyle={{
+            paddingTop: 24,
+            paddingStart: 16,
+            paddingEnd: 16,
+          }}
+          keyExtractor={(item, index) => `${item.status_ijin}+${index}+x`}
+          renderItem={(item) => {
+            return (
+              <ListHistoryIzin
+                data={{
+                  item: item,
+                  stat: state,
+                }}
+              />
+            );
+          }}
+        />
+      )}
     </View>
   );
 }

@@ -48,23 +48,6 @@ const dimensionDevice = {
   heightScreen: Dimensions.get('screen').height,
 };
 
-const dummyList = [
-  {
-    id: 1,
-    name: 'dummy',
-    status: 1,
-  },
-  {
-    id: 2,
-    name: 'dummy',
-    status: 2,
-  },
-  {
-    id: 3,
-    name: 'dummy',
-    status: 3,
-  },
-];
 const urlApi = {
   login: 'api/login',
   logout: 'api/logout',
@@ -75,29 +58,38 @@ const urlApi = {
   scan_absensi: 'api/scan_log',
   rekap_absen: 'api/rekap_absensi',
   daily_absen: 'api//dayli_absen_karyawan',
+  history_izin: 'api/history_ijin',
+  history_cuti: 'api/history_cuti',
+  currentLog: 'api/current_scanlog',
 };
 
 const urlBase = 'https://absensi.mkopsrv1.com/';
 
-const ListHistory = ({ data }) => {
+const jenisIzinList = [
+  { label: 'Sakit', value: 1 },
+  { label: 'Keluar Kantor', value: 2 },
+  { label: 'Kontrol', value: 3 },
+];
+
+const ListHistoryCuti = ({ data }) => {
   const colorStatus = () => {
-    switch (data.item.item.status) {
-      case 1:
+    switch (data.item.item.status_cuti) {
+      case '1':
         return '#4CAF50';
-      case 2:
+      case '2':
         return '#FFEB3B';
-      case 3:
+      case '3':
         return '#F44336';
     }
   };
 
   const textStatus = () => {
-    switch (data.item.item.status) {
-      case 1:
+    switch (data.item.item.status_cuti) {
+      case '1':
         return 'Approve';
-      case 2:
+      case '2':
         return 'Pending';
-      case 3:
+      case '3':
         return 'Reject';
     }
   };
@@ -112,7 +104,6 @@ const ListHistory = ({ data }) => {
     <View
       style={{
         flexDirection: 'column',
-        height: 175,
         borderRadius: 8,
         shadowColor: 'rgba(0,0,0,1)',
         shadowOffset: {
@@ -142,7 +133,7 @@ const ListHistory = ({ data }) => {
             fontSize: 14,
           }}
         >
-          {data.stat === 1 ? 'Pengajuan Cuti' : 'Pengajuan Izin'}
+          {data.item.item.text_status_cuti}
         </Text>
       </View>
       <View
@@ -176,7 +167,7 @@ const ListHistory = ({ data }) => {
               marginStart: 24,
             }}
           >
-            {data.item.item.name}
+            {data.item.item.keterangan}
           </Text>
         </View>
         <View
@@ -192,7 +183,7 @@ const ListHistory = ({ data }) => {
               color: 'white',
             }}
           >
-            Tanggal Pengajuan
+            Tanggal Cuti
           </Text>
           <Text
             style={{
@@ -202,7 +193,7 @@ const ListHistory = ({ data }) => {
               marginStart: 24,
             }}
           >
-            {moment(new Date()).format('DD-MM-YYYY HH:mm')}
+            {data.item.item.tanggal_cuti}
           </Text>
         </View>
         <View
@@ -245,4 +236,206 @@ const ListHistory = ({ data }) => {
   );
 };
 
-export { textApp, colorApp, fontApp, dimensionDevice, urlApi, dummyList, ListHistory, urlBase };
+const ListHistoryIzin = ({ data }) => {
+  const colorStatus = () => {
+    switch (data.item.item.status_ijin) {
+      case '1':
+        return '#4CAF50';
+      case '2':
+        return '#FFEB3B';
+      case '3':
+        return '#F44336';
+    }
+  };
+
+  const textStatus = () => {
+    switch (data.item.item.status_ijin) {
+      case '1':
+        return 'Approve';
+      case '2':
+        return 'Pending';
+      case '3':
+        return 'Reject';
+    }
+  };
+
+  useEffect(() => {
+    console.log('====================================');
+    console.log(data.item.item);
+    console.log('====================================');
+  }, []);
+
+  return (
+    <View
+      style={{
+        flexDirection: 'column',
+        borderRadius: 8,
+        shadowColor: 'rgba(0,0,0,1)',
+        shadowOffset: {
+          width: 0,
+          height: 0,
+        },
+        marginBottom: 16,
+        shadowOpacity: 0.27,
+        shadowRadius: 8,
+        backgroundColor: '#BDBDBD',
+      }}
+    >
+      <View
+        style={{
+          borderTopStartRadius: 8,
+          borderTopEndRadius: 8,
+          backgroundColor: '#215376',
+          paddingTop: 8,
+          paddingBottom: 8,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: fontApp.roboto[700],
+            color: 'white',
+            marginStart: 8,
+            fontSize: 14,
+          }}
+        >
+          {data.item.item.text_status_ijin}
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'column',
+          paddingTop: 16,
+          paddingEnd: 24,
+          paddingStart: 24,
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            marginBottom: 16,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: 'white',
+            }}
+          >
+            Jenis Izin
+          </Text>
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: 'white',
+              marginStart: 24,
+            }}
+          >
+            {data.item.item.jenis_ijin}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginBottom: 16,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: 'white',
+            }}
+          >
+            Keterangan
+          </Text>
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: 'white',
+              marginStart: 24,
+            }}
+          >
+            {data.item.item.keterangan}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginBottom: 16,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: 'white',
+            }}
+          >
+            Tanggal Izin
+          </Text>
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: 'white',
+              marginStart: 24,
+            }}
+          >
+            {data.item.item.tanggal_ijin}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginBottom: 16,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: 'white',
+            }}
+          >
+            Status
+          </Text>
+
+          <Text
+            style={{
+              fontFamily: fontApp.roboto[700],
+              fontSize: 14,
+              color: colorStatus(),
+              marginStart: 24,
+            }}
+          >
+            {textStatus()}
+          </Text>
+          <View
+            style={{
+              height: 30,
+              width: 30,
+              backgroundColor: colorStatus(),
+              borderRadius: 30 / 2,
+              marginStart: 8,
+            }}
+          />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export {
+  textApp,
+  colorApp,
+  fontApp,
+  dimensionDevice,
+  urlApi,
+  ListHistoryCuti,
+  ListHistoryIzin,
+  urlBase,
+  jenisIzinList,
+};

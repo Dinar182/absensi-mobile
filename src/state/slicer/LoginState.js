@@ -3,6 +3,7 @@ import { Api } from '../../util/Api';
 import { textApp, urlApi, urlBase } from '../../util/GlobalVar';
 import { SessionManager } from '../../util/SessionManager';
 import { MessageUtil } from '../../util/MessageUtil';
+import DeviceInfo from 'react-native-device-info';
 
 const initState = {
   loading: false,
@@ -26,9 +27,11 @@ const loginFetch = createAsyncThunk('fetchLogin', async (arg) => {
   console.log(user);
   console.log(pass);
   console.log('====================================');
+  const device_id = DeviceInfo.getDeviceId();
   const form = new FormData();
   form.append('username', user);
   form.append('password', pass);
+  form.append('device_id', device_id);
 
   const dataRes = await fetch(`${urlBase}${urlApi.login}`, {
     method: 'post',
@@ -46,7 +49,7 @@ const loginFetch = createAsyncThunk('fetchLogin', async (arg) => {
 const logoutFetch = createAsyncThunk('fetchLogout', async (arg) => {
   const sesi = SessionManager.GetAsObject(textApp.session);
   const form = new FormData();
-  form.append('nip', sesi.karyawan.nip);
+  form.append('nip', sesi.nip);
 
   const dataRes = await fetch(`${urlBase}${urlApi.logout}`, {
     method: 'post',
@@ -66,7 +69,7 @@ const changePassFetch = createAsyncThunk('fetchChangePass', async (arg) => {
   const { oldPass, newPass } = arg;
   const sesi = SessionManager.GetAsObject(textApp.session);
   const form = new FormData();
-  form.append('nip', sesi.karyawan.nip);
+  form.append('nip', sesi.nip);
   form.append('password_lama', oldPass);
   form.append('password_baru', newPass);
   const dataRes = await fetch(`${urlBase}${urlApi.ganti_password}`, {
@@ -137,7 +140,10 @@ const LoginState = createSlice({
         console.log(message);
 
         if (status === 200) {
-          SessionManager.StoreAsObject(textApp.session, dataRes);
+          SessionManager.StoreAsObject(textApp.session, {
+            nip: dataRes.karyawan.nip,
+            token: dataRes.token,
+          });
           state.username = '';
           state.password = '';
           state.loginSuccess = true;

@@ -89,7 +89,7 @@ function Profile({ navigation, route }) {
           <View
             style={{
               position: 'absolute',
-              top: 70,
+              top: dimensionDevice.heightWindow < 730 ? 16 : 70,
               left: dimensionDevice.widthScreen / 6,
               right: dimensionDevice.widthScreen / 6,
               bottom: 0,
@@ -131,7 +131,7 @@ function Profile({ navigation, route }) {
                 }}
               >
                 <Image
-                  source={require('../../../assets/ailsa.jpeg')}
+                  source={{ uri: responseDetail.profile }}
                   resizeMode="cover"
                   style={styles.image5}
                 />
