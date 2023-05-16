@@ -13,6 +13,7 @@ const initState = {
   panggilan: '',
   isLocationEnabled: false,
   openSetting: true,
+  isLogout: false,
 };
 
 const getKaryawanData = createAsyncThunk('getDataKaryawan', async () => {
@@ -72,6 +73,9 @@ const HomeSlicer = createSlice({
     setOpenSetting: (state, action) => {
       state.openSetting = action.payload;
     },
+    setLogout: (state, action) => {
+      state.isLogout = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -90,8 +94,13 @@ const HomeSlicer = createSlice({
           const temp = text.split(' ');
           state.panggilan = temp[0];
           state.responseDetail = response;
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
         } else {
-          MessageUtil.errorMessage(message);
+          MessageUtil.errorMessage('Gagal', message);
         }
         state.loading = false;
       })
@@ -124,6 +133,13 @@ const HomeSlicer = createSlice({
         if (status === 200) {
           state.timeAbsenMasuk = response.jam_masuk;
           state.timeAbsenKeluar = response.jam_pulang;
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
+        } else {
+          MessageUtil.errorMessage('Gagal', message);
         }
       })
       .addCase(getLogAbsen.rejected, (state, action) => {
@@ -134,6 +150,6 @@ const HomeSlicer = createSlice({
 
 export { getKaryawanData, stateGps, getLogAbsen };
 
-export const { setLoading, setOpenSetting } = HomeSlicer.actions;
+export const { setLoading, setOpenSetting, setLogout } = HomeSlicer.actions;
 
 export default HomeSlicer.reducer;

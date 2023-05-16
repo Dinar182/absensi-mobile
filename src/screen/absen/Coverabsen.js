@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity, Platform } from 'react-native';
 import Svg, { Ellipse } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/Entypo';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import {
+  dimensionDevice,
+  fontApp,
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../util/GlobalVar';
 
 function CoverAbsen({ navigation, route }) {
   return (
@@ -10,17 +16,17 @@ function CoverAbsen({ navigation, route }) {
       <View
         style={{
           flexDirection: 'row',
-          height: 55,
+          height: verticalScale(55),
           position: 'absolute',
           zIndex: 3,
           paddingStart: 16,
           alignItems: 'center',
           ...Platform.select({
             ios: {
-              top: 36,
+              top: '4%',
             },
             android: {
-              top: 16,
+              top: '2%',
             },
           }),
         }}
@@ -35,7 +41,7 @@ function CoverAbsen({ navigation, route }) {
             style={[
               styles.icon,
               {
-                marginEnd: 16,
+                marginEnd: '10%',
               },
             ]}
           />
@@ -51,10 +57,10 @@ function CoverAbsen({ navigation, route }) {
           {
             ...Platform.select({
               ios: {
-                top: 135,
+                top: '25%',
               },
               android: {
-                top: 125,
+                top: '15%',
               },
             }),
             left: 24,
@@ -64,15 +70,15 @@ function CoverAbsen({ navigation, route }) {
       />
       <View
         style={{
-          width: dimensionDevice.widthWindow,
+          width: horizontalScale(dimensionDevice.widthWindow),
           ...Platform.select({
             ios: {
-              height: dimensionDevice.heightWindow / 2,
-              marginBottom: 150,
+              height: verticalScale(dimensionDevice.heightWindow / 2),
+              marginBottom: '25%',
             },
             android: {
-              height: dimensionDevice.heightWindow / 2.5,
-              marginBottom: 140,
+              height: verticalScale(dimensionDevice.heightWindow / 2),
+              marginBottom: '25%',
             },
           }),
           borderBottomStartRadius: dimensionDevice.widthScreen / 2,
@@ -89,11 +95,11 @@ function CoverAbsen({ navigation, route }) {
           });
         }}
         style={{
-          width: 270,
-          height: 95,
+          width: horizontalScale(270),
+          height: verticalScale(95),
           backgroundColor: '#E6E6E6',
-          borderRadius: 20,
-          marginBottom: 16,
+          borderRadius: 16,
+          marginBottom: '10%',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-around',
@@ -105,7 +111,7 @@ function CoverAbsen({ navigation, route }) {
         <Image
           source={require('../../../assets/rating.png')}
           resizeMode="contain"
-          style={{ width: 89, height: 78 }}
+          style={{ width: horizontalScale(90), height: verticalScale(90) }}
         />
         <View style={{ flexDirection: 'column' }}>
           <Text
@@ -113,7 +119,7 @@ function CoverAbsen({ navigation, route }) {
               fontFamily: fontApp.roboto[700],
               color: 'rgba(246,107,14,1)',
               letterSpacing: 1,
-              fontSize: 25,
+              fontSize: moderateScale(25),
             }}
           >
             ABSEN
@@ -136,10 +142,10 @@ function CoverAbsen({ navigation, route }) {
           });
         }}
         style={{
-          width: 270,
-          height: 95,
+          width: horizontalScale(270),
+          height: verticalScale(95),
           backgroundColor: '#E6E6E6',
-          borderRadius: 20,
+          borderRadius: 16,
           alignSelf: 'center',
           flexDirection: 'row',
           alignItems: 'center',
@@ -154,7 +160,7 @@ function CoverAbsen({ navigation, route }) {
               fontFamily: fontApp.roboto[700],
               color: 'rgba(246,107,14,1)',
               letterSpacing: 1,
-              fontSize: 25,
+              fontSize: moderateScale(25),
             }}
           >
             ABSEN
@@ -173,8 +179,8 @@ function CoverAbsen({ navigation, route }) {
           source={require('../../../assets/win.png')}
           resizeMode="contain"
           style={{
-            width: 69,
-            height: 68,
+            width: horizontalScale(69),
+            height: verticalScale(69),
           }}
         />
       </TouchableOpacity>

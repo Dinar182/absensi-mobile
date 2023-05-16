@@ -9,19 +9,24 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Svg, { Ellipse } from 'react-native-svg';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import {
+  dimensionDevice,
+  fontApp,
+  moderateScale,
+  horizontalScale,
+  verticalScale,
+} from '../../util/GlobalVar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutFetch, setLogoutSuccess } from '../../state/slicer/LoginState';
-import { getKaryawanData, setLoading } from '../../state/slicer/HomeSlicer';
+import { getKaryawanData, setLoading, setLogout } from '../../state/slicer/HomeSlicer';
 
 function Profile({ navigation, route }) {
   const dispatch = useDispatch();
-  const { loading, responseDetail } = useSelector((state) => state.HomeState);
+  const { loading, responseDetail, isLogout } = useSelector((state) => state.HomeState);
 
   const { logoutSuccess } = useSelector((state) => state.LoginState);
 
@@ -40,6 +45,13 @@ function Profile({ navigation, route }) {
       };
     }, [])
   );
+
+  useEffect(() => {
+    if (isLogout) {
+      dispatch(setLogout(false));
+      navigation.replace('Login');
+    }
+  }, [isLogout, navigation]);
 
   useEffect(() => {
     if (logoutSuccess) {
@@ -77,11 +89,11 @@ function Profile({ navigation, route }) {
         <>
           <View
             style={{
-              width: dimensionDevice.widthScreen,
-              height: dimensionDevice.heightScreen / 2,
+              width: horizontalScale(dimensionDevice.widthScreen),
+              height: verticalScale(dimensionDevice.heightScreen / 2),
               position: 'absolute',
               borderRadius: dimensionDevice.widthScreen / 2,
-              top: -dimensionDevice.heightScreen / 4,
+              top: '-30%',
               transform: [{ scaleX: 2 }],
               backgroundColor: 'rgba(33,83,118,1)',
             }}
@@ -89,9 +101,9 @@ function Profile({ navigation, route }) {
           <View
             style={{
               position: 'absolute',
-              top: dimensionDevice.heightWindow < 730 ? 16 : 70,
-              left: dimensionDevice.widthScreen / 6,
-              right: dimensionDevice.widthScreen / 6,
+              top: '5%',
+              left: horizontalScale(dimensionDevice.widthScreen / 8),
+              right: horizontalScale(dimensionDevice.widthScreen / 8),
               bottom: 0,
               flexDirection: 'column',
             }}
@@ -101,7 +113,7 @@ function Profile({ navigation, route }) {
                 marginBottom: 16,
                 fontFamily: fontApp.roboto.regular,
                 color: 'rgba(255,255,255,1)',
-                fontSize: 20,
+                fontSize: moderateScale(20),
               }}
             >
               Profile
@@ -112,7 +124,7 @@ function Profile({ navigation, route }) {
                 backgroundColor: '#E6E6E6',
                 flexDirection: 'column',
                 padding: 8,
-                height: 175,
+                height: verticalScale(200),
                 shadowColor: 'rgba(0,0,0,1)',
                 shadowOffset: {
                   width: 0,
@@ -133,7 +145,11 @@ function Profile({ navigation, route }) {
                 <Image
                   source={{ uri: responseDetail.profile }}
                   resizeMode="cover"
-                  style={styles.image5}
+                  style={{
+                    width: 70,
+                    height: 70,
+                    borderRadius: 70 / 2,
+                  }}
                 />
                 <View
                   style={{
@@ -145,7 +161,7 @@ function Profile({ navigation, route }) {
                     style={[
                       styles.ailsaNafaDevina,
                       {
-                        maxWidth: 170,
+                        maxWidth: horizontalScale(200),
                       },
                     ]}
                     ellipsizeMode="tail"
@@ -173,9 +189,10 @@ function Profile({ navigation, route }) {
                     <EvilIconsIcon
                       name="arrow-right"
                       color={'rgba(255,255,255,1)'}
-                      size={28}
+                      size={30}
                       style={{
-                        height: 28,
+                        textAlignVertical: 'center',
+                        height: 30,
                       }}
                     />
                     <Text style={styles.logout}>Logout</Text>
@@ -197,6 +214,8 @@ function Profile({ navigation, route }) {
                   flexDirection: 'row',
                   justifyContent: 'space-evenly',
                   alignItems: 'center',
+                  paddingStart: 8,
+                  paddingEnd: 8,
                 }}
               >
                 <View
@@ -219,8 +238,8 @@ function Profile({ navigation, route }) {
                       style={[
                         styles.finance,
                         {
-                          width: 80,
-                          fontSize: 12,
+                          width: horizontalScale(80),
+                          fontSize: moderateScale(12),
                         },
                       ]}
                     >
@@ -258,8 +277,8 @@ function Profile({ navigation, route }) {
                       style={[
                         styles.finance,
                         {
-                          width: 80,
-                          fontSize: 12,
+                          width: horizontalScale(80),
+                          fontSize: moderateScale(12),
                         },
                       ]}
                     >
@@ -273,9 +292,9 @@ function Profile({ navigation, route }) {
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{
-              marginTop: dimensionDevice.heightScreen / 2.7,
-              marginStart: dimensionDevice.widthScreen / 7,
-              marginEnd: dimensionDevice.widthScreen / 7,
+              marginTop: dimensionDevice.heightWindow < 750 ? '70%' : '80%',
+              marginStart: '15%',
+              marginEnd: '15%',
               flexDirection: 'column',
               flexGrow: 1,
             }}
@@ -602,15 +621,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#D4F6CC',
     flexDirection: 'column',
-    ...Platform.select({
-      ios: {
-        paddingTop: 24,
-      },
-    }),
+    flexGrow: 1,
   },
   icon: {
     color: 'rgba(128,128,128,1)',
-    fontSize: 40,
+    fontSize: moderateScale(40),
     marginTop: 308,
   },
   ellipse: {
@@ -658,6 +673,8 @@ const styles = StyleSheet.create({
   logout: {
     fontFamily: fontApp.roboto[700],
     color: 'rgba(255,255,255,1)',
+    height: 30,
+    textAlignVertical: 'center',
   },
   icon5: {
     color: 'rgba(255,255,255,1)',
@@ -701,9 +718,9 @@ const styles = StyleSheet.create({
   },
   icon7: {
     color: 'rgba(128,128,128,1)',
-    fontSize: 30,
-    height: 33,
-    width: 30,
+    fontSize: moderateScale(30),
+    height: verticalScale(30),
+    width: horizontalScale(30),
   },
   divisi: {
     fontFamily: fontApp.roboto.regular,
@@ -740,9 +757,9 @@ const styles = StyleSheet.create({
   },
   icon6: {
     color: 'rgba(128,128,128,1)',
-    fontSize: 30,
-    height: 33,
-    width: 30,
+    fontSize: moderateScale(30),
+    height: verticalScale(30),
+    width: horizontalScale(30),
   },
   jabatan: {
     top: 0,

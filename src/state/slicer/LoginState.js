@@ -18,6 +18,7 @@ const initState = {
   passwordBaru: '',
   konfirmBaru: '',
   stateChangePass: false,
+  isLogout: false,
 };
 
 const loginFetch = createAsyncThunk('fetchLogin', async (arg) => {
@@ -126,6 +127,9 @@ const LoginState = createSlice({
     setKonfirmPass: (state, action) => {
       state.konfirmBaru = action.payload;
     },
+    setLogout: (state, action) => {
+      state.isLogout = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -187,8 +191,12 @@ const LoginState = createSlice({
         if (status === 200) {
           state.stateChangePass = true;
           MessageUtil.showSuccess('Berhasil', message);
-        } else if (status === 400) {
-          state.stateChangePass = false;
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
+        } else {
           MessageUtil.errorMessage('Gagal', message);
         }
       })
@@ -212,6 +220,7 @@ export const {
   setNewPass,
   setOldPass,
   setStateChangePass,
+  setLogout,
 } = LoginState.actions;
 export { loginFetch, logoutFetch, changePassFetch };
 export default LoginState.reducer;

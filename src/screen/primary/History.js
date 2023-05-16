@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import React, { useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { Dialog } from '@rneui/themed';
@@ -6,19 +6,26 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import RNDateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import {
+  dimensionDevice,
+  fontApp,
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from '../../util/GlobalVar';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   LogAbsen,
   setDateChoose,
   setIosTime,
   setLoading,
+  setLogout,
   setOpenResult,
 } from '../../state/slicer/HistoryState';
 
 function History({ navigation, route }) {
   const dispatch = useDispatch();
-  const { loading, openResult, dateChoose, iosTime, masuk, keluar } = useSelector(
+  const { loading, openResult, dateChoose, iosTime, masuk, keluar, isLogout } = useSelector(
     (state) => state.HistoryState
   );
 
@@ -51,22 +58,23 @@ function History({ navigation, route }) {
     );
   };
 
+  useEffect(() => {
+    if (isLogout) {
+      dispatch(setLogout(false));
+      navigation.replace('Login');
+    }
+  }, [isLogout, navigation]);
+
   return (
     <View style={styles.container}>
       <View
         style={{
-          width: dimensionDevice.widthWindow,
-          height: dimensionDevice.heightWindow / 3,
+          width: horizontalScale(dimensionDevice.widthWindow),
+          height: verticalScale(dimensionDevice.heightWindow / 3),
           backgroundColor: 'rgba(32,83,117,1)',
           flexDirection: 'column',
-          paddingTop: 45,
-          marginBottom: 175,
-          ...Platform.select({
-            ios: {
-              paddingTop: 65,
-              marginBottom: 200,
-            },
-          }),
+          paddingTop: '10%',
+          marginBottom: dimensionDevice.heightWindow < 750 ? '55%' : '45%',
         }}
       >
         <Text
@@ -74,7 +82,7 @@ function History({ navigation, route }) {
             fontFamily: fontApp.heebo[700],
             color: 'rgba(246,107,14,1)',
             alignSelf: 'center',
-            fontSize: 35,
+            fontSize: moderateScale(35),
             marginStart: 24,
           }}
         >
@@ -85,15 +93,10 @@ function History({ navigation, route }) {
         source={require('../../../assets/report.png')}
         style={{
           position: 'absolute',
-          height: 360,
-          width: 360,
-          right: -40,
-          ...Platform.select({
-            ios: { top: 100 },
-            android: {
-              top: 70,
-            },
-          }),
+          height: verticalScale(360),
+          width: horizontalScale(360),
+          right: '-15%',
+          top: dimensionDevice.heightWindow < 750 ? '15%' : '10%',
         }}
       />
       <View
@@ -115,7 +118,7 @@ function History({ navigation, route }) {
             showPickerCalendar();
           }}
           style={{
-            height: 50,
+            height: verticalScale(50),
             backgroundColor: 'rgba(212,246,204,1)',
             borderRadius: 16,
             marginTop: 8,
@@ -170,8 +173,8 @@ function History({ navigation, route }) {
             elevation: 9,
             shadowOpacity: 0.3,
             shadowRadius: 3,
-            width: 100,
-            height: 45,
+            width: horizontalScale(100),
+            height: verticalScale(45),
             alignSelf: 'flex-end',
             marginTop: 16,
             alignItems: 'center',
@@ -247,8 +250,8 @@ function History({ navigation, route }) {
           flexDirection: 'column',
           borderRadius: 8,
           alignItems: 'center',
-          padding: 16,
-          height: dimensionDevice.heightWindow / 3,
+          padding: 8,
+          height: verticalScale(dimensionDevice.heightWindow / 3),
         }}
       >
         <TouchableOpacity
@@ -263,10 +266,10 @@ function History({ navigation, route }) {
         >
           <EntypoIcon
             name="cross"
-            size={40}
+            size={moderateScale(40)}
             color={'#97999C'}
             style={{
-              width: 45,
+              width: horizontalScale(45),
             }}
           />
         </TouchableOpacity>
@@ -281,7 +284,7 @@ function History({ navigation, route }) {
             style={{
               borderColor: 'white',
               padding: 8,
-              width: dimensionDevice.widthScreen / 1.6,
+              width: horizontalScale(dimensionDevice.widthScreen / 1.6),
               borderWidth: 3,
               borderRadius: 8,
               height: 75,
@@ -290,7 +293,14 @@ function History({ navigation, route }) {
               alignItems: 'center',
             }}
           >
-            <EntypoIcon name="check" color={'#205375'} size={40} />
+            <EntypoIcon
+              name="check"
+              color={'#205375'}
+              size={moderateScale(40)}
+              style={{
+                width: horizontalScale(45),
+              }}
+            />
             <View
               style={{
                 flexDirection: 'column',
@@ -322,7 +332,7 @@ function History({ navigation, route }) {
             style={{
               borderColor: 'white',
               padding: 8,
-              width: dimensionDevice.widthScreen / 1.6,
+              width: horizontalScale(dimensionDevice.widthScreen / 1.6),
               borderWidth: 3,
               borderRadius: 8,
               height: 75,

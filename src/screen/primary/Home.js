@@ -12,13 +12,20 @@ import {
   Platform,
 } from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import {
+  dimensionDevice,
+  fontApp,
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../util/GlobalVar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
 import {
   getKaryawanData,
   getLogAbsen,
   setLoading,
+  setLogout,
   setOpenSetting,
   stateGps,
 } from '../../state/slicer/HomeSlicer';
@@ -26,8 +33,15 @@ import { Dialog } from '@rneui/themed';
 
 const Home = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const { loading, responseDetail, panggilan, openSetting, timeAbsenMasuk, timeAbsenKeluar } =
-    useSelector((state) => state.HomeState);
+  const {
+    loading,
+    responseDetail,
+    panggilan,
+    openSetting,
+    timeAbsenMasuk,
+    timeAbsenKeluar,
+    isLogout,
+  } = useSelector((state) => state.HomeState);
 
   const loadDataKaryawan = () => {
     dispatch(getKaryawanData());
@@ -46,6 +60,13 @@ const Home = ({ navigation, route }) => {
       };
     }, [])
   );
+
+  useEffect(() => {
+    if (isLogout) {
+      dispatch(setLogout(false));
+      navigation.replace('Login');
+    }
+  }, [isLogout, navigation]);
 
   return (
     <View style={styles.container}>
@@ -78,12 +99,15 @@ const Home = ({ navigation, route }) => {
         <>
           <View
             style={{
-              height: dimensionDevice.heightWindow / 2.25,
+              height:
+                dimensionDevice.heightWindow < 750
+                  ? verticalScale(dimensionDevice.heightWindow / 2.3)
+                  : verticalScale(dimensionDevice.heightWindow / 2.6),
               backgroundColor: 'transparent',
-              width: dimensionDevice.widthWindow,
+              width: horizontalScale(dimensionDevice.widthWindow),
               flexDirection: 'column',
-              paddingStart: 24,
-              paddingEnd: 24,
+              paddingStart: 36,
+              paddingEnd: 36,
             }}
           >
             <View
@@ -94,8 +118,8 @@ const Home = ({ navigation, route }) => {
                 left: 0,
 
                 backgroundColor: 'rgba(246,107,14,1)',
-                height: dimensionDevice.heightWindow / 3,
-                width: dimensionDevice.widthWindow,
+                height: verticalScale(dimensionDevice.heightWindow / 3),
+                width: horizontalScale(dimensionDevice.widthWindow),
                 borderBottomStartRadius: dimensionDevice.heightWindow / 3,
                 borderBottomEndRadius: dimensionDevice.heightWindow / 3,
                 transform: [
@@ -111,8 +135,8 @@ const Home = ({ navigation, route }) => {
               style={{
                 top: 50,
                 position: 'absolute',
-                height: 270,
-                width: 260,
+                height: verticalScale(270),
+                width: horizontalScale(270),
                 opacity: 0.3,
                 right: -50,
               }}
@@ -120,7 +144,7 @@ const Home = ({ navigation, route }) => {
             <View
               style={{
                 flexDirection: 'column',
-                marginTop: dimensionDevice.heightWindow < 750 ? 8 : 80,
+                marginTop: dimensionDevice.heightWindow < 750 ? '5%' : '18%',
               }}
             >
               <Text
@@ -152,13 +176,11 @@ const Home = ({ navigation, route }) => {
             </View>
             <View
               style={{
-                height: 180,
                 backgroundColor: '#12293E',
-                marginTop: 8,
+                marginTop: 16,
                 marginStart: 8,
                 marginEnd: 8,
-                borderRadius: 24,
-                padding: 8,
+                borderRadius: 16,
               }}
             >
               <View
@@ -174,9 +196,9 @@ const Home = ({ navigation, route }) => {
                   source={{ uri: responseDetail.profile }}
                   resizeMode="cover"
                   style={{
-                    height: 70,
-                    width: 70,
-                    borderRadius: 70 / 2,
+                    height: 55,
+                    width: 55,
+                    borderRadius: 55 / 2,
                   }}
                 />
                 <View
@@ -190,7 +212,7 @@ const Home = ({ navigation, route }) => {
                     style={{
                       fontFamily: fontApp.signivikaNegative.regular,
                       color: 'rgba(255,255,255,1)',
-                      fontSize: 20,
+                      fontSize: moderateScale(20),
                     }}
                   >
                     {responseDetail.nama}
@@ -199,6 +221,7 @@ const Home = ({ navigation, route }) => {
                     style={{
                       fontFamily: fontApp.heebo.regular,
                       color: 'rgba(249,249,249,1)',
+                      fontSize: moderateScale(12),
                     }}
                   >
                     NIP : {responseDetail.nip}
@@ -207,10 +230,10 @@ const Home = ({ navigation, route }) => {
               </View>
               <View
                 style={{
-                  marginEnd: 24,
-                  marginStart: 24,
+                  marginEnd: 16,
+                  marginStart: 16,
                   marginTop: 8,
-                  marginBottom: 16,
+                  marginBottom: 8,
                   flexDirection: 'row',
                   backgroundColor: '#215376',
                   borderRadius: 8,
@@ -224,7 +247,6 @@ const Home = ({ navigation, route }) => {
                     borderRadius: 8,
                     paddingEnd: 16,
                     paddingBottom: 8,
-
                     backgroundColor: '#879BE3',
                   }}
                 >
@@ -251,18 +273,18 @@ const Home = ({ navigation, route }) => {
                       style={{
                         marginTop: 8,
                         color: 'rgba(130,244,156,1)',
-                        fontSize: 30,
-                        width: 30,
-                        height: 30,
+                        fontSize: moderateScale(25),
+                        width: horizontalScale(30),
+                        height: verticalScale(30),
                       }}
                     />
                     <Text
                       style={{
                         marginLeft: 4,
-                        height: 30,
+                        height: verticalScale(40),
                         fontFamily: fontApp.signivikaNegative.regular,
                         color: 'rgba(255,255,255,1)',
-                        fontSize: 25,
+                        fontSize: moderateScale(25),
                       }}
                     >
                       {timeAbsenMasuk}
@@ -293,7 +315,7 @@ const Home = ({ navigation, route }) => {
                   <View
                     style={{
                       flexDirection: 'row',
-                      marginLeft: 8,
+                      marginLeft: 4,
                       marginTop: 4,
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -304,18 +326,18 @@ const Home = ({ navigation, route }) => {
                       style={{
                         marginTop: 8,
                         color: 'rgba(242,87,87,1)',
-                        fontSize: 30,
-                        width: 30,
-                        height: 30,
+                        fontSize: moderateScale(25),
+                        width: horizontalScale(30),
+                        height: verticalScale(30),
                       }}
                     />
                     <Text
                       style={{
                         marginLeft: 4,
-                        height: 30,
+                        height: verticalScale(40),
                         fontFamily: fontApp.signivikaNegative.regular,
                         color: 'rgba(255,255,255,1)',
-                        fontSize: 25,
+                        fontSize: moderateScale(25),
                       }}
                     >
                       {timeAbsenKeluar}
@@ -330,6 +352,7 @@ const Home = ({ navigation, route }) => {
             automaticallyAdjustContentInsets={false}
             contentContainerStyle={{
               flexDirection: 'column',
+              marginTop: '5%',
               justifyContent: 'space-evenly',
               paddingStart: 24,
               paddingEnd: 24,
@@ -410,7 +433,7 @@ const Home = ({ navigation, route }) => {
             <Text
               style={{
                 fontFamily: fontApp.roboto[700],
-                fontSize: 14,
+                fontSize: moderateScale(14),
                 color: 'black',
               }}
             >
@@ -436,8 +459,8 @@ const Home = ({ navigation, route }) => {
                 }}
                 style={{
                   backgroundColor: 'rgba(246,107,14,1)',
-                  width: 75,
-                  height: 35,
+                  width: horizontalScale(75),
+                  height: verticalScale(35),
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 16,
@@ -446,7 +469,7 @@ const Home = ({ navigation, route }) => {
                 <Text
                   style={{
                     fontFamily: fontApp.roboto[700],
-                    fontSize: 12,
+                    fontSize: moderateScale(12),
                     color: 'white',
                   }}
                 >
@@ -462,13 +485,13 @@ const Home = ({ navigation, route }) => {
                   alignItems: 'center',
                   width: 75,
                   borderRadius: 16,
-                  height: 35,
+                  height: verticalScale(35),
                 }}
               >
                 <Text
                   style={{
                     fontFamily: fontApp.roboto[700],
-                    fontSize: 12,
+                    fontSize: moderateScale(12),
                     color: 'black',
                   }}
                 >
@@ -486,32 +509,27 @@ const Home = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexGrow: 1,
     flexDirection: 'column',
-    ...Platform.select({
-      ios: {
-        paddingTop: 24,
-      },
-    }),
+    flexGrow: 1,
   },
 
   button: {
-    width: 130,
-    height: 130,
+    width: horizontalScale(130),
+    height: verticalScale(160),
     backgroundColor: 'rgba(212,246,204,1)',
     borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image4: {
-    height: 80,
-    width: 80,
-    marginTop: 14,
-    marginLeft: 27,
+    height: horizontalScale(80),
+    width: verticalScale(80),
   },
   textInput: {
     fontFamily: fontApp.heebo[200],
     color: '#121212',
     textAlign: 'center',
-    height: 17,
+    height: verticalScale(17),
     marginTop: 8,
   },
 });

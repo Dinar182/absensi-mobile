@@ -16,6 +16,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import {
   changePassFetch,
   setKonfirmPass,
+  setLogout,
   setNewPass,
   setOldPass,
   setStateChangePass,
@@ -24,9 +25,8 @@ import { MessageUtil } from '../../util/MessageUtil';
 
 function Gantipass({ navigation, route }) {
   const dispatch = useDispatch();
-  const { loading, passwordLama, passwordBaru, konfirmBaru, stateChangePass } = useSelector(
-    (state) => state.LoginState
-  );
+  const { loading, passwordLama, passwordBaru, konfirmBaru, stateChangePass, isLogout } =
+    useSelector((state) => state.LoginState);
 
   const validateChange = () => {
     if (passwordBaru !== konfirmBaru) {
@@ -49,6 +49,13 @@ function Gantipass({ navigation, route }) {
       navigation.goBack();
     }
   }, [stateChangePass]);
+
+  useEffect(() => {
+    if (isLogout) {
+      dispatch(setLogout(false));
+      navigation.replace('Login');
+    }
+  }, [isLogout, navigation]);
 
   return (
     <KeyboardAvoidingView

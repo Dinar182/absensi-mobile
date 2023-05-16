@@ -14,6 +14,7 @@ const initState = {
   iosTime: false,
   masuk: '',
   keluar: '',
+  isLogout: false,
 };
 
 const rekapFetch = createAsyncThunk('rekapFetc', async (arg) => {
@@ -127,6 +128,9 @@ const HistoryState = createSlice({
     setIosTime: (state, action) => {
       state.iosTime = action.payload;
     },
+    setLogout: (state, action) => {
+      state.isLogout = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -142,6 +146,13 @@ const HistoryState = createSlice({
           console.log('====================================');
           console.log(response);
           console.log('====================================');
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
+        } else {
+          MessageUtil.errorMessage('Gagal', message);
         }
         state.loading = false;
       })
@@ -161,6 +172,13 @@ const HistoryState = createSlice({
           console.log('====================================');
           console.log(response);
           console.log('====================================');
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
+        } else {
+          MessageUtil.errorMessage('Gagal', message);
         }
         state.loading = false;
       })
@@ -180,6 +198,13 @@ const HistoryState = createSlice({
           console.log('====================================');
           console.log(response);
           console.log('====================================');
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
+        } else {
+          MessageUtil.errorMessage('Gagal', message);
         }
         state.loading = false;
       })
@@ -200,6 +225,13 @@ const HistoryState = createSlice({
           console.log('====================================');
           console.log(response);
           console.log('====================================');
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
+        } else {
+          MessageUtil.errorMessage('Gagal', message);
         }
         state.loading = false;
         state.openResult = true;
@@ -211,5 +243,6 @@ const HistoryState = createSlice({
   },
 });
 export { rekapFetch, izinHistoryFetch, cutiHistoriFetch, LogAbsen };
-export const { setLoading, setOpenResult, setDateChoose, setIosTime } = HistoryState.actions;
+export const { setLoading, setOpenResult, setDateChoose, setIosTime, setLogout } =
+  HistoryState.actions;
 export default HistoryState.reducer;
