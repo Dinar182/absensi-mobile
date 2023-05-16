@@ -10,6 +10,7 @@ const initState = {
   iosMode: 0,
   loading: false,
   reasonText: '',
+  isLogout: false,
 };
 
 const inputCutiFetch = createAsyncThunk('inputCuti', async (arg, thunkApi) => {
@@ -57,6 +58,9 @@ const CutiState = createSlice({
     setModeIos: (state, action) => {
       state.iosMode = action.payload;
     },
+    setLogout: (state, action) => {
+      state.isLogout = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -72,6 +76,11 @@ const CutiState = createSlice({
           state.dateStart = new Date();
           state.dateEnd = new Date();
           MessageUtil.showSuccess('Berhasil', message);
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
         } else {
           MessageUtil.errorMessage('Gagal', message);
         }
@@ -83,8 +92,15 @@ const CutiState = createSlice({
   },
 });
 
-export const { setDateEnd, setDateStart, setIosTime, setLoading, setModeIos, setReasonText } =
-  CutiState.actions;
+export const {
+  setLogout,
+  setDateEnd,
+  setDateStart,
+  setIosTime,
+  setLoading,
+  setModeIos,
+  setReasonText,
+} = CutiState.actions;
 export { inputCutiFetch };
 
 export default CutiState.reducer;

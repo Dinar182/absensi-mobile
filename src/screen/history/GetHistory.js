@@ -4,11 +4,18 @@ import { View, FlatList, TouchableOpacity, Text, InteractionManager } from 'reac
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { ListHistoryCuti, ListHistoryIzin, fontApp } from '../../util/GlobalVar';
 import { useDispatch, useSelector } from 'react-redux';
-import { cutiHistoriFetch, izinHistoryFetch, setLoading } from '../../state/slicer/HistoryState';
+import {
+  cutiHistoriFetch,
+  izinHistoryFetch,
+  setLoading,
+  setLogout,
+} from '../../state/slicer/HistoryState';
 
 function GetHistory({ navigation, route }) {
   const { state } = route.params;
-  const { historyCuti, historyIzin, loading } = useSelector((state) => state.HistoryState);
+  const { historyCuti, historyIzin, loading, isLogout } = useSelector(
+    (state) => state.HistoryState
+  );
   const dispatch = useDispatch();
   const [label, setLabel] = useState('');
 
@@ -29,6 +36,13 @@ function GetHistory({ navigation, route }) {
       };
     }, [])
   );
+
+  useEffect(() => {
+    if (isLogout) {
+      dispatch(setLogout(false));
+      navigation.replace('Login');
+    }
+  }, [isLogout, navigation]);
   return (
     <View
       style={{

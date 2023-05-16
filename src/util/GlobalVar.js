@@ -2,6 +2,15 @@ import moment from 'moment';
 import { useEffect } from 'react';
 import { Dimensions, View, Text } from 'react-native';
 
+const guidelineBaseWidth = 375;
+const guidelineBaseHeight = 812;
+
+const { width, height } = Dimensions.get('window');
+
+const horizontalScale = (size) => (width / guidelineBaseWidth) * size;
+const verticalScale = (size) => (height / guidelineBaseHeight) * size;
+const moderateScale = (size, factor = 0.5) => size + (horizontalScale(size) - size) * factor;
+
 const textApp = {
   session: '@session',
 };
@@ -75,10 +84,12 @@ const ListHistoryCuti = ({ data }) => {
   const colorStatus = () => {
     switch (data.item.item.status_cuti) {
       case '1':
-        return '#4CAF50';
-      case '2':
         return '#FFEB3B';
+      case '2':
+        return '#4CAF50';
       case '3':
+        return '#F44336';
+      case '4':
         return '#F44336';
     }
   };
@@ -86,11 +97,13 @@ const ListHistoryCuti = ({ data }) => {
   const textStatus = () => {
     switch (data.item.item.status_cuti) {
       case '1':
-        return 'Approve';
-      case '2':
         return 'Pending';
+      case '2':
+        return 'Approve';
       case '3':
         return 'Reject';
+      case '4':
+        return 'Cancel';
     }
   };
 
@@ -223,10 +236,11 @@ const ListHistoryCuti = ({ data }) => {
           </Text>
           <View
             style={{
-              height: 30,
-              width: 30,
+              height: 15,
+              width: 15,
+              marginTop: '1%',
               backgroundColor: colorStatus(),
-              borderRadius: 30 / 2,
+              borderRadius: 15 / 2,
               marginStart: 8,
             }}
           />
@@ -240,22 +254,26 @@ const ListHistoryIzin = ({ data }) => {
   const colorStatus = () => {
     switch (data.item.item.status_ijin) {
       case '1':
-        return '#4CAF50';
-      case '2':
         return '#FFEB3B';
+      case '2':
+        return '#4CAF50';
       case '3':
         return '#F44336';
+      case '4':
+        return 'black';
     }
   };
 
   const textStatus = () => {
     switch (data.item.item.status_ijin) {
       case '1':
-        return 'Approve';
-      case '2':
         return 'Pending';
+      case '2':
+        return 'Approve';
       case '3':
         return 'Reject';
+      case '4':
+        return 'Cancel';
     }
   };
 
@@ -391,6 +409,7 @@ const ListHistoryIzin = ({ data }) => {
           style={{
             flexDirection: 'row',
             marginBottom: 16,
+            alignItems: 'center',
           }}
         >
           <Text
@@ -406,7 +425,7 @@ const ListHistoryIzin = ({ data }) => {
           <Text
             style={{
               fontFamily: fontApp.roboto[700],
-              fontSize: 14,
+              fontSize: moderateScale(14),
               color: colorStatus(),
               marginStart: 24,
             }}
@@ -415,10 +434,11 @@ const ListHistoryIzin = ({ data }) => {
           </Text>
           <View
             style={{
-              height: 30,
-              width: 30,
+              marginTop: '1%',
+              height: 15,
+              width: 15,
               backgroundColor: colorStatus(),
-              borderRadius: 30 / 2,
+              borderRadius: 15 / 2,
               marginStart: 8,
             }}
           />
@@ -436,6 +456,9 @@ export {
   urlApi,
   ListHistoryCuti,
   ListHistoryIzin,
+  horizontalScale,
+  verticalScale,
+  moderateScale,
   urlBase,
   jenisIzinList,
 };

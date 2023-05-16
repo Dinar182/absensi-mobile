@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Text, FlatList, Platform, InteractionManager } from 'react-native';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import { dimensionDevice, fontApp, verticalScale } from '../../util/GlobalVar';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useFocusEffect } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { rekapFetch, setLoading } from '../../state/slicer/HistoryState';
+import { rekapFetch, setLoading, setLogout } from '../../state/slicer/HistoryState';
 import moment from 'moment';
 
 const HasilRekapAbsensi = ({ navigation, route }) => {
   const { dateStart, dateEnd } = route.params;
-  const { loading, rekapAbsen } = useSelector((state) => state.HistoryState);
+  const { loading, rekapAbsen, isLogout } = useSelector((state) => state.HistoryState);
   const dispatch = useDispatch();
 
   useFocusEffect(
@@ -31,6 +31,13 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
     }, [navigation])
   );
 
+  useEffect(() => {
+    if (isLogout) {
+      dispatch(setLogout(false));
+      navigation.replace('Login');
+    }
+  }, [isLogout, navigation]);
+
   return (
     <View
       style={{
@@ -40,12 +47,12 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
     >
       <View
         style={{
-          height: Platform.OS === 'ios' ? 100 : 75,
+          height: Platform.OS === 'ios' ? verticalScale(100) : verticalScale(75),
           backgroundColor: '#E6E6E6',
           width: dimensionDevice.widthScreen,
           ...Platform.select({
             ios: {
-              paddingTop: 24,
+              paddingTop: '15%',
             },
           }),
           flexDirection: 'row',
@@ -60,7 +67,11 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
             marginStart: 16,
           }}
         >
-          <EntypoIcon name="chevron-with-circle-left" size={40} color={'rgba(32,83,117,1)'} />
+          <EntypoIcon
+            name="chevron-with-circle-left"
+            size={moderateScale(40)}
+            color={'rgba(32,83,117,1)'}
+          />
         </TouchableOpacity>
         <Text style={style.text}>Rekap Absen</Text>
       </View>
@@ -70,7 +81,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
           marginStart: dimensionDevice.widthScreen / 10,
           marginEnd: dimensionDevice.widthScreen / 10,
           backgroundColor: '#E6E6E6',
-          height: 150,
+          height: verticalScale(150),
           borderRadius: 16,
           flexDirection: 'column',
         }}
@@ -79,7 +90,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
           style={{
             borderTopStartRadius: 16,
             borderTopEndRadius: 16,
-            height: 45,
+            height: verticalScale(45),
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
@@ -88,7 +99,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
             paddingEnd: 24,
           }}
         >
-          <FontAwesome name="calendar-check-o" color={'white'} size={28} />
+          <FontAwesome name="calendar-check-o" color={'white'} size={moderateScale(28)} />
           <Text
             style={[
               style.text,
@@ -124,7 +135,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
                 flexDirection: 'row',
               }}
             >
-              <EntypoIcon name="circle-with-cross" size={18} color={'#979D9F'} />
+              <EntypoIcon name="circle-with-cross" size={moderateScale(18)} color={'#979D9F'} />
               <Text
                 style={[
                   style.text,
@@ -162,12 +173,12 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
                 flexDirection: 'row',
               }}
             >
-              <EntypoIcon name="circle-with-cross" size={18} color={'#979D9F'} />
+              <EntypoIcon name="circle-with-cross" size={moderateScale(18)} color={'#979D9F'} />
               <Text
                 style={[
                   style.text,
                   {
-                    fontSize: 14,
+                    fontSize: moderateScale(14),
                     color: '#979D9F',
                   },
                 ]}
@@ -179,7 +190,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
               style={[
                 style.text,
                 {
-                  fontSize: 14,
+                  fontSize: moderateScale(14),
                   color: '#979D9F',
                 },
               ]}
@@ -207,7 +218,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
                 style={[
                   style.text,
                   {
-                    fontSize: 14,
+                    fontSize: moderateScale(14),
                     color: '#979D9F',
                   },
                 ]}
@@ -219,7 +230,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
               style={[
                 style.text,
                 {
-                  fontSize: 14,
+                  fontSize: moderateScale(14),
                   color: '#979D9F',
                 },
               ]}
@@ -256,7 +267,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
             style={[
               style.text,
               {
-                fontSize: 14,
+                fontSize: moderateScale(14),
                 color: '#F8904B',
               },
             ]}
@@ -267,7 +278,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
             style={[
               style.text,
               {
-                fontSize: 14,
+                fontSize: moderateScale(14),
                 color: '#F8904B',
               },
             ]}
@@ -278,7 +289,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
             style={[
               style.text,
               {
-                fontSize: 14,
+                fontSize: moderateScale(14),
                 color: '#F8904B',
               },
             ]}

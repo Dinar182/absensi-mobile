@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,7 +14,13 @@ import {
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { Dialog, Input } from '@rneui/themed';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import {
+  dimensionDevice,
+  fontApp,
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../util/GlobalVar';
 import moment from 'moment';
 import RNDateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,11 +31,12 @@ import {
   setDateStart,
   setIosTime,
   setLoading,
+  setLogout,
   setReasonText,
 } from '../../state/slicer/CutiState';
 
 function Cuti({ navigation, route }) {
-  const { dateStart, dateEnd, iosTime, iosMode, loading, reasonText } = useSelector(
+  const { dateStart, dateEnd, iosTime, iosMode, loading, reasonText, isLogout } = useSelector(
     (state) => state.CutiState
   );
   const dispatch = useDispatch();
@@ -83,20 +90,27 @@ function Cuti({ navigation, route }) {
     }
   };
 
+  useEffect(() => {
+    if (isLogout) {
+      dispatch(setLogout(false));
+      navigation.replace('Login');
+    }
+  }, [isLogout, navigation]);
+
   return (
     <KeyboardAvoidingView
       enabled
-      behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
       <Image
         source={require('../../../assets/cuti.png')}
         resizeMode="contain"
         style={{
-          width: 314,
-          height: 361,
+          width: horizontalScale(314),
+          height: verticalScale(361),
           bottom: 0,
-          left: -50,
+          left: '-15%',
           position: 'absolute',
           opacity: 0.36,
         }}
@@ -110,11 +124,11 @@ function Cuti({ navigation, route }) {
           backgroundColor: '#E6E6E6',
           ...Platform.select({
             ios: {
-              height: 100,
-              paddingTop: 24,
+              height: verticalScale(100),
+              paddingTop: '15%',
             },
             android: {
-              height: 75,
+              height: verticalScale(75),
               alignItems: 'center',
             },
           }),
@@ -131,17 +145,22 @@ function Cuti({ navigation, route }) {
               navigation.goBack();
             }}
             style={{
-              width: 40,
-              height: 40,
+              width: dimensionDevice.heightWindow < 750 ? horizontalScale(50) : horizontalScale(40),
+              height:
+                dimensionDevice.heightWindow < 750 ? horizontalScale(50) : horizontalScale(40),
             }}
           >
-            <EntypoIcon name="chevron-with-circle-left" color={'rgba(32,83,117,1)'} size={40} />
+            <EntypoIcon
+              name="chevron-with-circle-left"
+              color={'rgba(32,83,117,1)'}
+              size={moderateScale(40)}
+            />
           </TouchableOpacity>
           <Text
             style={{
               fontFamily: fontApp.roboto[700],
               color: 'rgba(32,83,117,1)',
-              fontSize: 20,
+              fontSize: moderateScale(20),
               marginLeft: 8,
             }}
           >
@@ -157,7 +176,8 @@ function Cuti({ navigation, route }) {
           style={{
             backgroundColor: 'rgba(246,107,14,1)',
             padding: 8,
-            borderRadius: 16,
+            borderRadius: 10,
+            height: verticalScale(45),
             justifyContent: 'center',
             alignItems: 'center',
           }}
@@ -166,7 +186,7 @@ function Cuti({ navigation, route }) {
             style={{
               fontFamily: fontApp.roboto[700],
               color: 'white',
-              fontSize: 14,
+              fontSize: moderateScale(14),
             }}
           >
             Riwayat Cuti
@@ -174,8 +194,13 @@ function Cuti({ navigation, route }) {
         </TouchableOpacity>
       </View>
       <ScrollView
-        style={{ height: dimensionDevice.heightWindow }}
         showsVerticalScrollIndicator={false}
+        automaticallyAdjustContentInsets={false}
+        contentContainerStyle={{
+          flexDirection: 'column',
+          flexGrow: 1,
+        }}
+        horizontal={false}
       >
         <Text
           style={{

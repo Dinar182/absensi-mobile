@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { SessionManager } from '../../util/SessionManager';
 import { textApp, urlApi, urlBase } from '../../util/GlobalVar';
 import RNFetchBlob from 'rn-fetch-blob';
+import { MessageUtil } from '../../util/MessageUtil';
 
 const { fs, wrap } = RNFetchBlob;
 
@@ -10,6 +11,7 @@ const initState = {
   absen: false,
   openBottom: false,
   messageAbsen: '',
+  isLogout: false,
 };
 
 const absenCheck = createAsyncThunk('absenCheck', async (arg, thunkApi) => {
@@ -72,6 +74,9 @@ const AbsenState = createSlice({
     setOpenBottom: (state, action) => {
       state.openBottom = action.payload;
     },
+    setLogout: (state, action) => {
+      state.isLogout = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -87,20 +92,24 @@ const AbsenState = createSlice({
           state.openBottom = true;
           state.messageAbsen = message;
         } else if (status === 400) {
-          state.openBottom = true;
-          state.messageAbsen = message;
+          MessageUtil.errorMessage('Gagal', message);
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
         } else {
-          state.openBottom = true;
-          state.messageAbsen = message;
+          MessageUtil.errorMessage('Gagal', message);
         }
       })
-      .addCase(absenCheck.rejected, (state) => {
+      .addCase(absenCheck.rejected, (state, action) => {
         state.loading = false;
+        MessageUtil.errorMessage('Gagal', message);
       });
   },
 });
 
 export { absenCheck };
-export const { setLoading, setAbsen, setOpenBottom } = AbsenState.actions;
+export const { setLogout, setLoading, setAbsen, setOpenBottom } = AbsenState.actions;
 
 export default AbsenState.reducer;

@@ -11,6 +11,7 @@ const initState = {
   reasonText: '',
   jenisIzin: null,
   open: false,
+  isLogout: false,
 };
 
 const fetchIzin = createAsyncThunk('fetchIzin', async (arg) => {
@@ -69,6 +70,9 @@ const IzinState = createSlice({
     setOpen: (state, action) => {
       state.open = action.payload;
     },
+    setLogout: (state, action) => {
+      state.isLogout = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -85,6 +89,11 @@ const IzinState = createSlice({
           state.dateStart = new Date();
           state.timeStart = new Date();
           MessageUtil.showSuccess('Berhasil', message);
+        } else if (status === 401) {
+          state.isLogout = true;
+          SessionManager.RemoveValue(textApp.session);
+          SessionManager.ClearAllKeys();
+          MessageUtil.errorMessage('Gagal', message);
         } else {
           MessageUtil.errorMessage('Gagal', message);
         }
@@ -105,6 +114,7 @@ export const {
   setOpen,
   setReasonText,
   setTimeStart,
+  setLogout,
 } = IzinState.actions;
 
 export { fetchIzin };
