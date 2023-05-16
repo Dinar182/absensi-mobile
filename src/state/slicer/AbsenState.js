@@ -91,14 +91,18 @@ const AbsenState = createSlice({
         if (status === 200) {
           state.openBottom = true;
           state.messageAbsen = message;
+          state.absen = true;
         } else if (status === 400) {
+          state.openBottom = false;
           MessageUtil.errorMessage('Gagal', message);
         } else if (status === 401) {
+          state.openBottom = false;
           state.isLogout = true;
           SessionManager.RemoveValue(textApp.session);
           SessionManager.ClearAllKeys();
           MessageUtil.errorMessage('Gagal', message);
         } else {
+          state.openBottom = false;
           MessageUtil.errorMessage('Gagal', message);
         }
       })

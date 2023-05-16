@@ -5,7 +5,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import RNDateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { Dialog } from '@rneui/themed';
-import { dimensionDevice, fontApp } from '../../util/GlobalVar';
+import { dimensionDevice, fontApp, horizontalScale, verticalScale } from '../../util/GlobalVar';
 
 function RekapAbsen({ navigation, route }) {
   const [iosTime, setIosTime] = useState(false);
@@ -222,8 +222,8 @@ function RekapAbsen({ navigation, route }) {
         }}
         style={{
           backgroundColor: 'rgba(246,107,14,1)',
-          width: 75,
-          height: 35,
+          width: horizontalScale(100),
+          height: verticalScale(40),
           borderRadius: 16,
           marginEnd: dimensionDevice.widthWindow / 8,
           alignSelf: 'flex-end',
@@ -231,6 +231,7 @@ function RekapAbsen({ navigation, route }) {
           alignItems: 'center',
           justifyContent: 'center',
           borderWidth: 1,
+          borderRadius: 10,
           borderColor: 'rgba(230,230,230,1)',
           borderStyle: 'solid',
           shadowColor: 'rgba(0,0,0,1)',

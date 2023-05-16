@@ -54,7 +54,7 @@ function Login({ navigation, route }) {
       style={{
         flex: 1,
       }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
         style={[

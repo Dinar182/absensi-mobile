@@ -145,9 +145,8 @@ function Cuti({ navigation, route }) {
               navigation.goBack();
             }}
             style={{
-              width: dimensionDevice.heightWindow < 750 ? horizontalScale(50) : horizontalScale(40),
-              height:
-                dimensionDevice.heightWindow < 750 ? horizontalScale(50) : horizontalScale(40),
+              width: 40,
+              height: 40,
             }}
           >
             <EntypoIcon

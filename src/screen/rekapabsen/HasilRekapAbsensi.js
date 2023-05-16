@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Text, FlatList, Platform, InteractionManager } from 'react-native';
-import { dimensionDevice, fontApp, verticalScale } from '../../util/GlobalVar';
+import {
+  dimensionDevice,
+  fontApp,
+  verticalScale,
+  horizontalScale,
+  moderateScale,
+} from '../../util/GlobalVar';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native-gesture-handler';

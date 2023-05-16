@@ -36,6 +36,7 @@ import {
   setLogout,
   setOpen,
   setReasonText,
+  setTimeStart,
 } from '../../state/slicer/IzinState';
 
 const Izin = ({ navigation, route }) => {
@@ -91,7 +92,7 @@ const Izin = ({ navigation, route }) => {
     if (mode === 0) {
       dispatch(setDateStart(date));
     } else {
-      dispatch(setTime(date));
+      dispatch(setTimeStart(date));
     }
   };
 
@@ -149,9 +150,8 @@ const Izin = ({ navigation, route }) => {
               navigation.goBack();
             }}
             style={{
-              width: dimensionDevice.heightWindow < 750 ? horizontalScale(50) : horizontalScale(40),
-              height:
-                dimensionDevice.heightWindow < 750 ? horizontalScale(50) : horizontalScale(40),
+              width: 40,
+              height: 40,
             }}
           >
             <EntypoIcon
