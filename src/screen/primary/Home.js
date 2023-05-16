@@ -54,6 +54,7 @@ const Home = ({ navigation, route }) => {
       const task = InteractionManager.runAfterInteractions(async () => {
         dispatch(setLoading(true));
         loadDataKaryawan();
+        console.log(dimensionDevice.heightWindow);
       });
       return () => {
         task.cancel();
@@ -96,18 +97,15 @@ const Home = ({ navigation, route }) => {
       )}
 
       {!loading && responseDetail !== null && (
-        <>
+        <View
+          style={{
+            flexGrow: 1,
+          }}
+        >
           <View
             style={{
-              height:
-                dimensionDevice.heightWindow < 750
-                  ? verticalScale(dimensionDevice.heightWindow / 2.3)
-                  : verticalScale(dimensionDevice.heightWindow / 2.6),
-              backgroundColor: 'transparent',
-              width: horizontalScale(dimensionDevice.widthWindow),
+              height: '40%',
               flexDirection: 'column',
-              paddingStart: 36,
-              paddingEnd: 36,
             }}
           >
             <View
@@ -116,12 +114,11 @@ const Home = ({ navigation, route }) => {
                 top: 0,
                 right: 0,
                 left: 0,
-
                 backgroundColor: 'rgba(246,107,14,1)',
-                height: verticalScale(dimensionDevice.heightWindow / 3),
-                width: horizontalScale(dimensionDevice.widthWindow),
-                borderBottomStartRadius: dimensionDevice.heightWindow / 3,
-                borderBottomEndRadius: dimensionDevice.heightWindow / 3,
+                height: '100%',
+                width: '100%',
+                borderBottomStartRadius: dimensionDevice.heightWindow / 2,
+                borderBottomEndRadius: dimensionDevice.heightWindow / 2,
                 transform: [
                   {
                     scaleX: 2,
@@ -133,7 +130,7 @@ const Home = ({ navigation, route }) => {
               source={require('../../../assets/logo-bjl-2-removebg-preview.png')}
               resizeMode="contain"
               style={{
-                top: 50,
+                top: '35%',
                 position: 'absolute',
                 height: verticalScale(270),
                 width: horizontalScale(270),
@@ -144,7 +141,9 @@ const Home = ({ navigation, route }) => {
             <View
               style={{
                 flexDirection: 'column',
-                marginTop: dimensionDevice.heightWindow < 750 ? '5%' : '18%',
+                marginStart: '10%',
+                marginEnd: '10%',
+                marginTop: dimensionDevice.heightWindow < 800 ? '10%' : '20%',
               }}
             >
               <Text
@@ -178,9 +177,10 @@ const Home = ({ navigation, route }) => {
               style={{
                 backgroundColor: '#12293E',
                 marginTop: 16,
-                marginStart: 8,
-                marginEnd: 8,
+                alignSelf: 'center',
                 borderRadius: 16,
+                marginStart: '10%',
+                marginEnd: '10%',
               }}
             >
               <View
@@ -233,7 +233,8 @@ const Home = ({ navigation, route }) => {
                   marginEnd: 16,
                   marginStart: 16,
                   marginTop: 8,
-                  marginBottom: 8,
+                  marginBottom: 16,
+
                   flexDirection: 'row',
                   backgroundColor: '#215376',
                   borderRadius: 8,
@@ -244,16 +245,17 @@ const Home = ({ navigation, route }) => {
                   style={{
                     flexDirection: 'column',
                     width: '50%',
+                    padding: 4,
                     borderRadius: 8,
                     paddingEnd: 16,
-                    paddingBottom: 8,
+
                     backgroundColor: '#879BE3',
                   }}
                 >
                   <Text
                     style={{
-                      marginTop: 8,
-                      marginLeft: 8,
+                      marginTop: 4,
+                      marginLeft: 4,
                       fontFamily: fontApp.signivikaNegative.regular,
                       color: 'rgba(249,249,249,1)',
                     }}
@@ -263,7 +265,7 @@ const Home = ({ navigation, route }) => {
                   <View
                     style={{
                       flexDirection: 'row',
-                      marginLeft: 8,
+                      marginLeft: 4,
                       marginTop: 4,
                       alignItems: 'center',
                     }}
@@ -271,7 +273,6 @@ const Home = ({ navigation, route }) => {
                     <EntypoIcon
                       name="login"
                       style={{
-                        marginTop: 8,
                         color: 'rgba(130,244,156,1)',
                         fontSize: moderateScale(25),
                         width: horizontalScale(30),
@@ -298,7 +299,6 @@ const Home = ({ navigation, route }) => {
                     borderBottomEndRadius: 8,
                     paddingEnd: 16,
                     width: '50%',
-                    paddingBottom: 8,
                     backgroundColor: '#215376',
                   }}
                 >
@@ -324,7 +324,6 @@ const Home = ({ navigation, route }) => {
                     <EntypoIcon
                       name="log-out"
                       style={{
-                        marginTop: 8,
                         color: 'rgba(242,87,87,1)',
                         fontSize: moderateScale(25),
                         width: horizontalScale(30),
@@ -347,78 +346,85 @@ const Home = ({ navigation, route }) => {
               </View>
             </View>
           </View>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            automaticallyAdjustContentInsets={false}
-            contentContainerStyle={{
-              flexDirection: 'column',
-              marginTop: '5%',
-              justifyContent: 'space-evenly',
-              paddingStart: 24,
-              paddingEnd: 24,
+          <View
+            style={{
+              marginTop: '10%',
               flexGrow: 1,
             }}
-            horizontal={false}
           >
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              automaticallyAdjustContentInsets={false}
+              contentContainerStyle={{
+                flexDirection: 'column',
+                justifyContent: 'space-evenly',
+                paddingStart: 24,
+                paddingEnd: 24,
+                flexGrow: 1,
               }}
+              horizontal={false}
             >
-              <TouchableOpacity
-                onPress={() => navigation.navigate('AbsenScreen')}
-                style={styles.button}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}
               >
-                <Image
-                  source={require('../../../assets/immigration.png')}
-                  resizeMode="contain"
-                  style={styles.image4}
-                ></Image>
-                <Text style={styles.textInput}>Absen</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('RekapScreen')}
-                style={styles.button}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('AbsenScreen')}
+                  style={styles.button}
+                >
+                  <Image
+                    source={require('../../../assets/immigration.png')}
+                    resizeMode="contain"
+                    style={styles.image4}
+                  ></Image>
+                  <Text style={styles.textInput}>Absen</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('RekapScreen')}
+                  style={styles.button}
+                >
+                  <Image
+                    source={require('../../../assets/list.png')}
+                    resizeMode="contain"
+                    style={styles.image4}
+                  ></Image>
+                  <Text style={styles.textInput}>Rekap Absen</Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}
               >
-                <Image
-                  source={require('../../../assets/list.png')}
-                  resizeMode="contain"
-                  style={styles.image4}
-                ></Image>
-                <Text style={styles.textInput}>Rekap Absen</Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => navigation.navigate('IzinScreen')}
-                style={styles.button}
-              >
-                <Image
-                  source={require('../../../assets/notes.png')}
-                  resizeMode="contain"
-                  style={styles.image4}
-                ></Image>
-                <Text style={styles.textInput}>Izin</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('CutiScreen')}
-                style={styles.button}
-              >
-                <Image
-                  source={require('../../../assets/travel.png')}
-                  resizeMode="contain"
-                  style={styles.image4}
-                ></Image>
-                <Text style={styles.textInput}>Cuti</Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('IzinScreen')}
+                  style={styles.button}
+                >
+                  <Image
+                    source={require('../../../assets/notes.png')}
+                    resizeMode="contain"
+                    style={styles.image4}
+                  ></Image>
+                  <Text style={styles.textInput}>Izin</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('CutiScreen')}
+                  style={styles.button}
+                >
+                  <Image
+                    source={require('../../../assets/travel.png')}
+                    resizeMode="contain"
+                    style={styles.image4}
+                  ></Image>
+                  <Text style={styles.textInput}>Cuti</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </View>
+
           <Dialog
             isVisible={openSetting}
             backdropStyle={{
@@ -500,7 +506,7 @@ const Home = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
           </Dialog>
-        </>
+        </View>
       )}
     </View>
   );

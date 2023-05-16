@@ -74,7 +74,7 @@ function History({ navigation, route }) {
           backgroundColor: 'rgba(32,83,117,1)',
           flexDirection: 'column',
           paddingTop: '10%',
-          marginBottom: dimensionDevice.heightWindow < 750 ? '55%' : '45%',
+          marginBottom: dimensionDevice.heightWindow < 800 ? '45%' : '45%',
         }}
       >
         <Text
@@ -96,7 +96,7 @@ function History({ navigation, route }) {
           height: verticalScale(360),
           width: horizontalScale(360),
           right: '-15%',
-          top: dimensionDevice.heightWindow < 750 ? '15%' : '10%',
+          top: '12%',
         }}
       />
       <View

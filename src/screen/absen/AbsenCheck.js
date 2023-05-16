@@ -152,7 +152,6 @@ function AbsenCheck({ navigation, route }) {
         setUriPhoto(`file://${snapshot.path}`);
       }
       setStatusFail(true);
-      dispatch(setAbsen(true));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -86,7 +86,11 @@ function Profile({ navigation, route }) {
       )}
 
       {!loading && responseDetail !== null && (
-        <>
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
           <View
             style={{
               width: horizontalScale(dimensionDevice.widthScreen),
@@ -101,7 +105,7 @@ function Profile({ navigation, route }) {
           <View
             style={{
               position: 'absolute',
-              top: '5%',
+              top: dimensionDevice.heightWindow < 800 ? '5%' : '10%',
               left: horizontalScale(dimensionDevice.widthScreen / 8),
               right: horizontalScale(dimensionDevice.widthScreen / 8),
               bottom: 0,
@@ -124,7 +128,7 @@ function Profile({ navigation, route }) {
                 backgroundColor: '#E6E6E6',
                 flexDirection: 'column',
                 padding: 8,
-                height: verticalScale(200),
+                height: verticalScale(175),
                 shadowColor: 'rgba(0,0,0,1)',
                 shadowOffset: {
                   width: 0,
@@ -292,7 +296,7 @@ function Profile({ navigation, route }) {
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{
-              marginTop: dimensionDevice.heightWindow < 750 ? '70%' : '80%',
+              marginTop: dimensionDevice.heightWindow < 800 ? '70%' : '85%',
               marginStart: '15%',
               marginEnd: '15%',
               flexDirection: 'column',
@@ -610,7 +614,7 @@ function Profile({ navigation, route }) {
               </View>
             </TouchableOpacity>
           </ScrollView>
-        </>
+        </View>
       )}
     </View>
   );
