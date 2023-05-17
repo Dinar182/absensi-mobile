@@ -147,13 +147,11 @@ function Cuti({ navigation, route }) {
             style={{
               width: 40,
               height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <EntypoIcon
-              name="chevron-with-circle-left"
-              color={'rgba(32,83,117,1)'}
-              size={moderateScale(40)}
-            />
+            <EntypoIcon name="chevron-with-circle-left" color={'rgba(32,83,117,1)'} size={40} />
           </TouchableOpacity>
           <Text
             style={{

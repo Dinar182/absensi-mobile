@@ -26,8 +26,8 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
         dispatch(setLoading(true));
         dispatch(
           rekapFetch({
-            dateStart: dateStart,
-            dateEnd: dateEnd,
+            dateStart: moment(dateStart).format('YYYY-MM-DD'),
+            dateEnd: moment(dateEnd).format('YYYY-MM-DD'),
           })
         );
       });
@@ -115,7 +115,7 @@ const HasilRekapAbsensi = ({ navigation, route }) => {
               },
             ]}
           >
-            {dateStart} - {dateEnd}
+            {moment(dateStart).format('DD-MM-YYYY')} - {moment(dateEnd).format('DD-MM-YYYY')}
           </Text>
         </View>
         <View
