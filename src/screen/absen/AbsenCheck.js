@@ -168,6 +168,13 @@ function AbsenCheck({ navigation, route }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFail, uriPhoto]);
 
+  const closeAbsen = async () => {
+    dispatch(setAbsen(false));
+    dispatch(setOpenBottom(false));
+    await resetTake();
+    navigation.replace('Main');
+  };
+
   useFocusEffect(
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(() => {
@@ -328,8 +335,7 @@ function AbsenCheck({ navigation, route }) {
             </Text>
             <TouchableOpacity
               onPress={() => {
-                dispatch(setAbsen(false));
-                dispatch(setOpenBottom(false));
+                closeAbsen();
               }}
               style={{
                 justifyContent: 'center',

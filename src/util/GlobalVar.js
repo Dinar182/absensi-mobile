@@ -75,9 +75,8 @@ const urlApi = {
 const urlBase = 'https://absensi.mkopsrv1.com/';
 
 const jenisIzinList = [
-  { label: 'Sakit', value: 1 },
+  { label: 'Pulang Awal', value: 1 },
   { label: 'Keluar Kantor', value: 2 },
-  { label: 'Kontrol', value: 3 },
 ];
 
 const ListHistoryCuti = ({ data }) => {

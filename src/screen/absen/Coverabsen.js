@@ -74,11 +74,11 @@ function CoverAbsen({ navigation, route }) {
           ...Platform.select({
             ios: {
               height: verticalScale(dimensionDevice.heightWindow / 2.8),
-              marginBottom: '25%',
+              marginBottom: dimensionDevice.heightWindow < 800 ? '40%' : '25%',
             },
             android: {
               height: verticalScale(dimensionDevice.heightWindow / 3),
-              marginBottom: '25%',
+              marginBottom: dimensionDevice.heightWindow < 800 ? '40%' : '25%',
             },
           }),
           borderBottomStartRadius: dimensionDevice.widthScreen / 2,
