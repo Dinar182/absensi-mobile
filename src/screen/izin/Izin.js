@@ -130,7 +130,9 @@ const Izin = ({ navigation, route }) => {
           ...Platform.select({
             ios: {
               height: verticalScale(100),
-              paddingTop: '15%',
+              paddingTop: '10%',
+              alignItems: 'center',
+
             },
             android: {
               height: verticalScale(75),
@@ -179,7 +181,7 @@ const Izin = ({ navigation, route }) => {
             backgroundColor: 'rgba(246,107,14,1)',
             padding: 8,
             borderRadius: 10,
-            height: verticalScale(45),
+            height: verticalScale(35),
             justifyContent: 'center',
             alignItems: 'center',
           }}

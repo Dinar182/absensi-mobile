@@ -125,7 +125,9 @@ function Cuti({ navigation, route }) {
           ...Platform.select({
             ios: {
               height: verticalScale(100),
-              paddingTop: '15%',
+              paddingTop: '10%',
+              alignItems: 'center',
+
             },
             android: {
               height: verticalScale(75),
@@ -174,7 +176,7 @@ function Cuti({ navigation, route }) {
             backgroundColor: 'rgba(246,107,14,1)',
             padding: 8,
             borderRadius: 10,
-            height: verticalScale(45),
+            height: verticalScale(35),
             justifyContent: 'center',
             alignItems: 'center',
           }}
@@ -241,6 +243,7 @@ function Cuti({ navigation, route }) {
           <View
             style={{
               flexDirection: 'row',
+              alignItems:"center"
             }}
           >
             <FontAwesomeIcon name="calendar" color={'rgba(32,83,117,1)'} size={30} />
@@ -302,6 +305,8 @@ function Cuti({ navigation, route }) {
           <View
             style={{
               flexDirection: 'row',
+              alignItems:"center"
+
             }}
           >
             <FontAwesomeIcon name="calendar" color={'rgba(32,83,117,1)'} size={30} />

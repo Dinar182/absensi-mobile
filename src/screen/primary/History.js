@@ -73,7 +73,7 @@ function History({ navigation, route }) {
           height: verticalScale(dimensionDevice.heightWindow / 3),
           backgroundColor: 'rgba(32,83,117,1)',
           flexDirection: 'column',
-          paddingTop: '10%',
+          paddingTop: Platform.OS === "ios" ? "15%" :'10%',
           marginBottom: dimensionDevice.heightWindow < 800 ? '45%' : '45%',
         }}
       >
@@ -81,7 +81,6 @@ function History({ navigation, route }) {
           style={{
             fontFamily: fontApp.heebo[700],
             color: 'rgba(246,107,14,1)',
-            alignSelf: 'center',
             fontSize: moderateScale(35),
             marginStart: 24,
           }}

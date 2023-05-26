@@ -56,11 +56,12 @@ function RekapAbsen({ navigation, route }) {
         style={{
           flexDirection: 'row',
           paddingStart: 16,
+          alignItems:'center',
           backgroundColor: '#E6E6E6',
           ...Platform.select({
             ios: {
               height: 100,
-              paddingTop: 24,
+              paddingTop: "10%",
             },
             android: {
               height: 75,
@@ -133,6 +134,7 @@ function RekapAbsen({ navigation, route }) {
         <View
           style={{
             flexDirection: 'row',
+            alignItems:'center'
           }}
         >
           <FontAwesomeIcon name="calendar" color={'rgba(32,83,117,1)'} size={30} />
@@ -194,6 +196,8 @@ function RekapAbsen({ navigation, route }) {
         <View
           style={{
             flexDirection: 'row',
+            alignItems:'center'
+
           }}
         >
           <FontAwesomeIcon name="calendar" color={'rgba(32,83,117,1)'} size={30} />
@@ -320,6 +324,7 @@ function RekapAbsen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+ 
   },
 });
 

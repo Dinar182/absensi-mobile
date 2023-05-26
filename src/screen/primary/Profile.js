@@ -182,21 +182,22 @@ function Profile({ navigation, route }) {
                       flexDirection: 'row',
                       backgroundColor: '#BE061C',
                       borderRadius: 8,
-                      padding: 8,
+                      paddingStart: 4,
+                      paddingEnd:4,
                       width: 90,
                       height: 35,
                       alignSelf: 'flex-end',
-                      justifyContent: 'center',
+                      justifyContent: 'space-around',
                       alignItems: 'center',
                     }}
                   >
                     <EvilIconsIcon
                       name="arrow-right"
                       color={'rgba(255,255,255,1)'}
-                      size={30}
+                      size={25}
                       style={{
                         textAlignVertical: 'center',
-                        height: 30,
+                        
                       }}
                     />
                     <Text style={styles.logout}>Logout</Text>
@@ -677,7 +678,7 @@ const styles = StyleSheet.create({
   logout: {
     fontFamily: fontApp.roboto[700],
     color: 'rgba(255,255,255,1)',
-    height: 30,
+ 
     textAlignVertical: 'center',
   },
   icon5: {

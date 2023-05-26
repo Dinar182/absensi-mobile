@@ -55,14 +55,7 @@ function CoverAbsen({ navigation, route }) {
         style={[
           styles.image,
           {
-            ...Platform.select({
-              ios: {
-                top: '25%',
-              },
-              android: {
-                top: '15%',
-              },
-            }),
+        top:"15%",
             left: 24,
             zIndex: 3,
           },
