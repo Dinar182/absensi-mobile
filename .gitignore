@@ -67,6 +67,9 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
-android/app/build/
-android/.gradle/
+/android/app/build/
+/android/.gradle/
+
+package-lock.json
+yarn.lock
 
