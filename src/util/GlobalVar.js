@@ -72,7 +72,7 @@ const urlApi = {
   currentLog: 'api/current_scanlog',
 };
 
-const urlBase = 'https://absensi.mkopsrv1.com/';
+const urlBase = 'https://www.presensi.cloud/';
 
 const jenisIzinList = [
   { label: 'Pulang Awal', value: 1 },
