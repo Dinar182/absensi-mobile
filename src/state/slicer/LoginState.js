@@ -43,7 +43,10 @@ const loginFetch = createAsyncThunk('fetchLogin', async (arg) => {
   });
   return dataRes
     .json()
-    .then((data) => data)
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
     .catch((err) => err);
 });
 
@@ -81,6 +84,7 @@ const changePassFetch = createAsyncThunk('fetchChangePass', async (arg) => {
     },
     body: form,
   });
+
   return dataRes
     .json()
     .then((data) => data)
@@ -142,7 +146,7 @@ const LoginState = createSlice({
         let status = action.payload.metadata.status;
         let dataRes = action.payload.response;
         console.log(message);
-
+        console.log(dataRes);
         if (status === 200) {
           SessionManager.StoreAsObject(textApp.session, {
             nip: dataRes.karyawan.nip,
